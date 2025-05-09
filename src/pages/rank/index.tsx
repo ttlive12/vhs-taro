@@ -24,7 +24,7 @@ export function RankPage({ data }: { data: Archetypes[] }) {
         {data
           .filter((_, index) => index >= 2)
           .map((item, index) => (
-            <Item data={item} order={index + 1} />
+            <Item data={item} order={index + 2} />
           ))}
       </View>
     </View>

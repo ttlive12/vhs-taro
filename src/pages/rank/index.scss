@@ -4,6 +4,8 @@
 
 .rank-container {
   @include container;
+  height: auto;
+  padding-bottom: max(env(safe-area-inset-bottom) + 100px, 132px);
 }
 
 .rank-header {

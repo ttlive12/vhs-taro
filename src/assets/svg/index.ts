@@ -13,6 +13,7 @@ import schedule from "./schedule.svg";
 import up from "./up.svg";
 import upWhite from "./up-white.svg";
 import point from "./point.svg";
+import win from "./win.svg";
 
 export {
   deck,
@@ -30,4 +31,5 @@ export {
   setting,
   schedule,
   point,
+  win,
 };

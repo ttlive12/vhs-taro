@@ -3,5 +3,6 @@
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false
-  }
+  },
+  "projectname": "vhs-taro"
 }

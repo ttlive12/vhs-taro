@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
+  transform: translateX(10px);
 
   &-index {
     position: absolute;
@@ -34,6 +35,41 @@
     width: 140px;
     text-align: center;
     transform: translateX(30px);
+
+    // 为每个职业设置颜色（混合30%黑色）
+    &.druid {
+      color: mix($black, $druid, 30%);
+    }
+    &.hunter {
+      color: mix($black, $hunter, 30%);
+    }
+    &.mage {
+      color: mix($black, $mage, 30%);
+    }
+    &.paladin {
+      color: mix($black, $paladin, 30%);
+    }
+    &.priest {
+      color: mix($black, $priest, 30%);
+    }
+    &.rogue {
+      color: mix($black, $rogue, 30%);
+    }
+    &.shaman {
+      color: mix($black, $shaman, 30%);
+    }
+    &.warlock {
+      color: mix($black, $warlock, 30%);
+    }
+    &.warrior {
+      color: mix($black, $warrior, 30%);
+    }
+    &.demonhunter {
+      color: mix($black, $demonhunter, 30%);
+    }
+    &.deathknight {
+      color: mix($black, $deathknight, 30%);
+    }
   }
 
   &-subtitle {
@@ -58,5 +94,4 @@
   &:active &-img {
     transform: translateX(100%);
   }
-
 }

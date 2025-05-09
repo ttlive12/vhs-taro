@@ -6,122 +6,165 @@
   color: $white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
 
   // 为每个职业设置背景色
-  &.druid { background-color: $druid; }
-  &.hunter { background-color: $hunter; }
-  &.mage { background-color: $mage; }
-  &.paladin { background-color: $paladin; }
-  &.priest { background-color: $priest; color: $black; } // 牧师是白色，文字用黑色
-  &.rogue { background-color: $rogue; color: $black; } // 盗贼是黄色，文字用黑色
-  &.shaman { background-color: $shaman; }
-  &.warlock { background-color: $warlock; }
-  &.warrior { background-color: $warrior; }
-  &.demonhunter { background-color: $demonhunter; }
-  &.deathknight { background-color: $deathknight; }
-
-  // 排名图标采用绝对定位
-  .rank-icon {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 32px;
-    height: 32px;
-    z-index: 2;
+  &.druid {
+    background-color: $druid;
+  }
+  &.hunter {
+    background-color: $hunter;
+  }
+  &.mage {
+    background-color: $mage;
+  }
+  &.paladin {
+    background-color: $paladin;
+  }
+  &.priest {
+    background-color: $priest;
+    color: $black;
+  } // 牧师是白色，文字用黑色
+  &.rogue {
+    background-color: $rogue;
+    color: $black;
+  } // 盗贼是黄色，文字用黑色
+  &.shaman {
+    background-color: $shaman;
+  }
+  &.warlock {
+    background-color: $warlock;
+  }
+  &.warrior {
+    background-color: $warrior;
+  }
+  &.demonhunter {
+    background-color: $demonhunter;
+  }
+  &.deathknight {
+    background-color: $deathknight;
   }
 
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  // 卡片头部
   .card-header {
-    margin-bottom: 16px;
-
-    .hero-info {
-      display: flex;
-      align-items: center;
-
-      .hero-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        margin-right: 8px;
-      }
-
-      .hero-name {
-        font-size: 18px;
-        font-weight: bold;
-      }
-    }
-  }
-
-  .card-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 
-    .left-stats {
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+    }
+
+    .hero-name {
+      font-size: 32px;
+    }
+
+    .rank-icon {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  // 卡片主体
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+
+    // 左侧统计
+    &-left {
       flex: 1;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
 
       .stat-item {
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
 
-        &:last-child {
-          margin-bottom: 0;
+        .stat-icon {
+          width: 38px;
+          height: 38px;
+          flex-shrink: 0;
         }
 
-        .stat-label {
+        .stat-details {
           display: flex;
-          align-items: center;
-          margin-bottom: 4px;
+          flex-direction: column;
+          gap: 4px;
 
-          .stat-icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 4px;
-          }
-
-          .label-text {
-            font-size: 14px;
+          .stat-label {
+            font-size: 18px;
             opacity: 0.85;
+            font-weight: 300;
+            line-height: 1.2;
           }
-        }
 
-        .stat-value {
-          font-size: 20px;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
+          .stat-value {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
 
-          .star {
-            color: #FFD700;
-            margin-left: 4px;
-            font-size: 16px;
+            .star {
+              color: #ffd700;
+              margin-left: 4px;
+              font-size: 14px;
+            }
           }
         }
       }
     }
 
-    .right-stats {
+    // 右侧胜率
+    &-right {
       flex: 1;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
 
-      .stat-item.winrate {
-        .stat-label {
+      .winrate-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .stat-icon {
+          width: 34px;
+          height: 34px;
+          flex-shrink: 0;
+        }
+
+        .winrate-label {
           display: flex;
           justify-content: center;
-          margin-bottom: 4px;
+          align-items: center;
+          gap: 8px;
 
-          .label-text {
-            font-size: 14px;
+          .stat-label {
+            font-size: 24px;
             opacity: 0.85;
+            font-weight: 300;
           }
         }
 
-        .stat-value {
-          font-size: 28px;
-          font-weight: bold;
-          text-align: center;
+        .winrate-value {
+          font-size: 40px;
+          // font-weight: bold;
         }
       }
     }

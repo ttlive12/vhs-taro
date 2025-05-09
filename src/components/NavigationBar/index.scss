@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 88px;
 
   &-content {
     width: 100%;
@@ -15,7 +16,32 @@
   }
 
   &-logo {
-    width: 80px;
-    height: 80px;
+    width: 88px;
+    height: 88px;
+  }
+
+  &-title {
+    text-align: center;
+    line-height: 88px;
+    font-size: 40px;
+    font-family: serif;
+    font-weight: bold;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    &-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    &-text {
+      font-family: sans-serif;
+      font-size: 24px;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { View, Text, Image } from "@tarojs/components";
 import { Archetypes } from "@/models";
 import { classImageMap } from "@/constants/map";
-import { hot, up } from "@/assets";
+import { hot, hotWhite, up, upWhite, win } from "@/assets/svg";
 import { no1, no2 } from "@/assets/png";
 
 import "./index.scss";
@@ -23,14 +23,15 @@ export function Card({ data, order }: { data: Archetypes; order: number }) {
 
   const rankIcon = getRankIcon();
 
+  // 根据职业类型选择不同的图标颜色
+  const isLightBackground = heroClass === "priest" || heroClass === "rogue";
+  const hotIcon = isLightBackground ? hot : hotWhite;
+  const upIcon = isLightBackground ? up : upWhite;
+
   return (
     <View className={`card-container ${heroClass}`}>
-      {rankIcon && (
-        <Image className="rank-icon" src={rankIcon} mode="aspectFit" />
-      )}
-
       <View className="card-header">
-        <View className="hero-info">
+        <View className="card-header-left">
           <Image
             className="hero-avatar"
             src={classImageMap[heroClass]}
@@ -38,35 +39,41 @@ export function Card({ data, order }: { data: Archetypes; order: number }) {
           />
           <Text className="hero-name">{zhName}</Text>
         </View>
+        {rankIcon && (
+          <Image className="rank-icon" src={rankIcon} mode="aspectFit" />
+        )}
       </View>
 
-      <View className="card-content">
-        <View className="left-stats">
+      <View className="card-body">
+        <View className="card-body-left">
           <View className="stat-item">
-            <View className="stat-label">
-              <Image className="stat-icon" src={hot} mode="aspectFit" />
-              <Text className="label-text">热度</Text>
+            <Image className="stat-icon" src={hotIcon} mode="aspectFit" />
+            <View className="stat-details">
+              <Text className="stat-label">热度</Text>
+              <Text className="stat-value">
+                {popularityPercent.toFixed(1)}%
+              </Text>
             </View>
-            <Text className="stat-value">
-              {(popularityPercent).toFixed(1)}%
-            </Text>
           </View>
 
           <View className="stat-item">
-            <View className="stat-label">
-              <Image className="stat-icon" src={up} mode="aspectFit" />
-              <Text className="label-text">上分速度</Text>
+            <Image className="stat-icon" src={upIcon} mode="aspectFit" />
+            <View className="stat-details">
+              <Text className="stat-label">上分速度</Text>
+              <Text className="stat-value">
+                {climbingSpeed.toFixed(2)}⭐
+              </Text>
             </View>
-            <Text className="stat-value">{climbingSpeed.toFixed(2)}<Text className="star">★</Text></Text>
           </View>
         </View>
 
-        <View className="right-stats">
-          <View className="stat-item winrate">
-            <View className="stat-label">
-              <Text className="label-text">胜率</Text>
+        <View className="card-body-right">
+          <View className="winrate-wrapper">
+            <View className="winrate-label">
+              <Image className="stat-icon" src={win} mode="aspectFit" />
+              <Text className="stat-label">胜率</Text>
             </View>
-            <Text className="stat-value">{(winrate).toFixed(1)}%</Text>
+            <Text className="winrate-value">{winrate.toFixed(1)}%</Text>
           </View>
         </View>
       </View>

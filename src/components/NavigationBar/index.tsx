@@ -1,9 +1,11 @@
 import { View, Text, Image } from "@tarojs/components";
 import Taro, { getSystemInfoSync } from "@tarojs/taro";
 import { FC, useMemo } from "react";
-import { logo, back } from "@/assets";
+import { logo, back, setting } from "@/assets";
 
 import "./index.scss";
+import useModeStore from "@/store/mode";
+import { Mode } from "@/constants";
 
 export interface NavigationBarProps {
   title?: string;
@@ -27,6 +29,9 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       return { statusBarHeight: 20, platform: "ios" };
     }
   }, []);
+
+  // 获取模式
+  const mode = useModeStore((state) => state.mode);
 
   // 返回按钮处理
   const handleBackClick = () => {
@@ -65,6 +70,17 @@ export const NavigationBar: FC<NavigationBarProps> = ({
 
         <View className="navigation-bar-center">
           {title && <Text className="navigation-bar-title">{title}</Text>}
+        </View>
+
+        <View className="navigation-bar-right">
+          <Image
+            className="navigation-bar-right-icon"
+            src={setting}
+            mode="aspectFit"
+          />
+          <Text className="navigation-bar-right-text">
+            {mode === Mode.STANDARD ? "标准模式" : "狂野模式"}
+          </Text>
         </View>
       </View>
     </View>

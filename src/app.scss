@@ -1,5 +1,4 @@
-.background {
-  position: fixed;
+page {
   top: 0;
   left: 0;
   width: 100vw;
@@ -13,4 +12,8 @@
     rgba($orange, 0.05),
     rgba($orange, 0.1)
   );
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
 }
