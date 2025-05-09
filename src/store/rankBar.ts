@@ -36,9 +36,9 @@ export const dataTypes: RankType[] = [
 ];
 
 interface RankBarState {
-  currentType: string;
+  currentType: Rank;
   sortedDataTypes: RankType[];
-  setCurrentType: (type: string) => void;
+  setCurrentType: (type: Rank) => void;
   setSortedDataTypes: (types: RankType[]) => void;
   resetSortedDataTypes: () => void;
 }

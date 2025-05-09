@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { View, Text, Image, ScrollView } from "@tarojs/components";
 import Taro, { nextTick } from "@tarojs/taro";
 import { useRankBarStore } from "@/store/rankBar";
+import { Rank } from "@/constants";
 
 import "./index.scss";
 
@@ -18,7 +19,7 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
   const [dragItemIndex, setDragItemIndex] = useState(-1);
 
   // 处理选择类型
-  const handleSwitch = (type: string) => {
+  const handleSwitch = (type: Rank) => {
     if (isDragging) return;
 
     setCurrentType(type);
@@ -58,7 +59,7 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
     // 检查当前拖拽项索引是否有效
     if (dragItemIndex < 0 || dragItemIndex >= sortedDataTypes.length) {
-      console.error('无效的拖拽索引', dragItemIndex);
+      console.error("无效的拖拽索引", dragItemIndex);
       nextTick(() => {
         setIsDragging(false);
         setDragItemIndex(-1);
@@ -88,7 +89,7 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
       // 再次检查是否有效
       if (!newDataTypes[dragItemIndex]) {
-        console.error('拖拽项不存在', dragItemIndex);
+        console.error("拖拽项不存在", dragItemIndex);
         return;
       }
 
@@ -100,7 +101,11 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
       // 检查结果数组长度是否正确
       if (newDataTypes.length !== sortedDataTypes.length) {
-        console.error('排序后数组长度异常', newDataTypes.length, sortedDataTypes.length);
+        console.error(
+          "排序后数组长度异常",
+          newDataTypes.length,
+          sortedDataTypes.length
+        );
         return;
       }
 
@@ -124,7 +129,7 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
         }
       }
     } else {
-      console.error('结束拖拽时索引无效', dragItemIndex);
+      console.error("结束拖拽时索引无效", dragItemIndex);
     }
 
     // 重置拖拽状态

@@ -12,6 +12,7 @@ import setting from "./setting.svg";
 import schedule from "./schedule.svg";
 import up from "./up.svg";
 import upWhite from "./up-white.svg";
+import point from "./point.svg";
 
 export {
   deck,
@@ -28,4 +29,5 @@ export {
   upWhite,
   setting,
   schedule,
+  point,
 };

@@ -1,0 +1,62 @@
+.item {
+  position: relative;
+  border: 1px solid rgba($orange, 0.4);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+
+  &-index {
+    position: absolute;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 28px;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 20px;
+    background-color: $orange;
+    color: white;
+    border-radius: 50%;
+  }
+
+  &-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  &-name {
+    width: 140px;
+    text-align: center;
+    transform: translateX(30px);
+  }
+
+  &-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  &-text {
+    flex: 1;
+    text-align: center;
+    font-size: 32px;
+    line-height: 32px;
+  }
+
+  &-img {
+    width: 40px;
+    height: 40px;
+    margin-left: 40px;
+    transition: transform 0.3s ease;
+  }
+
+  &:active &-img {
+    transform: translateX(100%);
+  }
+
+}
