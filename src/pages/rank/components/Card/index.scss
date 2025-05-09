@@ -1,0 +1,129 @@
+.card-container {
+  width: 100%;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  color: $white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  // 为每个职业设置背景色
+  &.druid { background-color: $druid; }
+  &.hunter { background-color: $hunter; }
+  &.mage { background-color: $mage; }
+  &.paladin { background-color: $paladin; }
+  &.priest { background-color: $priest; color: $black; } // 牧师是白色，文字用黑色
+  &.rogue { background-color: $rogue; color: $black; } // 盗贼是黄色，文字用黑色
+  &.shaman { background-color: $shaman; }
+  &.warlock { background-color: $warlock; }
+  &.warrior { background-color: $warrior; }
+  &.demonhunter { background-color: $demonhunter; }
+  &.deathknight { background-color: $deathknight; }
+
+  // 排名图标采用绝对定位
+  .rank-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    z-index: 2;
+  }
+
+  .card-header {
+    margin-bottom: 16px;
+
+    .hero-info {
+      display: flex;
+      align-items: center;
+
+      .hero-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .hero-name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left-stats {
+      flex: 1;
+
+      .stat-item {
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .stat-label {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+
+          .stat-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+          }
+
+          .label-text {
+            font-size: 14px;
+            opacity: 0.85;
+          }
+        }
+
+        .stat-value {
+          font-size: 20px;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+
+          .star {
+            color: #FFD700;
+            margin-left: 4px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .right-stats {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .stat-item.winrate {
+        .stat-label {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 4px;
+
+          .label-text {
+            font-size: 14px;
+            opacity: 0.85;
+          }
+        }
+
+        .stat-value {
+          font-size: 28px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

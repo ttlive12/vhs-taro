@@ -1,0 +1,57 @@
+.rank-bar-container {
+  // width: 100%;
+  white-space: nowrap;
+  position: relative;
+  padding-top: 15px;
+  height: 125px;
+  overflow: hidden;
+
+  // 隐藏滚动条 - 各浏览器兼容方案
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+  .spacer {
+    display: inline-block;
+    width: 30px;
+  }
+
+  .type-item {
+    white-space: nowrap;
+    display: inline-block;
+    border-radius: 40px;
+    margin-right: 20px;
+    padding: 20px 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+
+    &-current {
+      background-color: #fff;
+    }
+
+    &-dragging {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      opacity: 0.95;
+      z-index: 8000;
+      touch-action: none;
+    }
+
+    &-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 8px;
+      }
+    }
+  }
+}

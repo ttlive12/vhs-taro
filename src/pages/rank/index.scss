@@ -1,0 +1,14 @@
+.rank-page {
+  @include page;
+}
+
+.rank-container {
+  @include container;
+}
+
+.rank-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 26px;
+}
