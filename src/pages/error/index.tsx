@@ -1,7 +1,7 @@
 import Taro, { useRouter } from "@tarojs/taro";
 import React, { useEffect, useState } from "react";
 import { View, Text } from "@tarojs/components";
-// import { Button, Empty } from "@taroify/core";
+import { Button, Empty } from "@taroify/core";
 import { AxiosErrorNameMap } from "@/constants/error";
 
 import "./index.scss";
@@ -41,7 +41,7 @@ const ErrorPage: React.FC = () => {
   return (
     <View className="error-page">
       <View className="error-content">
-        {/* <Empty>
+        <Empty>
           <Empty.Image src={isNetworkError ? "network" : "error"} />
           <Empty.Description>{errorInfo.description}</Empty.Description>
           {errorInfo.message && (
@@ -53,7 +53,7 @@ const ErrorPage: React.FC = () => {
               重新加载
             </Button>
           </View>
-        </Empty> */}
+        </Empty>
       </View>
     </View>
   );
