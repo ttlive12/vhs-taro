@@ -2,12 +2,21 @@ import { View, Text, Image } from "@tarojs/components";
 import { Archetypes } from "@/models";
 import { classImageMap } from "@/constants/map";
 import { hot, hotWhite, up, upWhite, win } from "@/assets/svg";
-import { no1, no2 } from "@/assets/png";
+import { no1, no2 } from "@/assets/image";
 
 import "./index.scss";
+import Taro from "@tarojs/taro";
 
-export function Card({ data, order }: { data: Archetypes; order: number }) {
+export function Card({
+  data,
+  order,
+}: {
+  data: Archetypes;
+  order: number;
+  onClick?: () => void;
+}) {
   const {
+    name,
     zhName,
     class: heroClass,
     winrate,
@@ -28,8 +37,15 @@ export function Card({ data, order }: { data: Archetypes; order: number }) {
   const hotIcon = isLightBackground ? hot : hotWhite;
   const upIcon = isLightBackground ? up : upWhite;
 
+  const handleClick = () => {
+    // 跳转至卡组详情页
+    Taro.navigateTo({
+      url: `/pages/archetypes/index?archetype=${name}`,
+    });
+  };
+
   return (
-    <View className={`card-container ${heroClass}`}>
+    <View className={`card-container ${heroClass}`} onClick={handleClick}>
       <View className="card-header">
         <View className="card-header-left">
           <Image
@@ -60,9 +76,7 @@ export function Card({ data, order }: { data: Archetypes; order: number }) {
             <Image className="stat-icon" src={upIcon} mode="aspectFit" />
             <View className="stat-details">
               <Text className="stat-label">上分速度</Text>
-              <Text className="stat-value">
-                {climbingSpeed.toFixed(2)}⭐
-              </Text>
+              <Text className="stat-value">{climbingSpeed.toFixed(2)}⭐</Text>
             </View>
           </View>
         </View>

@@ -1,4 +1,4 @@
-import { Class, Rank } from "../constants/enums";
+import { Class, Rank } from "@/constants";
 
 export interface Archetypes {
   /**

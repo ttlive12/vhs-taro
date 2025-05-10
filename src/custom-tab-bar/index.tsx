@@ -31,7 +31,7 @@ export const tabBarList: TabItem[] = [
   {
     index: 1,
     text: "卡组",
-    pagePath: "/pages/deck/index",
+    pagePath: "/pages/decks/index",
     iconPath: deck,
     selectedIconPath: deckActive,
   },

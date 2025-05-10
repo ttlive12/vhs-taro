@@ -1,5 +1,11 @@
 export default defineAppConfig({
-  pages: ["pages/rank/index", "pages/deck/index", "pages/discover/index"],
+  pages: [
+    "pages/rank/index",
+    "pages/decks/index",
+    "pages/discover/index",
+    "pages/archetypes/index",
+    "pages/error/index",
+  ],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
@@ -15,7 +21,7 @@ export default defineAppConfig({
       },
       {
         text: "卡组",
-        pagePath: "pages/deck/index",
+        pagePath: "pages/decks/index",
       },
       {
         text: "发现",

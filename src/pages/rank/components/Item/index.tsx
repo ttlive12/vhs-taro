@@ -6,6 +6,7 @@ import { point } from "@/assets";
 import { createColorFn } from "@/utils";
 
 import "./index.scss";
+import Taro from "@tarojs/taro";
 
 export function Item({ data, order }: { data: Archetypes; order: number }) {
   const {
@@ -14,6 +15,7 @@ export function Item({ data, order }: { data: Archetypes; order: number }) {
     winrate,
     popularityPercent,
     climbingSpeed,
+    name,
   } = data;
 
   const winrateColor = useMemo(
@@ -26,8 +28,15 @@ export function Item({ data, order }: { data: Archetypes; order: number }) {
     [climbingSpeed]
   );
 
+  const handleClick = () => {
+    // 跳转至卡组详情页
+    Taro.navigateTo({
+      url: `/pages/archetypes/index?archetype=${name}`,
+    });
+  };
+
   return (
-    <View className="item">
+    <View className="item" onClick={handleClick}>
       <Text className="item-index">{order + 1}</Text>
       <Text className={`item-name ${heroClass}`}>{zhName}</Text>
       <View className="item-container">
