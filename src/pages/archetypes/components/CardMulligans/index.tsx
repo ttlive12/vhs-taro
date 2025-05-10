@@ -3,12 +3,14 @@ import { useRequest } from "ahooks";
 import { useState } from "react";
 
 import { getArchetypeMulligan } from "@/api";
-import { CardFrame } from "@/components";
+import { CardFrame, TitleBar } from "@/components";
 import { useRankBarStore } from "@/store/rankBar";
 import { Mode } from "@/constants";
-import { sort } from "@/assets/svg";
 
 import "./index.scss";
+import { createColorFn } from "@/utils";
+import { sort } from "@/assets/svg";
+import { Exchange } from "@taroify/icons";
 
 interface CardMulligansProps {
   mode: Mode;
@@ -16,6 +18,8 @@ interface CardMulligansProps {
 }
 
 type SortType = "mulliganImpact" | "drawnImpact" | "keptImpact";
+
+const getColor = createColorFn(30);
 
 const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   const { currentType } = useRankBarStore();
@@ -65,6 +69,11 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
 
   return (
     <View className="card-mulligans">
+      <TitleBar
+        title="调度建议"
+        icon={<Exchange size={18} />}
+        tips="各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）"
+      />
       {!loading && (!data?.[currentType] || data[currentType].length === 0) ? (
         <View className="no-data">
           <Text>暂无数据</Text>
@@ -146,6 +155,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
               <Text
                 style={{
                   gridColumn: 2,
+                  color: getColor(item.mulliganImpact),
                 }}
               >
                 {item.mulliganImpact}
@@ -153,6 +163,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
               <Text
                 style={{
                   gridColumn: 3,
+                  color: getColor(item.drawnImpact),
                 }}
               >
                 {item.drawnImpact}
@@ -160,6 +171,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
               <Text
                 style={{
                   gridColumn: 4,
+                  color: getColor(item.keptImpact),
                 }}
               >
                 {item.keptImpact}

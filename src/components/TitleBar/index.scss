@@ -1,35 +1,26 @@
 .title-bar {
-  margin: 30rpx 0;
-  padding: 0 30rpx;
-
-  &-header {
-    display: flex;
-    align-items: center;
-    gap: 10rpx;
-    margin-bottom: 12rpx;
-  }
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0 30px;
+  gap: 10px;
 
   &-icon {
-    width: 36rpx;
-    height: 36rpx;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &-title {
-    font-size: 34rpx;
-    font-weight: 600;
-    color: #333;
+    margin-left: 5px;
+    font-size: 32px;
+    line-height: 32px;
   }
 
-  &-content {
-    padding-left: 46rpx;
+  &-tips {
     display: flex;
     flex-direction: column;
-    gap: 6rpx;
-    
-    text {
-      font-size: 26rpx;
-      color: rgba(0, 0, 0, 0.6);
-      line-height: 1.5;
-    }
   }
-} 
+}

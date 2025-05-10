@@ -6,7 +6,8 @@ import { getDecks } from "@/api";
 import { dust } from "@/assets/image";
 import { classImageMap, Mode } from "@/constants";
 import { useRankBarStore } from "@/store/rankBar";
-
+import { TitleBar } from "@/components";
+import { ClusterOutlined } from "@taroify/icons";
 import "./index.scss";
 
 interface RelatedDecksProps {
@@ -35,6 +36,11 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
 
   return (
     <View className="related-decks">
+      <TitleBar
+        title="相关卡组"
+        icon={<ClusterOutlined size={18} />}
+        tips="该卡组类型下的推荐构筑，点击后查看卡组的具体构筑和代码等"
+      />
       {decksData && decksData?.[currentType]?.length > 0 ? (
         <ScrollView className="decks" scrollX enhanced showScrollbar={false}>
           <View style={{ display: "inline-block", width: "15px" }} />
