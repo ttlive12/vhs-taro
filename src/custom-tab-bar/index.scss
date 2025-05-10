@@ -20,6 +20,7 @@
     align-items: center;
     gap: 10px;
     height: 100%;
+    transition: background-color 0.3s ease;
 
     &-active {
       background-color: rgba($orange, 0.1);
@@ -30,11 +31,18 @@
       width: 50px;
       height: 50px;
       margin-bottom: 5px;
+      transition: transform 0.3s ease;
+      
+      &-active {
+        transform: scale(1.1);
+      }
     }
 
     &-text {
       font-size: 32px;
       color: $gray-5;
+      transition: color 0.3s ease;
+      
       &-active {
         color: $orange;
       }

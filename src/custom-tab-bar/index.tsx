@@ -54,29 +54,25 @@ const Index = () => {
 
   return (
     <View className="tab-capsule">
-      {" "}
       {tabBarList.map((item) => {
+        const isActive = item.index === currentIndex;
         return (
           <View
             className={`tab-capsule-item ${
-              item.index === currentIndex ? "tab-capsule-item-active" : ""
+              isActive ? "tab-capsule-item-active" : ""
             }`}
             onClick={() => switchTab(item)}
             key={item.index}
           >
             <Image
-              src={
-                item.index === currentIndex
-                  ? item?.selectedIconPath
-                  : item?.iconPath
-              }
-              className="tab-capsule-item-img"
+              src={isActive ? item?.selectedIconPath : item?.iconPath}
+              className={`tab-capsule-item-img ${
+                isActive ? "tab-capsule-item-img-active" : ""
+              }`}
             />
             <View
               className={`tab-capsule-item-text ${
-                item.index === currentIndex
-                  ? "tab-capsule-item-text-active"
-                  : ""
+                isActive ? "tab-capsule-item-text-active" : ""
               }`}
             >
               {item?.text}
