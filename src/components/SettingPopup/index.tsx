@@ -2,12 +2,13 @@ import { View, Text, Image } from "@tarojs/components";
 import { useState } from "react";
 import { Button, Popup, Radio } from "@taroify/core";
 import useModeStore from "@/store/mode";
-import { useRankTypeStore } from "@/store/rankType";
+import { useRankTypeStore, RankType } from "@/store/rankType";
 import {
   ClockOutlined,
   CommentOutlined,
   QuestionOutlined,
   Icon,
+  Cross,
 } from "@taroify/icons";
 import { standard, wild } from "@/assets/image";
 
@@ -36,7 +37,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
     }, 400);
   };
 
-  const handleRankTypeChange = (value: string) => {
+  const handleRankTypeChange = (value: RankType) => {
     setRankType(value);
   };
 
@@ -81,8 +82,8 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
               direction="horizontal"
               onChange={handleRankTypeChange}
             >
-              <Radio name="1">综合排行</Radio>
-              <Radio name="2">胜率排行</Radio>
+              <Radio name={RankType.COMBINED}>综合排行</Radio>
+              <Radio name={RankType.WINRATE}>胜率排行</Radio>
             </Radio.Group>
           </View>
         </View>
@@ -126,6 +127,8 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
           </View>
         </View>
       </View>
+      {/* 关闭 */}
+      <Cross className="close-button" onClick={onClose} size={20} />
     </Popup>
   );
 };

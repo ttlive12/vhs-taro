@@ -1,45 +1,32 @@
 export * from "./sleep";
 export * from "./color";
+import { Rank } from "@/constants/enums";
+import { Archetypes } from "@/models";
 
 /**
- * 格式化时间显示
- * @param updateTime ISO格式的时间字符串
- * @returns 格式化后的显示文本
+ * 计算卡组综合得分
+ * @param archetype 卡组数据
+ * @param rankType 排名段位
+ * @returns 综合得分
  */
-export const formatTime = (updateTime: string): string => {
-  // 解析更新时间
-  const updateDateTime = new Date(updateTime);
-  // 获取当前时间
-  const currentDateTime = new Date();
+export const calculateCombinedScore = (
+  archetype: Archetypes,
+  rankType: string
+): number => {
+  // 不同段位的权重配置
+  const weights = {
+    [Rank.TOP_LEGEND]: { winrate: 0.7, popularity: 0.3 },
+    [Rank.TOP_5K]: { winrate: 0.8, popularity: 0.2 },
+    [Rank.DIAMOND_4TO1]: { winrate: 0.8, popularity: 0.2 },
+    [Rank.DIAMOND_TO_LEGEND]: { winrate: 0.9, popularity: 0.1 },
+  };
 
-  // 计算时间差（毫秒）
-  const timeDiff = currentDateTime.getTime() - updateDateTime.getTime();
-  // 转换为小时
-  const hoursDiff = timeDiff / (1000 * 60 * 60);
+  // 获取当前段位的权重，如果没有找到则使用默认权重
+  const weight = weights[rankType] || { winrate: 0.8, popularity: 0.2 };
 
-  // 根据规则确定显示文本
-  if (hoursDiff < 0) {
-    // 处理未来时间的情况
-    return "刚刚";
-  } else if (hoursDiff < 2) {
-    return "一个小时内";
-  } else if (hoursDiff < 3) {
-    return "两个小时前";
-  } else if (hoursDiff < 4) {
-    return "三个小时前";
-  } else if (hoursDiff < 5) {
-    return "四个小时前";
-  } else if (hoursDiff < 6) {
-    return "五个小时前";
-  } else if (hoursDiff < 7) {
-    return "六个小时前";
-  } else if (hoursDiff < 8) {
-    return "七个小时前";
-  } else if (hoursDiff < 9) {
-    return "八个小时前";
-  } else if (hoursDiff < 10) {
-    return "九个小时前";
-  } else {
-    return "最近半天内";
-  }
+  // 计算综合得分
+  return (
+    archetype.winrate * weight.winrate +
+    archetype.popularityPercent * weight.popularity
+  );
 };

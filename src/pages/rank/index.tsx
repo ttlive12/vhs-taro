@@ -9,6 +9,9 @@ import { useRankBarStore } from "@/store/rankBar";
 import { Card } from "./components/Card";
 import { Item } from "./components/Item";
 import "./index.scss";
+import { RankType, useRankTypeStore } from "@/store/rankType";
+import { useMemo } from "react";
+import { calculateCombinedScore } from "@/utils";
 
 export function RankPage({ data }: { data: Archetypes[] }) {
   return (
@@ -34,10 +37,31 @@ export function RankPage({ data }: { data: Archetypes[] }) {
 export default function Loader() {
   const mode = useModeStore((state) => state.mode);
   const { currentType } = useRankBarStore((state) => state);
+  const { rankType } = useRankTypeStore((state) => state);
 
   const { data, loading } = useRequest(() => getArchetypes(mode), {
     refreshDeps: [mode],
   });
+
+  const showData = useMemo(() => {
+    const currentData = data?.[currentType];
+    if (!currentData) return null;
+
+    if (rankType === RankType.COMBINED) {
+      // 计算综合得分并按得分排序
+      return [...currentData].sort((a, b) => {
+        const scoreA = calculateCombinedScore(a, currentType);
+        const scoreB = calculateCombinedScore(b, currentType);
+        return scoreB - scoreA;
+      });
+    }
+
+    if (rankType === RankType.WINRATE) {
+      return [...currentData].sort((a, b) => b.winrate - a.winrate);
+    }
+
+    return currentData;
+  }, [data, rankType, currentType]);
 
   return (
     <View className="rank-page">
@@ -45,8 +69,8 @@ export default function Loader() {
       <RankBar />
       {loading ? (
         <Loading style={{ marginTop: 100 }} />
-      ) : data ? (
-        <RankPage data={data[currentType]} />
+      ) : showData ? (
+        <RankPage data={showData} />
       ) : null}
     </View>
   );

@@ -2,16 +2,21 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Taro from "@tarojs/taro";
 
+export enum RankType {
+  COMBINED = "1",
+  WINRATE = "2",
+}
+
 interface RankTypeState {
-  rankType: string;
-  setRankType: (rankType: string) => void;
+  rankType: RankType;
+  setRankType: (rankType: RankType) => void;
 }
 
 // 创建一个存储排行榜类型的store
 export const useRankTypeStore = create<RankTypeState>()(
   persist(
     (set) => ({
-      rankType: "1", // 默认为综合排行
+      rankType: RankType.COMBINED, // 默认为综合排行
       setRankType: (rankType) => set({ rankType }),
     }),
     {
