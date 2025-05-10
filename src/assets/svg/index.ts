@@ -15,6 +15,7 @@ import upWhite from "./up-white.svg";
 import point from "./point.svg";
 import win from "./win.svg";
 import sort from "./sort.svg";
+import rankBlack from "./rank-black.svg";
 
 export {
   deck,
@@ -34,4 +35,5 @@ export {
   point,
   win,
   sort,
+  rankBlack,
 };

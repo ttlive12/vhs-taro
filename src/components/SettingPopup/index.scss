@@ -1,0 +1,105 @@
+.setting-popup {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to right bottom,
+    white,
+    rgba($color: #ff9c00, $alpha: 0.05),
+    rgba($color: #ff9c00, $alpha: 0.1),
+    rgba($color: #ff9c00, $alpha: 0.2)
+  );
+  gap: 20px;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &-icon {
+    width: 80px;
+    height: 90px;
+    transition: transform 0.4s;
+
+    &.rotate {
+      transform: rotateY(90deg);
+    }
+  }
+
+  &-name {
+    font-size: 50px;
+    font-family: "mode", sans-serif;
+    letter-spacing: 5px;
+  }
+
+  &-switch {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.setting-item {
+  border-radius: 20px;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(150, 149, 145, 0.48);
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &-group {
+    display: flex;
+    gap: 15px;
+  }
+
+  .setting-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 32px;
+    line-height: 32px;
+    position: relative;
+
+    .setting-tips {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #666;
+      cursor: pointer;
+      margin-left: auto;
+    }
+  }
+
+  .setting-body {
+    font-size: 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+.feedback-button {
+  height: 50px;
+  line-height: 50px;
+  font-size: 26px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  border-radius: 10px;
+}

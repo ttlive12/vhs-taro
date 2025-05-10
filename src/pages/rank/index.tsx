@@ -44,7 +44,7 @@ export default function Loader() {
       <NavigationBar title="排行榜" showLogo />
       <RankBar />
       {loading ? (
-        <Loading />
+        <Loading style={{ marginTop: 100 }} />
       ) : data ? (
         <RankPage data={data[currentType]} />
       ) : null}

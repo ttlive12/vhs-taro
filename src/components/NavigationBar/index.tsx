@@ -1,9 +1,10 @@
 import { View, Text, Image } from "@tarojs/components";
 import Taro, { getSystemInfoSync } from "@tarojs/taro";
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { logo, back, setting } from "@/assets";
 import useModeStore from "@/store/mode";
 import { Mode } from "@/constants";
+import SettingPopup from "../SettingPopup";
 
 import "./index.scss";
 
@@ -34,6 +35,9 @@ export const NavigationBar: FC<NavigationBarProps> = ({
 
   // 获取模式
   const mode = useModeStore((state) => state.mode);
+  
+  // 设置弹窗状态
+  const [showSettingPopup, setShowSettingPopup] = useState(false);
 
   // 返回按钮处理
   const handleBackClick = () => {
@@ -42,51 +46,69 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       Taro.navigateBack();
     }
   };
+  
+  // 打开设置弹窗
+  const handleOpenSetting = () => {
+    setShowSettingPopup(true);
+  };
+  
+  // 关闭设置弹窗
+  const handleCloseSetting = () => {
+    setShowSettingPopup(false);
+  };
 
   return (
-    <View
-      className={`navigation-bar ${className}`}
-      style={{
-        paddingTop: `${systemInfo.statusBarHeight}px`,
-      }}
-    >
-      <View className="navigation-bar-content">
-        <View className="navigation-bar-left">
-          {showBack && (
-            <Image
-              onClick={handleBackClick}
-              className="navigation-bar-back"
-              src={back}
-              mode="aspectFit"
-            />
-          )}
+    <>
+      <View
+        className={`navigation-bar ${className}`}
+        style={{
+          paddingTop: `${systemInfo.statusBarHeight}px`,
+        }}
+      >
+        <View className="navigation-bar-content">
+          <View className="navigation-bar-left">
+            {showBack && (
+              <Image
+                onClick={handleBackClick}
+                className="navigation-bar-back"
+                src={back}
+                mode="aspectFit"
+              />
+            )}
 
-          {showLogo && !showBack && (
-            <Image
-              className="navigation-bar-logo"
-              src={logo}
-              mode="aspectFit"
-            />
-          )}
-        </View>
-
-        <View className="navigation-bar-center">
-          {title && <Text className="navigation-bar-title">{title}</Text>}
-        </View>
-
-        {showSetting && (
-          <View className="navigation-bar-right">
-            <Image
-              className="navigation-bar-right-icon"
-              src={setting}
-              mode="aspectFit"
-            />
-            <Text className="navigation-bar-right-text">
-              {mode === Mode.STANDARD ? "标准模式" : "狂野模式"}
-            </Text>
+            {showLogo && !showBack && (
+              <Image
+                className="navigation-bar-logo"
+                src={logo}
+                mode="aspectFit"
+              />
+            )}
           </View>
-        )}
+
+          <View className="navigation-bar-center">
+            {title && <Text className="navigation-bar-title">{title}</Text>}
+          </View>
+
+          {showSetting && (
+            <View className="navigation-bar-right" onClick={handleOpenSetting}>
+              <Image
+                className="navigation-bar-right-icon"
+                src={setting}
+                mode="aspectFit"
+              />
+              <Text className="navigation-bar-right-text">
+                {mode === Mode.STANDARD ? "标准模式" : "狂野模式"}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+      
+      {/* 设置弹窗 */}
+      <SettingPopup 
+        visible={showSettingPopup}
+        onClose={handleCloseSetting}
+      />
+    </>
   );
 };

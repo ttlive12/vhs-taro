@@ -1,0 +1,133 @@
+import { View, Text, Image } from "@tarojs/components";
+import { useState } from "react";
+import { Button, Popup, Radio } from "@taroify/core";
+import useModeStore from "@/store/mode";
+import { useRankTypeStore } from "@/store/rankType";
+import {
+  ClockOutlined,
+  CommentOutlined,
+  QuestionOutlined,
+  Icon,
+} from "@taroify/icons";
+import { standard, wild } from "@/assets/image";
+
+import "./index.scss";
+import { TitleBar } from "../TitleBar";
+import { rankBlack } from "@/assets/svg";
+
+interface SettingPopupProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
+const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
+  const { mode, toggleMode } = useModeStore();
+  const { rankType, setRankType } = useRankTypeStore();
+
+  const [rotate, setRotate] = useState(false);
+
+  const handleModeSwitch = () => {
+    setRotate(true);
+    setTimeout(() => {
+      toggleMode();
+    }, 200);
+    setTimeout(() => {
+      setRotate(false);
+    }, 400);
+  };
+
+  const handleRankTypeChange = (value: string) => {
+    setRankType(value);
+  };
+
+  return (
+    <Popup
+      open={visible}
+      rounded
+      style={{ width: "80%" }}
+      onClose={onClose}
+      placement="center"
+    >
+      <View className="setting-popup">
+        {/* 模式切换 */}
+        <View className="mode">
+          <Image
+            className={`mode-icon ${rotate ? "rotate" : ""}`}
+            src={mode === "standard" ? standard : wild}
+            onClick={handleModeSwitch}
+          />
+          <Text className="mode-name">
+            {mode === "standard" ? "标准模式" : "狂野模式"}
+          </Text>
+          <Icon
+            className="mode-switch"
+            classPrefix="icon"
+            name="switch"
+            size={20}
+            onClick={handleModeSwitch}
+          />
+        </View>
+
+        {/* 排行榜设置 */}
+        <View className="setting-item full-width">
+          <TitleBar
+            title="排行榜设置"
+            icon={<Image src={rankBlack} mode="aspectFit" />}
+          />
+
+          <View className="setting-body">
+            <Radio.Group
+              value={rankType}
+              direction="horizontal"
+              onChange={handleRankTypeChange}
+            >
+              <Radio name="1">综合排行</Radio>
+              <Radio name="2">胜率排行</Radio>
+            </Radio.Group>
+          </View>
+        </View>
+
+        <View className="setting-item-group">
+          {/* 数据更新 */}
+          <View className="setting-item">
+            <View className="setting-header">
+              <ClockOutlined size={20} />
+              <Text>数据更新</Text>
+            </View>
+            <View className="setting-body">
+              <Text>自动剔除老数据</Text>
+              <Text>每日自动更新</Text>
+            </View>
+          </View>
+          {/* 意见反馈 */}
+          <View className="setting-item">
+            <View className="setting-header">
+              <CommentOutlined size={20} />
+              <Text>意见反馈</Text>
+            </View>
+            <View className="setting-body">
+              <Text>欢迎分享，评分</Text>
+              <Button className="feedback-button" openType="feedback">
+                前往反馈
+              </Button>
+            </View>
+          </View>
+        </View>
+
+        {/* 更新日志 */}
+        <View className="setting-item full-width">
+          <View className="setting-header">
+            <QuestionOutlined size={20} />
+            <Text>更新日志</Text>
+          </View>
+          <View className="setting-body">
+            <Text>当前版本：3.0.0</Text>
+            <Text>更新内容：架构重构，稳定性&性能优化</Text>
+          </View>
+        </View>
+      </View>
+    </Popup>
+  );
+};
+
+export default SettingPopup;

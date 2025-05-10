@@ -5,6 +5,7 @@ export default defineAppConfig({
     "pages/discover/index",
     "pages/archetypes/index",
     "pages/error/index",
+    "pages/decks/detail/index",
   ],
   window: {
     backgroundTextStyle: "light",

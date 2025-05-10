@@ -1,4 +1,5 @@
 import { View, Text, Image } from "@tarojs/components";
+import { useCardPreviewStore } from "../../store/cardPreviewStore";
 import "./index.scss";
 
 interface CardFrameProps {
@@ -18,7 +19,13 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   back = "",
   onClick,
 }) => {
+  const { setCardPreview } = useCardPreviewStore();
+
   const handleTap = () => {
+    // Show card preview
+    setCardPreview(cardId);
+    
+    // Also call the original onClick if provided
     if (onClick) {
       onClick(cardId);
     }

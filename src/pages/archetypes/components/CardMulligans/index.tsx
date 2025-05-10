@@ -3,7 +3,7 @@ import { useRequest } from "ahooks";
 import { useState } from "react";
 
 import { getArchetypeMulligan } from "@/api";
-import { CardFrame, TitleBar } from "@/components";
+import { CardFrame, TitleBar, Loading } from "@/components";
 import { useRankBarStore } from "@/store/rankBar";
 import { Mode } from "@/constants";
 
@@ -30,7 +30,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   const { data, loading } = useRequest(
     () => getArchetypeMulligan(mode, archetype),
     {
-      refreshDeps: [mode, archetype, currentType],
+      refreshDeps: [mode, archetype],
     }
   );
 
@@ -67,14 +67,14 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
 
   const sortedData = getSortedData();
 
-  return (
-    <View className="card-mulligans">
-      <TitleBar
-        title="调度建议"
-        icon={<Exchange size={18} />}
-        tips="各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）"
-      />
-      {!loading && (!data?.[currentType] || data[currentType].length === 0) ? (
+  // 渲染卡片内容
+  const renderCardContent = () => {
+    if (loading) {
+      return <Loading size="small" style={{ margin: "100px 0" }} />;
+    }
+
+    if (!data?.[currentType] || data[currentType].length === 0) {
+      return (
         <View className="no-data">
           <Text>暂无数据</Text>
           {data && Object.values(data).flat().length > 0 ? (
@@ -83,103 +83,117 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             <View className="tip">当前卡组样本量小，以后再来查看吧</View>
           )}
         </View>
-      ) : (
-        <View className="cards">
-          <View className="cards-header">
-            <View className="sort-header" style={{ gridColumn: 1 }}>
-              <Text>卡牌</Text>
-            </View>
-            <View
-              className="sort-header"
-              style={{ gridColumn: 2 }}
-              onClick={() => handleSort("mulliganImpact")}
-            >
-              <Text>携带影响</Text>
-              <Image
-                className={`sort-icon ${
-                  sortType === "mulliganImpact"
-                    ? sortOrder === "asc"
-                      ? "asc"
-                      : "desc"
-                    : ""
-                }`}
-                src={sort}
-              />
-            </View>
-            <View
-              className="sort-header"
-              style={{ gridColumn: 3 }}
-              onClick={() => handleSort("drawnImpact")}
-            >
-              <Text>抽到影响</Text>
-              <Image
-                className={`sort-icon ${
-                  sortType === "drawnImpact"
-                    ? sortOrder === "asc"
-                      ? "asc"
-                      : "desc"
-                    : ""
-                }`}
-                src={sort}
-              />
-            </View>
-            <View
-              className="sort-header"
-              style={{ gridColumn: 4 }}
-              onClick={() => handleSort("keptImpact")}
-            >
-              <Text>保留影响</Text>
-              <Image
-                className={`sort-icon ${
-                  sortType === "keptImpact"
-                    ? sortOrder === "asc"
-                      ? "asc"
-                      : "desc"
-                    : ""
-                }`}
-                src={sort}
-              />
-            </View>
-          </View>
+      );
+    }
 
-          {sortedData.map((item) => (
-            <View className="cards-item" key={item.id}>
-              <View className="cards-item-card" style={{ gridColumn: 1 }}>
-                <CardFrame
-                  cardId={item.id}
-                  cost={item.cost}
-                  name={item.name}
-                  rarity={item.rarity}
-                />
-              </View>
-              <Text
-                style={{
-                  gridColumn: 2,
-                  color: getColor(item.mulliganImpact),
-                }}
-              >
-                {item.mulliganImpact}
-              </Text>
-              <Text
-                style={{
-                  gridColumn: 3,
-                  color: getColor(item.drawnImpact),
-                }}
-              >
-                {item.drawnImpact}
-              </Text>
-              <Text
-                style={{
-                  gridColumn: 4,
-                  color: getColor(item.keptImpact),
-                }}
-              >
-                {item.keptImpact}
-              </Text>
-            </View>
-          ))}
+    return (
+      <View className="cards">
+        <View className="cards-header">
+          <View className="sort-header" style={{ gridColumn: 1 }}>
+            <Text>卡牌</Text>
+          </View>
+          <View
+            className="sort-header"
+            style={{ gridColumn: 2 }}
+            onClick={() => handleSort("mulliganImpact")}
+          >
+            <Text>携带影响</Text>
+            <Image
+              className={`sort-icon ${
+                sortType === "mulliganImpact"
+                  ? sortOrder === "asc"
+                    ? "asc"
+                    : "desc"
+                  : ""
+              }`}
+              src={sort}
+            />
+          </View>
+          <View
+            className="sort-header"
+            style={{ gridColumn: 3 }}
+            onClick={() => handleSort("drawnImpact")}
+          >
+            <Text>抽到影响</Text>
+            <Image
+              className={`sort-icon ${
+                sortType === "drawnImpact"
+                  ? sortOrder === "asc"
+                    ? "asc"
+                    : "desc"
+                  : ""
+              }`}
+              src={sort}
+            />
+          </View>
+          <View
+            className="sort-header"
+            style={{ gridColumn: 4 }}
+            onClick={() => handleSort("keptImpact")}
+          >
+            <Text>保留影响</Text>
+            <Image
+              className={`sort-icon ${
+                sortType === "keptImpact"
+                  ? sortOrder === "asc"
+                    ? "asc"
+                    : "desc"
+                  : ""
+              }`}
+              src={sort}
+            />
+          </View>
         </View>
-      )}
+
+        {sortedData.map((item) => (
+          <View className="cards-item" key={item.id}>
+            <View className="cards-item-card" style={{ gridColumn: 1 }}>
+              <CardFrame
+                cardId={item.id}
+                cost={item.cost}
+                name={item.name}
+                rarity={item.rarity}
+              />
+            </View>
+            <Text
+              style={{
+                gridColumn: 2,
+                color: getColor(item.mulliganImpact),
+              }}
+            >
+              {item.mulliganImpact}
+            </Text>
+            <Text
+              style={{
+                gridColumn: 3,
+                color: getColor(item.drawnImpact),
+              }}
+            >
+              {item.drawnImpact}
+            </Text>
+            <Text
+              style={{
+                gridColumn: 4,
+                color: getColor(item.keptImpact),
+              }}
+            >
+              {item.keptImpact}
+            </Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
+  return (
+    <View className="card-mulligans">
+      <TitleBar
+        className="card-mulligans-title-bar"
+        title="调度建议"
+        icon={<Exchange size={18} />}
+        tips="各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）"
+      />
+      {renderCardContent()}
     </View>
   );
 };

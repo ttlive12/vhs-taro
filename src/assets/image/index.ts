@@ -32,6 +32,10 @@ const rogue =
   "https://i.miji.bid/2025/05/10/78bdb1c94c7e201899e7faff1d945cb9.png";
 const dust = "https://i.imgs.ovh/2025/05/10/vJVCY.webp";
 
+// 游戏模式图标
+const standard = "https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png";
+const wild = "https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png";
+
 export {
   priest,
   hunter,
@@ -50,4 +54,6 @@ export {
   diamond5,
   legend,
   dust,
+  standard,
+  wild,
 };

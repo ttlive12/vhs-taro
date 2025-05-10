@@ -3,6 +3,7 @@ import { Archetypes, Ranked } from "@/models";
 import { Mode } from "@/constants";
 import { Deck } from "@/models/deck";
 import { Mulligan } from "@/models/mulligan";
+import { Opponent } from "@/models/detail";
 
 /**
  * 获取卡组类型排行
@@ -36,5 +37,17 @@ export const getDecks = async (mode: Mode, archetype: string) => {
 export const getArchetypeMulligan = async (mode: Mode, archetype: string) => {
   return await request<Ranked<Mulligan[]>>(
     `/mulligan/getMulligan?mode=${mode}&archetype=${archetype}`
+  );
+};
+
+/**
+ * 获取卡组详情
+ * @param mode 模式
+ * @param deckId 卡组ID
+ * @returns 卡组详情
+ */
+export const getDeckDetail = async (mode: Mode, deckId: string) => {
+  return await request<Ranked<Opponent[]>>(
+    `/deckdetails/getDecks?mode=${mode}&deckId=${deckId}`
   );
 };

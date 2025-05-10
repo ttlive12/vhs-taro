@@ -1,8 +1,7 @@
 import { View, Text, Image } from "@tarojs/components";
 import { Archetypes } from "@/models";
 import { classImageMap } from "@/constants/map";
-import { hot, hotWhite, up, upWhite, win } from "@/assets/svg";
-import { no1, no2 } from "@/assets/image";
+import { hot, hotWhite, up, upWhite, win, no1, no2 } from "@/assets";
 
 import "./index.scss";
 import Taro from "@tarojs/taro";

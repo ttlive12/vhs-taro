@@ -1,26 +1,21 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Taro from "@tarojs/taro";
-import { Mode } from "@/constants";
 
-interface ModeStore {
-  mode: Mode;
-  setMode: (mode: Mode) => void;
-  toggleMode: () => void;
+interface RankTypeState {
+  rankType: string;
+  setRankType: (rankType: string) => void;
 }
 
-const useModeStore = create<ModeStore>()(
+// 创建一个存储排行榜类型的store
+export const useRankTypeStore = create<RankTypeState>()(
   persist(
-    (set, get) => ({
-      mode: Mode.STANDARD,
-      setMode: (mode: Mode) => set({ mode }),
-      toggleMode: () => {
-        const currentMode = get().mode;
-        set({ mode: currentMode === Mode.STANDARD ? Mode.WILD : Mode.STANDARD });
-      },
+    (set) => ({
+      rankType: "1", // 默认为综合排行
+      setRankType: (rankType) => set({ rankType }),
     }),
     {
-      name: "mode-storage",
+      name: "rank-type-storage",
       storage: createJSONStorage(() => ({
         getItem: (name) => {
           const value = Taro.getStorageSync(name);
@@ -36,5 +31,3 @@ const useModeStore = create<ModeStore>()(
     }
   )
 );
-
-export default useModeStore;

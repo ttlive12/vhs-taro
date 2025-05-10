@@ -5,12 +5,18 @@ import { Dialog } from "@taroify/core";
 import "./index.scss";
 
 interface TitleBarProps {
+  className?: string;
   icon?: React.ReactNode;
   title?: string;
   tips?: string;
 }
 
-export const TitleBar: React.FC<TitleBarProps> = ({ icon, title, tips }) => {
+export const TitleBar: React.FC<TitleBarProps> = ({
+  icon,
+  title,
+  tips,
+  className,
+}) => {
   const handleTips = () => {
     Dialog.open({
       title,
@@ -19,7 +25,7 @@ export const TitleBar: React.FC<TitleBarProps> = ({ icon, title, tips }) => {
     });
   };
   return (
-    <View className="title-bar">
+    <View className={`title-bar ${className}`}>
       <View className="title-bar-icon">{icon}</View>
       {title && <Text className="title-bar-title">{title}</Text>}
       {tips && (

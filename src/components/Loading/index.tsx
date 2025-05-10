@@ -10,69 +10,54 @@ interface LoadingProps {
   size?: "small" | "medium" | "large";
   className?: string;
   style?: CSSProperties;
-  center?: boolean;
+  full?: boolean;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
   text = "",
-  color = "#ff9c00",
+  color = "#ffb033",
   size = "medium",
   className = "",
-  center = false,
+  full = false,
   style = {},
 }) => {
   const sizeMap = {
     small: {
-      container: 80,
-      dot: 4,
-      gap: 3,
+      scale: 0.7,
     },
     medium: {
-      container: 120,
-      dot: 6,
-      gap: 4,
+      scale: 0.9,
     },
     large: {
-      container: 160,
-      dot: 8,
-      gap: 5,
+      scale: 1,
     },
   };
 
   const currentSize = sizeMap[size];
+  const scale = currentSize.scale;
 
   return (
     <View
-      className={`loading-container ${center && "full"} ${className}`}
+      className={`loading-container ${full ? "full" : ""} ${className}`}
       style={{ ...style }}
     >
       <View
-        className="loading-dots"
-        style={{
-          height: `${currentSize.container}px`,
-        }}
-      >
-        {[...Array(3)].map((_, index) => (
-          <View
-            key={index}
-            className="loading-dot"
-            style={{
-              width: `${currentSize.dot}px`,
-              height: `${currentSize.dot}px`,
-              backgroundColor: color,
-              margin: `0 ${currentSize.gap}px`,
-              animationDelay: `${index * 0.15}s`,
-            }}
-          />
-        ))}
-      </View>
+        className="loading-animation"
+        style={
+          {
+            width: `${60 * scale}px`,
+            "--color": color,
+            transform: `scale(${scale})`,
+          } as any
+        }
+      />
       {text && (
         <Text
           className="loading-text"
           style={{
             color,
             fontSize: `${
-              size === "small" ? 16 : size === "medium" ? 20 : 24
+              size === "small" ? 10 : size === "medium" ? 14 : 18
             }px`,
           }}
         >
