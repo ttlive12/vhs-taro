@@ -14,6 +14,7 @@ import up from "./up.svg";
 import upWhite from "./up-white.svg";
 import point from "./point.svg";
 import win from "./win.svg";
+import sort from "./sort.svg";
 
 export {
   deck,
@@ -32,4 +33,5 @@ export {
   schedule,
   point,
   win,
+  sort,
 };

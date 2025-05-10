@@ -37,9 +37,6 @@ export default function Loader() {
 
   const { data, loading } = useRequest(() => getArchetypes(mode), {
     refreshDeps: [mode],
-    onSuccess: (res) => {
-      console.log(res);
-    },
   });
 
   return (

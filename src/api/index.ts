@@ -2,6 +2,7 @@ import request from "./axios";
 import { Archetypes, Ranked } from "@/models";
 import { Mode } from "@/constants";
 import { Deck } from "@/models/deck";
+import { Mulligan } from "@/models/mulligan";
 
 /**
  * 获取卡组类型排行
@@ -15,7 +16,7 @@ export const getArchetypes = async (mode: Mode) => {
 };
 
 /**
- * 根据卡组名获取卡组
+ * 根据卡组类型获取卡组
  * @param mode 模式
  * @param archetype 卡组类型
  * @returns 卡组
@@ -23,5 +24,17 @@ export const getArchetypes = async (mode: Mode) => {
 export const getDecks = async (mode: Mode, archetype: string) => {
   return await request<Ranked<Deck[]>>(
     `/decks/getDecks?mode=${mode}&archetype=${archetype}`
+  );
+};
+
+/**
+ * 根据卡组类型获取卡组类型留牌指南
+ * @param mode 模式
+ * @param archetype 卡组类型
+ * @returns 卡组类型留牌指南
+ */
+export const getArchetypeMulligan = async (mode: Mode, archetype: string) => {
+  return await request<Ranked<Mulligan[]>>(
+    `/mulligan/getMulligan?mode=${mode}&archetype=${archetype}`
   );
 };

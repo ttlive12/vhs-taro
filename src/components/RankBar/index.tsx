@@ -10,7 +10,7 @@ interface RankBarProps {
   onRankChange?: (data: { currentType: string }) => void;
 }
 
-const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
+export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
   const { currentType, sortedDataTypes, setCurrentType, setSortedDataTypes } =
     useRankBarStore();
 
@@ -178,4 +178,3 @@ const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
   );
 };
 
-export default RankBar;

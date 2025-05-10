@@ -31,7 +31,7 @@ export function Item({ data, order }: { data: Archetypes; order: number }) {
   const handleClick = () => {
     // 跳转至卡组详情页
     Taro.navigateTo({
-      url: `/pages/archetypes/index?archetype=${name}`,
+      url: `/pages/archetypes/index?archetype=${name}&zhName=${zhName}`,
     });
   };
 

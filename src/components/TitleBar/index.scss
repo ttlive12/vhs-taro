@@ -1,0 +1,35 @@
+.title-bar {
+  margin: 30rpx 0;
+  padding: 0 30rpx;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+    margin-bottom: 12rpx;
+  }
+
+  &-icon {
+    width: 36rpx;
+    height: 36rpx;
+  }
+
+  &-title {
+    font-size: 34rpx;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &-content {
+    padding-left: 46rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 6rpx;
+    
+    text {
+      font-size: 26rpx;
+      color: rgba(0, 0, 0, 0.6);
+      line-height: 1.5;
+    }
+  }
+} 

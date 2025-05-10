@@ -30,6 +30,7 @@ const mage =
   "https://i.miji.bid/2025/05/10/bca31c1290994f4c881f1dd94f1c9ca2.png";
 const rogue =
   "https://i.miji.bid/2025/05/10/78bdb1c94c7e201899e7faff1d945cb9.png";
+const dust = "https://i.imgs.ovh/2025/05/10/vJVCY.webp";
 
 export {
   priest,
@@ -48,4 +49,5 @@ export {
   diamond1,
   diamond5,
   legend,
+  dust,
 };

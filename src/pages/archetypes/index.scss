@@ -1,3 +1,21 @@
-.mine {
-  padding: 20px;
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.archetypes-page {
+  @include page;
+}
+
+.archetypes-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: auto;
+  padding-bottom: max(env(safe-area-inset-bottom), 32px);
 }

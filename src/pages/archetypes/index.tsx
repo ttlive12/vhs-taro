@@ -1,32 +1,40 @@
-import { View, Text } from "@tarojs/components";
-import useModeStore from "@/store/mode";
-import { getDecks } from "@/api";
-import { useRequest } from "ahooks";
+import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import "./index.scss";
-import { NavigationBar } from "@/components";
-import { useRankBarStore } from "@/store/rankBar";
+import useModeStore from "@/store/mode";
+import { NavigationBar, RankBar } from "@/components";
+import RelatedDecks from "./components/RelatedDecks";
+import CardMulligans from "./components/CardMulligans";
 
-export default function Deck() {
+import "./index.scss";
+
+export default function Archetypes() {
   const { mode } = useModeStore();
-  const { currentType } = useRankBarStore();
-  const { archetype } = Taro.getCurrentInstance().router?.params || {};
-  const { data, loading } = useRequest(
-    () => getDecks(mode, archetype as string),
-    {
-      refreshDeps: [mode, archetype],
-    }
-  );
+  const { archetype, zhName } = Taro.getCurrentInstance().router?.params || {};
+
   return (
-    <View className="archetypes-container">
-      <NavigationBar title="卡组" showBack />
-      <View className="archetypes-list">
-        {data?.[currentType]?.map((item) => (
-          <View className="archetypes-item" key={item.deckId}>
-            <Text>{item.name}</Text>
-          </View>
-        ))}
+    <View className="archetypes-page">
+      {/* 卡牌预览组件 */}
+
+      {/* 导航栏 */}
+      <NavigationBar title={zhName || ""} showBack />
+
+      {/* 滚动区域 */}
+      <View className="archetypes-container">
+        {/* 分段选择条 */}
+        <RankBar />
+
+        {/* 相关卡组 */}
+        <RelatedDecks mode={mode} archetype={archetype as string} />
+
+        {/* 卡牌调度 */}
+        <CardMulligans
+          mode={mode}
+          archetype={archetype as string}
+        />
+
+        {/* 底部留白 */}
+        <View style={{ height: "100rpx" }} />
       </View>
     </View>
   );

@@ -10,6 +10,7 @@ interface LoadingProps {
   size?: "small" | "medium" | "large";
   className?: string;
   style?: CSSProperties;
+  center?: boolean;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
@@ -17,6 +18,7 @@ export const Loading: React.FC<LoadingProps> = ({
   color = "#ff9c00",
   size = "medium",
   className = "",
+  center = false,
   style = {},
 }) => {
   const sizeMap = {
@@ -40,7 +42,10 @@ export const Loading: React.FC<LoadingProps> = ({
   const currentSize = sizeMap[size];
 
   return (
-    <View className={`loading-container ${className}`} style={{ ...style }}>
+    <View
+      className={`loading-container ${center && "full"} ${className}`}
+      style={{ ...style }}
+    >
       <View
         className="loading-dots"
         style={{

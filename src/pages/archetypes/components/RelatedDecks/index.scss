@@ -1,0 +1,159 @@
+.decks {
+  padding: 16px 0;
+  white-space: nowrap;
+
+  &-item {
+    display: inline-block;
+    margin-right: 16px;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    color: $white;
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    // 为每个职业设置背景色
+    &.druid {
+      background-color: $druid;
+    }
+    &.hunter {
+      background-color: $hunter;
+    }
+    &.mage {
+      background-color: $mage;
+    }
+    &.paladin {
+      background-color: $paladin;
+    }
+    &.priest {
+      background-color: $priest;
+      color: $black;
+    } // 牧师是白色，文字用黑色
+    &.rogue {
+      background-color: $rogue;
+      color: $black;
+    } // 盗贼是黄色，文字用黑色
+    &.shaman {
+      background-color: $shaman;
+    }
+    &.warlock {
+      background-color: $warlock;
+    }
+    &.warrior {
+      background-color: $warrior;
+    }
+    &.demonhunter {
+      background-color: $demonhunter;
+    }
+    &.deathknight {
+      background-color: $deathknight;
+    }
+
+    &-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &-header {
+        display: flex;
+        align-items: center;
+        font-size: 26px;
+        padding-right: 32px;
+        margin-bottom: 20px;
+        position: relative;
+
+        .class-icon {
+          width: 50px;
+          height: 50px;
+          flex-shrink: 0;
+          margin-right: 8px;
+        }
+
+        .deck-name {
+          flex: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-weight: 400;
+          line-height: 30px;
+          font-size: 30px;
+          margin-right: auto;
+
+          .games {
+            opacity: 0.7;
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-left: 5px;
+          }
+        }
+      }
+
+      &-stats {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &-winrate {
+          display: flex;
+          align-items: baseline;
+          font-size: 36px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          margin-right: 20px;
+
+          &::before {
+            content: "胜率:";
+            font-size: 24px;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-right: 8px;
+          }
+
+          &::after {
+            content: "%";
+            font-size: 24px;
+            font-weight: 400;
+            margin-left: 2px;
+          }
+        }
+
+        &-dust {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          opacity: 0.85;
+          font-size: 26px;
+
+          .dust-icon {
+            width: 26.2px;
+            height: 37px;
+            flex-shrink: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.no-data {
+  width: 100%;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 40px;
+
+  .tip {
+    font-size: 28px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
