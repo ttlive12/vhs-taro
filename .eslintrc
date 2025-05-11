@@ -1,7 +1,68 @@
 {
   "extends": ["taro/react"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "simple-import-sort",
+    "import",
+    "unused-imports",
+    "react-hooks",
+    "@typescript-eslint"
+  ],
   "rules": {
-    "react/jsx-uses-react": "off",
+    /* —— 自动排序（启用 simple-import-sort，禁用其他排序相关规则） —— */
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // 1. React 及副作用导入
+          ["^react", "^\\u0000"],
+          // 2. 第三方依赖包
+          ["^@?\\w"],
+          // 3. 绝对别名（除 assets 之外）
+          ["^@/(?!assets)(.*)"],
+          // 4. 资产文件（images / svg / icons 等）
+          ["^@/assets(/.*|$)"],
+          // 5. 同级 & 相对路径
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // 6. 样式文件（最后一组）
+          ["^.+\\.(scss|css)$"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "import/order": "off", // 与 simple-import-sort 冲突 :contentReference[oaicite:2]{index=2}
+    "sort-imports": "off", // 与自动排序重复，仅处理成员排序，易与 plugin 冲突 :contentReference[oaicite:3]{index=3}
+    "import/first": "off", // 避免 “Absolute imports should come before relative imports” 冲突 :contentReference[oaicite:4]{index=4}
+
+    /* —— 无用代码清理 —— */
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+
+    /* —— React Hooks 规范 —— */
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    /* —— React JSX 范畴 —— */
     "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
   }
 }

@@ -1,16 +1,18 @@
-import { View, Text, Image } from "@tarojs/components";
-import { useRequest } from "ahooks";
 import { useState } from "react";
 
+import { Exchange } from "@taroify/icons";
+import { Image,Text, View } from "@tarojs/components";
+import { useRequest } from "ahooks";
+
 import { getArchetypeMulligan } from "@/api";
-import { CardFrame, TitleBar, Loading } from "@/components";
-import { useRankBarStore } from "@/store/rankBar";
+import { CardFrame, Loading,TitleBar } from "@/components";
 import { Mode } from "@/constants";
+import { useRankBarStore } from "@/store/rankBar";
+import { createColorFn } from "@/utils";
+
+import { sort } from "@/assets/svg";
 
 import "./index.scss";
-import { createColorFn } from "@/utils";
-import { sort } from "@/assets/svg";
-import { Exchange } from "@taroify/icons";
 
 interface CardMulligansProps {
   mode: Mode;
@@ -70,30 +72,30 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   // 渲染卡片内容
   const renderCardContent = () => {
     if (loading) {
-      return <Loading size="small" style={{ margin: "100px 0" }} />;
+      return <Loading size='small' style={{ margin: "100px 0" }} />;
     }
 
     if (!data?.[currentType] || data[currentType].length === 0) {
       return (
-        <View className="no-data">
+        <View className='no-data'>
           <Text>暂无数据</Text>
           {data && Object.values(data).flat().length > 0 ? (
-            <View className="tip">您可以选择切换分段查看相关数据</View>
+            <View className='tip'>您可以选择切换分段查看相关数据</View>
           ) : (
-            <View className="tip">当前卡组样本量小，以后再来查看吧</View>
+            <View className='tip'>当前卡组样本量小，以后再来查看吧</View>
           )}
         </View>
       );
     }
 
     return (
-      <View className="cards">
-        <View className="cards-header">
-          <View className="sort-header" style={{ gridColumn: 1 }}>
+      <View className='cards'>
+        <View className='cards-header'>
+          <View className='sort-header' style={{ gridColumn: 1 }}>
             <Text>卡牌</Text>
           </View>
           <View
-            className="sort-header"
+            className='sort-header'
             style={{ gridColumn: 2 }}
             onClick={() => handleSort("mulliganImpact")}
           >
@@ -110,7 +112,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             />
           </View>
           <View
-            className="sort-header"
+            className='sort-header'
             style={{ gridColumn: 3 }}
             onClick={() => handleSort("drawnImpact")}
           >
@@ -127,7 +129,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             />
           </View>
           <View
-            className="sort-header"
+            className='sort-header'
             style={{ gridColumn: 4 }}
             onClick={() => handleSort("keptImpact")}
           >
@@ -146,8 +148,8 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
         </View>
 
         {sortedData.map((item) => (
-          <View className="cards-item" key={item.id}>
-            <View className="cards-item-card" style={{ gridColumn: 1 }}>
+          <View className='cards-item' key={item.id}>
+            <View className='cards-item-card' style={{ gridColumn: 1 }}>
               <CardFrame
                 cardId={item.id}
                 cost={item.cost}
@@ -186,12 +188,12 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   };
 
   return (
-    <View className="card-mulligans">
+    <View className='card-mulligans'>
       <TitleBar
-        className="card-mulligans-title-bar"
-        title="调度建议"
+        className='card-mulligans-title-bar'
+        title='调度建议'
         icon={<Exchange size={18} />}
-        tips="各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）"
+        tips='各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）'
       />
       {renderCardContent()}
     </View>

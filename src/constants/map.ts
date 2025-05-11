@@ -1,17 +1,43 @@
-import { Class } from "./enums";
 import {
-  priest,
+  deathknight,
+  demonhunter,
+  druid,
   hunter,
   mage,
   paladin,
+  priest,
   rogue,
   shaman,
   warlock,
   warrior,
-  demonhunter,
-  deathknight,
-  druid,
 } from "@/assets";
+
+import { Class } from "./enums";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const classNameMap = {
   [Class.DRUID]: "德鲁伊",

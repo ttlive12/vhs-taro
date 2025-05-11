@@ -1,13 +1,15 @@
-import { View, Image } from "@tarojs/components";
+import { Image,View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
+
 import { useTabBarStore } from "@/store/tabBar";
+
 import {
-  rank,
-  rankActive,
-  discover,
-  discoverActive,
   deck,
   deckActive,
+  discover,
+  discoverActive,
+  rank,
+  rankActive,
 } from "@/assets";
 
 import "./index.scss";
@@ -53,7 +55,7 @@ const Index = () => {
   };
 
   return (
-    <View className="tab-capsule">
+    <View className='tab-capsule'>
       {tabBarList.map((item) => {
         const isActive = item.index === currentIndex;
         return (

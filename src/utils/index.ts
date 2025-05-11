@@ -1,7 +1,8 @@
-export * from "./sleep";
-export * from "./color";
 import { Rank } from "@/constants/enums";
 import { Archetypes } from "@/models";
+
+export * from "./color";
+export * from "./sleep";
 
 /**
  * 计算卡组综合得分

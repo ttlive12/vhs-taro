@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
-import { View, Text, Image, ScrollView } from "@tarojs/components";
+
+import { Image, ScrollView,Text, View } from "@tarojs/components";
 import Taro, { nextTick } from "@tarojs/taro";
-import { useRankBarStore } from "@/store/rankBar";
+
 import { Rank } from "@/constants";
+import { useRankBarStore } from "@/store/rankBar";
 
 import "./index.scss";
 
@@ -150,9 +152,9 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
       scrollX={!isDragging}
       enhanced
       showScrollbar={false}
-      className="rank-bar-container"
+      className='rank-bar-container'
     >
-      <View className="spacer" />
+      <View className='spacer' />
       {sortedDataTypes.map((item, index) => (
         <View
           key={item.id}
@@ -164,11 +166,11 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
           onTouchEnd={isDragging ? handleTouchEnd : undefined}
           onTouchCancel={isDragging ? handleTouchEnd : undefined}
         >
-          <View className="type-item-inner">
+          <View className='type-item-inner'>
             <Image
-              className="type-item-inner-img"
+              className='type-item-inner-img'
               src={item.url}
-              mode="aspectFit"
+              mode='aspectFit'
             />
             <Text>{item.name}</Text>
           </View>

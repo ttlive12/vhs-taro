@@ -1,27 +1,28 @@
 import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import useModeStore from "@/store/mode";
 import { NavigationBar, RankBar } from "@/components";
-import RelatedDecks from "./components/RelatedDecks";
+import CardPreview from "@/components/CardPreview";
+import useModeStore from "@/store/mode";
+
 import CardMulligans from "./components/CardMulligans";
+import RelatedDecks from "./components/RelatedDecks";
 
 import "./index.scss";
-import CardPreview from "@/components/CardPreview";
 
 export default function Archetypes() {
   const { mode } = useModeStore();
   const { archetype, zhName } = Taro.getCurrentInstance().router?.params || {};
 
   return (
-    <View className="archetypes-page">
+    <View className='archetypes-page'>
       {/* 卡牌预览组件 */}
       <CardPreview />
       {/* 导航栏 */}
       <NavigationBar title={zhName || ""} showBack />
 
       {/* 滚动区域 */}
-      <View className="archetypes-container">
+      <View className='archetypes-container'>
         {/* 分段选择条 */}
         <RankBar />
 

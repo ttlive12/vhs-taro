@@ -1,5 +1,7 @@
-import { View, Text, Image } from "@tarojs/components";
+import { Image,Text, View } from "@tarojs/components";
+
 import { useCardPreviewStore } from "../../store/cardPreviewStore";
+
 import "./index.scss";
 
 interface CardFrameProps {
@@ -32,8 +34,8 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   };
 
   return (
-    <View className="card" onClick={handleTap}>
-      <View className="card-name">
+    <View className='card' onClick={handleTap}>
+      <View className='card-name'>
         <Text>{cost}</Text>
         <Text>{name}</Text>
         {back && (
@@ -42,12 +44,12 @@ export const CardFrame: React.FC<CardFrameProps> = ({
           </Text>
         )}
       </View>
-      <View className="card-frame">
+      <View className='card-frame'>
         <View className={`card-frame-countbox ${rarity}`} />
         <Image
-          className="card-frame-image"
+          className='card-frame-image'
           src={`https://art.hearthstonejson.com/v1/tiles/${cardId}.webp`}
-          mode="aspectFill"
+          mode='aspectFill'
           lazyLoad
         />
       </View>

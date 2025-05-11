@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 
-import { View, Text, Image } from "@tarojs/components";
+import { Image,Text, View } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+
 import { Archetypes } from "@/models";
-import { point } from "@/assets";
 import { createColorFn } from "@/utils";
 
+import { point } from "@/assets";
+
 import "./index.scss";
-import Taro from "@tarojs/taro";
 
 export function Item({ data, order }: { data: Archetypes; order: number }) {
   const {
@@ -36,26 +38,26 @@ export function Item({ data, order }: { data: Archetypes; order: number }) {
   };
 
   return (
-    <View className="item" onClick={handleClick}>
-      <Text className="item-index">{order + 1}</Text>
+    <View className='item' onClick={handleClick}>
+      <Text className='item-index'>{order + 1}</Text>
       <Text className={`item-name ${heroClass}`}>{zhName}</Text>
-      <View className="item-container">
-        <Text className="item-subtitle">热度</Text>
-        <Text className="item-text">{popularityPercent}%</Text>
+      <View className='item-container'>
+        <Text className='item-subtitle'>热度</Text>
+        <Text className='item-text'>{popularityPercent}%</Text>
       </View>
-      <View className="item-container" style="margin-left: 15rpx">
-        <Text className="item-subtitle">上分速度/时</Text>
-        <Text className="item-text" style={{ color: climbingSpeedColor }}>
+      <View className='item-container' style='margin-left: 15rpx'>
+        <Text className='item-subtitle'>上分速度/时</Text>
+        <Text className='item-text' style={{ color: climbingSpeedColor }}>
           {climbingSpeed}⭐
         </Text>
       </View>
-      <View className="item-container">
-        <Text className="item-subtitle">胜率</Text>
-        <Text className="item-text" style={{ color: winrateColor }}>
+      <View className='item-container'>
+        <Text className='item-subtitle'>胜率</Text>
+        <Text className='item-text' style={{ color: winrateColor }}>
           {winrate}%
         </Text>
       </View>
-      <Image className="item-img" src={point} />
+      <Image className='item-img' src={point} />
     </View>
   );
 }

@@ -1,6 +1,7 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import Taro from "@tarojs/taro";
+import { create } from "zustand";
+import { createJSONStorage,persist } from "zustand/middleware";
+
 import { Mode } from "@/constants";
 
 interface ModeStore {

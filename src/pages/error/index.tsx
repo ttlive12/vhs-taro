@@ -1,11 +1,13 @@
-import Taro, { useRouter } from "@tarojs/taro";
 import React, { useEffect, useState } from "react";
-import { View, Text } from "@tarojs/components";
+
 import { Button, Empty } from "@taroify/core";
+import { Text,View } from "@tarojs/components";
+import Taro, { useRouter } from "@tarojs/taro";
+import { AxiosError } from "axios";
+
 import { AxiosErrorNameMap } from "@/constants/error";
 
 import "./index.scss";
-import { AxiosError } from "axios";
 
 const ErrorPage: React.FC = () => {
   const router = useRouter();
@@ -39,17 +41,17 @@ const ErrorPage: React.FC = () => {
   const isNetworkError = errorInfo.code === AxiosError.ERR_NETWORK;
 
   return (
-    <View className="error-page">
-      <View className="error-content">
+    <View className='error-page'>
+      <View className='error-content'>
         <Empty>
           <Empty.Image src={isNetworkError ? "network" : "error"} />
           <Empty.Description>{errorInfo.description}</Empty.Description>
           {errorInfo.message && (
-            <Text className="error-message">{errorInfo.message}</Text>
+            <Text className='error-message'>{errorInfo.message}</Text>
           )}
 
-          <View className="error-actions">
-            <Button className="home-btn" color="primary" onClick={handleGoHome}>
+          <View className='error-actions'>
+            <Button className='home-btn' color='primary' onClick={handleGoHome}>
               重新加载
             </Button>
           </View>

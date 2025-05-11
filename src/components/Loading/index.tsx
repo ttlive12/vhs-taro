@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text } from "@tarojs/components";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
+
+import { Text,View } from "@tarojs/components";
 
 import "./index.scss";
+
 
 interface LoadingProps {
   text?: string;
@@ -42,7 +43,7 @@ export const Loading: React.FC<LoadingProps> = ({
       style={{ ...style }}
     >
       <View
-        className="loading-animation"
+        className='loading-animation'
         style={
           {
             width: `${60 * scale}px`,
@@ -53,7 +54,7 @@ export const Loading: React.FC<LoadingProps> = ({
       />
       {text && (
         <Text
-          className="loading-text"
+          className='loading-text'
           style={{
             color,
             fontSize: `${

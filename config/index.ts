@@ -1,6 +1,8 @@
-import path from "path";
 import { defineConfig, type UserConfigExport } from "@tarojs/cli";
+import path from "path";
+// eslint-disable-next-line import/no-named-as-default
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+
 import devConfig from "./dev";
 import prodConfig from "./prod";
 
@@ -34,7 +36,7 @@ export default defineConfig<"webpack5">(async (merge) => {
       },
     },
     cache: {
-      enable: false, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+      enable: true, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },
     mini: {
       optimizeMainPackage: {
@@ -52,6 +54,9 @@ export default defineConfig<"webpack5">(async (merge) => {
             generateScopedName: "[name]__[local]___[hash:base64:5]",
           },
         },
+      },
+      miniCssExtractPluginOption: {
+        ignoreOrder: true,
       },
       webpackChain(chain) {
         chain.resolve.plugin("tsconfig-paths").use(TsconfigPathsPlugin);

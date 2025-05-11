@@ -1,9 +1,35 @@
-import request from "./axios";
-import { Archetypes, Ranked } from "@/models";
 import { Mode } from "@/constants";
+import { Archetypes, Ranked } from "@/models";
 import { Deck } from "@/models/deck";
-import { Mulligan } from "@/models/mulligan";
 import { Opponent } from "@/models/detail";
+import { Mulligan } from "@/models/mulligan";
+
+import request from "./axios";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * 获取卡组类型排行

@@ -1,8 +1,10 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import Taro from "@tarojs/taro";
+import { create } from "zustand";
+import { createJSONStorage,persist } from "zustand/middleware";
+
 import { Rank } from "@/constants";
-import { legend, diamond1, diamond5 } from "@/assets/image";
+
+import { diamond1, diamond5, legend } from "@/assets/image";
 
 // 定义数据类型接口
 export interface RankType {

@@ -1,6 +1,6 @@
-import { View, Text } from "@tarojs/components";
-import { QuestionOutlined } from "@taroify/icons";
 import { Dialog } from "@taroify/core";
+import { QuestionOutlined } from "@taroify/icons";
+import { Text,View } from "@tarojs/components";
 
 import "./index.scss";
 
@@ -26,10 +26,10 @@ export const TitleBar: React.FC<TitleBarProps> = ({
   };
   return (
     <View className={`title-bar ${className}`}>
-      <View className="title-bar-icon">{icon}</View>
-      {title && <Text className="title-bar-title">{title}</Text>}
+      <View className='title-bar-icon'>{icon}</View>
+      {title && <Text className='title-bar-title'>{title}</Text>}
       {tips && (
-        <View className="title-bar-tips" onClick={handleTips}>
+        <View className='title-bar-tips' onClick={handleTips}>
           <QuestionOutlined size={13} />
         </View>
       )}
