@@ -1,3 +1,5 @@
+import { Rarity } from "@/constants/enums";
+
 export interface Card {
   /**
    * 卡牌ID
@@ -21,7 +23,12 @@ export interface Card {
   /**
    * 卡牌稀有度
    */
-  rarity: string;
+  rarity: Rarity;
+
+  /**
+   * 卡牌数量
+   */
+  count?: number;
 }
 
 export interface Deck {

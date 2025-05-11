@@ -113,6 +113,7 @@ const DeckDetail: FC = () => {
                 cost={item.cost}
                 name={item.name}
                 rarity={item.rarity}
+                count={item.count}
               />
             ))}
           </View>

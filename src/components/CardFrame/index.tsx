@@ -1,4 +1,8 @@
-import { Image,Text, View } from "@tarojs/components";
+import { useMemo } from "react";
+
+import { Image, Text, View } from "@tarojs/components";
+
+import { Rarity } from "@/constants/enums";
 
 import { useCardPreviewStore } from "../../store/cardPreviewStore";
 
@@ -8,8 +12,8 @@ interface CardFrameProps {
   cardId: string;
   cost: number;
   name: string;
-  rarity: string;
-  back?: string;
+  rarity: Rarity;
+  count?: number;
   onClick?: (cardId: string) => void;
 }
 
@@ -18,7 +22,7 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   cost,
   name,
   rarity,
-  back = "",
+  count,
   onClick,
 }) => {
   const { setCardPreview } = useCardPreviewStore();
@@ -26,19 +30,29 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   const handleTap = () => {
     // Show card preview
     setCardPreview(cardId);
-    
+
     // Also call the original onClick if provided
     if (onClick) {
       onClick(cardId);
     }
   };
 
+  const back = useMemo(() => {
+    if (rarity === Rarity.LEGENDARY) {
+      return "⋆";
+    }
+    if (count === 1) {
+      return "";
+    }
+    return count;
+  }, [rarity, count]);
+
   return (
     <View className='card' onClick={handleTap}>
       <View className='card-name'>
         <Text>{cost}</Text>
         <Text>{name}</Text>
-        {back && (
+        {count && (
           <Text className={`card-name-back ${back === "⋆" ? "legend" : ""}`}>
             {back}
           </Text>
