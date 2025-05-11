@@ -14,7 +14,6 @@ import useModeStore from "@/store/mode";
 import { RankType, useRankTypeStore } from "@/store/rankType";
 
 import { standard, wild } from "@/assets/image";
-import { rankBlack } from "@/assets/svg";
 
 import { TitleBar } from "../TitleBar";
 
@@ -77,7 +76,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
         <View className='setting-item full-width'>
           <TitleBar
             title='排行榜设置'
-            icon={<Image src={rankBlack} mode='aspectFit' />}
+            icon={<Icon classPrefix='icon' name='rank' color='#333333' size={20} />}
           />
 
           <View className='setting-body'>

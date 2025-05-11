@@ -1,0 +1,42 @@
+.icon {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-hot::before {
+  content: "\e619";
+}
+
+.icon-up::before {
+  content: "\e674";
+}
+
+.icon-rank::before {
+  content: "\e722";
+}
+
+.icon-deck::before {
+  content: "\e679";
+}
+
+.icon-discover::before {
+  content: "\e8af";
+}
+
+.icon-switch::before {
+  content: "\e647";
+}
+
+.icon-wave::before {
+  content: "\e61a";
+}
+
+.icon-setting::before {
+  content: "\e679";
+}
+
+.icon-win::before {
+  content: "\e603";
+}

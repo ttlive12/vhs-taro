@@ -1,12 +1,13 @@
 import { FC, useMemo, useState } from "react";
 
+import { ArrowLeft } from "@taroify/icons";
 import { Image, Text, View } from "@tarojs/components";
 import Taro, { getSystemInfoSync } from "@tarojs/taro";
 
 import { Mode } from "@/constants";
 import useModeStore from "@/store/mode";
 
-import { back, logo, setting } from "@/assets";
+import { logo, setting } from "@/assets";
 
 import SettingPopup from "../SettingPopup";
 
@@ -71,14 +72,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       >
         <View className='navigation-bar-content'>
           <View className='navigation-bar-left'>
-            {showBack && (
-              <Image
-                onClick={handleBackClick}
-                className='navigation-bar-back'
-                src={back}
-                mode='aspectFit'
-              />
-            )}
+            {showBack && <ArrowLeft onClick={handleBackClick} size={20} />}
 
             {showLogo && !showBack && (
               <Image

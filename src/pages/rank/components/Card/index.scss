@@ -101,6 +101,14 @@
           width: 38px;
           height: 38px;
           flex-shrink: 0;
+          font-size: 38px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &.icon-light {
+            color: $white;
+          }
         }
 
         .stat-details {

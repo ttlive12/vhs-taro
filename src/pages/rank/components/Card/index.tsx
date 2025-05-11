@@ -1,10 +1,11 @@
-import { Image,Text, View } from "@tarojs/components";
+import { Icon } from "@taroify/icons";
+import { Image, Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
 import { classImageMap } from "@/constants/map";
 import { Archetypes } from "@/models";
 
-import { hot, hotWhite, no1, no2,up, upWhite, win } from "@/assets";
+import { no1, no2, win } from "@/assets";
 
 import "./index.scss";
 
@@ -33,10 +34,8 @@ export function Card({
 
   const rankIcon = getRankIcon();
 
-  // 根据职业类型选择不同的图标颜色
+  // 根据职业类型判断背景色深浅
   const isLightBackground = heroClass === "priest" || heroClass === "rogue";
-  const hotIcon = isLightBackground ? hot : hotWhite;
-  const upIcon = isLightBackground ? up : upWhite;
 
   const handleClick = () => {
     // 跳转至卡组详情页
@@ -64,7 +63,11 @@ export function Card({
       <View className='card-body'>
         <View className='card-body-left'>
           <View className='stat-item'>
-            <Image className='stat-icon' src={hotIcon} mode='aspectFit' />
+            <Icon
+              classPrefix='icon'
+              name='hot'
+              className={`stat-icon ${isLightBackground ? '' : 'icon-light'}`}
+            />
             <View className='stat-details'>
               <Text className='stat-label'>热度</Text>
               <Text className='stat-value'>
@@ -74,7 +77,11 @@ export function Card({
           </View>
 
           <View className='stat-item'>
-            <Image className='stat-icon' src={upIcon} mode='aspectFit' />
+            <Icon
+              classPrefix='icon'
+              name='up'
+              className={`stat-icon ${isLightBackground ? '' : 'icon-light'}`}
+            />
             <View className='stat-details'>
               <Text className='stat-label'>上分速度</Text>
               <Text className='stat-value'>{climbingSpeed.toFixed(2)}⭐</Text>

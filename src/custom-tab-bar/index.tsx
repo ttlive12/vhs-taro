@@ -1,16 +1,8 @@
-import { Image,View } from "@tarojs/components";
+import { Icon } from "@taroify/icons";
+import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
 import { useTabBarStore } from "@/store/tabBar";
-
-import {
-  deck,
-  deckActive,
-  discover,
-  discoverActive,
-  rank,
-  rankActive,
-} from "@/assets";
 
 import "./index.scss";
 
@@ -18,8 +10,7 @@ export interface TabItem {
   index: number;
   text: string;
   pagePath: string;
-  iconPath: string;
-  selectedIconPath: string;
+  iconName: string;
 }
 
 export const tabBarList: TabItem[] = [
@@ -27,22 +18,19 @@ export const tabBarList: TabItem[] = [
     index: 0,
     text: "排行榜",
     pagePath: "/pages/rank/index",
-    iconPath: rank,
-    selectedIconPath: rankActive,
+    iconName: "rank",
   },
   {
     index: 1,
     text: "卡组",
     pagePath: "/pages/decks/index",
-    iconPath: deck,
-    selectedIconPath: deckActive,
+    iconName: "deck",
   },
   {
     index: 2,
     text: "发现",
     pagePath: "/pages/discover/index",
-    iconPath: discover,
-    selectedIconPath: discoverActive,
+    iconName: "discover",
   },
 ];
 
@@ -66,11 +54,13 @@ const Index = () => {
             onClick={() => switchTab(item)}
             key={item.index}
           >
-            <Image
-              src={isActive ? item?.selectedIconPath : item?.iconPath}
-              className={`tab-capsule-item-img ${
-                isActive ? "tab-capsule-item-img-active" : ""
+            <Icon
+              classPrefix='icon'
+              name={item.iconName}
+              className={`tab-capsule-item-icon ${
+                isActive ? "tab-capsule-item-icon-active" : ""
               }`}
+              size={22}
             />
             <View
               className={`tab-capsule-item-text ${
