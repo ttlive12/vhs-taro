@@ -1,3 +1,24 @@
 .mine {
   padding: 20px;
 }
+
+.decks-page {
+  @include page;
+
+  .waterfall-wrapper {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    .waterfall {
+      width: 100%;
+      box-sizing: border-box;
+      gap: 15px;
+      padding: 0 10px;
+    }
+  }
+
+  .waterfall-bottom {
+    text-align: center;
+    padding-bottom: max(env(safe-area-inset-bottom) + 130px, 162px);
+  }
+}

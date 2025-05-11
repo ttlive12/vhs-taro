@@ -1,0 +1,110 @@
+.deck-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  margin-bottom: 16px;
+
+  // 为每个职业设置背景色
+  &.druid {
+    background-color: $druid;
+    color: $white;
+  }
+  &.hunter {
+    background-color: $hunter;
+    color: $white;
+  }
+  &.mage {
+    background-color: $mage;
+    color: $white;
+  }
+  &.paladin {
+    background-color: $paladin;
+    color: $white;
+  }
+  &.priest {
+    background-color: $priest;
+    color: $black;
+  } // 牧师是白色，文字用黑色
+  &.rogue {
+    background-color: $rogue;
+    color: $black;
+  } // 盗贼是黄色，文字用黑色
+  &.shaman {
+    background-color: $shaman;
+    color: $white;
+  }
+  &.warlock {
+    background-color: $warlock;
+    color: $white;
+  }
+  &.warrior {
+    background-color: $warrior;
+    color: $white;
+  }
+  &.demonhunter {
+    background-color: $demonhunter;
+    color: $white;
+  }
+  &.deathknight {
+    background-color: $deathknight;
+    color: $white;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    &-left {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+
+    .deck-name {
+      flex: 1;
+      line-height: 48px;
+      font-size: 32px;
+      font-weight: 500;
+    }
+  }
+
+  &-body {
+    display: flex;
+    padding: 0 10px 10px;
+
+    .stats {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      font-size: 28px;
+      line-height: 32px;
+
+      .winrate {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .legendary-cards {
+    display: flex;
+    flex-direction: column;
+  }
+}

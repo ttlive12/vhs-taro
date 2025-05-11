@@ -1,5 +1,9 @@
 .deck-detail-page {
-  @include page;
+  min-height: 100vh;
+
+  .deck-detail-content {
+    padding: 16px;
+  }
 }
 
 .deck-detail-container {

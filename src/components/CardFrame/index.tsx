@@ -14,6 +14,7 @@ interface CardFrameProps {
   name: string;
   rarity: Rarity;
   count?: number;
+  triggerCardPreview?: boolean;
   onClick?: (cardId: string) => void;
 }
 
@@ -24,14 +25,14 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   rarity,
   count,
   onClick,
+  triggerCardPreview = true,
 }) => {
   const { setCardPreview } = useCardPreviewStore();
 
   const handleTap = () => {
-    // Show card preview
-    setCardPreview(cardId);
-
-    // Also call the original onClick if provided
+    if (triggerCardPreview) {
+      setCardPreview(cardId);
+    }
     if (onClick) {
       onClick(cardId);
     }
@@ -48,8 +49,8 @@ export const CardFrame: React.FC<CardFrameProps> = ({
   }, [rarity, count]);
 
   return (
-    <View className='card' onClick={handleTap}>
-      <View className='card-name'>
+    <View className="card" onClick={handleTap}>
+      <View className="card-name">
         <Text>{cost}</Text>
         <Text>{name}</Text>
         {count && (
@@ -58,12 +59,12 @@ export const CardFrame: React.FC<CardFrameProps> = ({
           </Text>
         )}
       </View>
-      <View className='card-frame'>
+      <View className="card-frame">
         <View className={`card-frame-countbox ${rarity}`} />
         <Image
-          className='card-frame-image'
+          className="card-frame-image"
           src={`https://art.hearthstonejson.com/v1/tiles/${cardId}.webp`}
-          mode='aspectFill'
+          mode="aspectFill"
           lazyLoad
         />
       </View>

@@ -4,6 +4,7 @@ import { Icon, ShareOutlined } from "@taroify/icons";
 import { Image,Text, View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { useRequest } from "ahooks";
+import { getCurrentInstance } from "@tarojs/taro";
 
 import { getDeckDetail } from "@/api";
 import { CardFrame, Loading, NavigationBar, RankBar } from "@/components";
@@ -31,18 +32,29 @@ const DeckDetail: FC = () => {
   const { currentType } = useRankBarStore();
   const { mode } = useModeStore();
   const getWinrateColor = useMemo(() => createColorFn(80), []);
+  const [deckId, setDeckId] = useState<string>("");
+  
+  // 从路由参数获取deckId
+  useEffect(() => {
+    const instance = getCurrentInstance();
+    const params = instance.router?.params;
+    
+    if (params && params.deckId) {
+      setDeckId(params.deckId);
+    }
+  }, []);
+  
+  // 获取卡组详情数据
+  const { data: deckDetails, loading } = useRequest(
+    () => getDeckDetail(mode, deckId),
+    {
+      refreshDeps: [mode, deckId],
+      ready: !!deckId,
+    }
+  );
 
   // 从缓存获取卡组数据
   const [deckData, setDeckData] = useState<Deck | null>(null);
-
-  // 获取卡组详情数据
-  const { data: deckDetails, loading } = useRequest(
-    () => getDeckDetail(mode, deckData!.deckId),
-    {
-      ready: !!deckData?.deckId,
-      refreshDeps: [mode, deckData?.deckId],
-    }
-  );
 
   // 对卡牌进行排序：优先按费用从小到大，相同费用按稀有度排序
   const sortedCards = useMemo(() => {
