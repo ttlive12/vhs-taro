@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# 确保使用Node.js 22版本
+export NODE_OPTIONS="--no-warnings"
+
+# 使用nvm来切换到Node.js 22版本 (如果系统中有nvm)
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+  . "$HOME/.nvm/nvm.sh"
+  nvm use 22 || nvm use node
+fi
+
+# 使用lint-staged运行eslint检查
+npx lint-staged

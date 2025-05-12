@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+
 import { View } from "@tarojs/components";
 import { VirtualWaterfall } from "@tarojs/components-advanced";
 import { useRequest } from "ahooks";
@@ -8,6 +9,7 @@ import { Loading, NavigationBar, RankBar } from "@/components";
 import { Deck } from "@/models/deck";
 import useModeStore from "@/store/mode";
 import { useRankBarStore } from "@/store/rankBar";
+import useSystemInfoStore from "@/store/systemInfo";
 
 import { Card } from "./components/Card";
 
@@ -26,7 +28,7 @@ const estimateItemSize = (data: Deck[], index?: number) => {
   return 60 + legendaryCount * 24.67;
 };
 
-const Row = React.memo(
+const Row = memo(
   ({ id, index, data }: { id: string; index: number; data: Deck[] }) => {
     return <Card key={id} data={data[index]} />;
   }
@@ -34,6 +36,7 @@ const Row = React.memo(
 
 export default function Decks() {
   const mode = useModeStore((state) => state.mode);
+  const { safeArea } = useSystemInfoStore();
   const { currentType } = useRankBarStore((state) => state);
   const [pageCache, setPageCache] = useState<Record<string, number>>({});
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -102,7 +105,6 @@ export default function Decks() {
 
   // 加载更多
   const loadMore = useCallback(() => {
-    console.log("load more");
     if (!hasMore || loading) return;
 
     setPageCache((prev) => ({
@@ -112,17 +114,17 @@ export default function Decks() {
   }, [hasMore, loading, currentType]);
 
   return (
-    <View className="decks-page">
-      <View className="waterfall-wrapper">
-        <NavigationBar title="推荐卡组" showLogo />
+    <View className='decks-page'>
+      <View className='waterfall-wrapper'>
+        <NavigationBar title='推荐卡组' showLogo />
         <RankBar />
         {currentData && currentData.length > 0 && (
           <VirtualWaterfall
             id={currentType}
             key={currentType}
-            className="waterfall"
-            height="calc(100vh - 44px)"
-            width="100%"
+            className='waterfall'
+            height={`calc(100vh - 44px - 70px - ${safeArea.top}px)`}
+            width='100%'
             item={Row}
             itemData={currentData}
             itemCount={currentData.length}
@@ -131,7 +133,7 @@ export default function Decks() {
             column={2}
             placeholderCount={20}
             renderBottom={() => (
-              <View className="waterfall-bottom">
+              <View className='waterfall-bottom'>
                 {loading ? <Loading /> : hasMore ? "" : "已经到底啦~"}
               </View>
             )}

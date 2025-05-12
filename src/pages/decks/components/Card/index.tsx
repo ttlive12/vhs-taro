@@ -1,12 +1,12 @@
 import { Image, Text, View } from "@tarojs/components";
-import { Deck } from "@/models/deck";
+import Taro from "@tarojs/taro";
+
 import { CardFrame } from "@/components/CardFrame";
 import { Class, Rarity } from "@/constants/enums";
 import { classImageMap } from "@/constants/map";
+import { Deck } from "@/models/deck";
 
 import "./index.scss";
-import Taro from "@tarojs/taro";
-import { TextEllipsis } from "@taroify/core";
 
 interface CardProps {
   data: Deck;
@@ -26,25 +26,25 @@ export const Card: React.FC<CardProps> = ({ data }) => {
 
   return (
     <View className={`deck-card ${data.class}`} onClick={handleTap}>
-      <View className="deck-card-header">
-        <View className="deck-card-header-left">
+      <View className='deck-card-header'>
+        <View className='deck-card-header-left'>
           <Image
-            className="hero-image"
+            className='hero-image'
             src={classImageMap[data.class as Class]}
-            mode="aspectFill"
+            mode='aspectFill'
           />
-          <Text className="ellipsis deck-name">{data.zhName}</Text>
+          <Text className='ellipsis deck-name'>{data.zhName}</Text>
         </View>
       </View>
 
-      <View className="deck-card-body">
-        <View className="stats">
-          <Text className="winrate">{data.winrate.toFixed(1)}%</Text>
-          <Text className="games">{data.games}场</Text>
+      <View className='deck-card-body'>
+        <View className='stats'>
+          <Text className='winrate'>{data.winrate.toFixed(1)}%</Text>
+          <Text className='games'>{data.games}场</Text>
         </View>
       </View>
 
-      <View className="legendary-cards">
+      <View className='legendary-cards'>
         {legendaryCards.map((card) => (
           <CardFrame
             key={card.id}

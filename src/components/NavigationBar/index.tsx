@@ -1,11 +1,12 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 
 import { ArrowLeft } from "@taroify/icons";
 import { Image, Text, View } from "@tarojs/components";
-import Taro, { getSystemInfoSync } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 
 import { Mode } from "@/constants";
 import useModeStore from "@/store/mode";
+import useSystemInfoStore from "@/store/systemInfo";
 
 import { logo, setting } from "@/assets";
 
@@ -29,14 +30,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
   showSetting = true,
 }) => {
   // 获取系统信息，适配状态栏高度
-  const systemInfo = useMemo(() => {
-    try {
-      return getSystemInfoSync();
-    } catch (e) {
-      console.error("获取系统信息失败", e);
-      return { statusBarHeight: 20, platform: "ios" };
-    }
-  }, []);
+  const { safeArea } = useSystemInfoStore();
 
   // 获取模式
   const mode = useModeStore((state) => state.mode);
@@ -67,7 +61,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       <View
         className={`navigation-bar ${className}`}
         style={{
-          paddingTop: `${systemInfo.statusBarHeight}px`,
+          paddingTop: `${safeArea.top}px`,
         }}
       >
         <View className='navigation-bar-content'>

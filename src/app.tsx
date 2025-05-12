@@ -2,11 +2,13 @@ import { PropsWithChildren } from "react";
 
 import Taro, { useLaunch } from "@tarojs/taro";
 
+import useSystemInfoStore from "@/store/systemInfo";
+
 import "./app.scss";
 
 function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
-    console.log("App launched.");
+    useSystemInfoStore.getState().fetchSystemInfo();
   });
 
   Taro.loadFontFace({

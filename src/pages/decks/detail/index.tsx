@@ -2,9 +2,8 @@ import { FC, useEffect, useMemo,useState } from "react";
 
 import { Icon, ShareOutlined } from "@taroify/icons";
 import { Image,Text, View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import Taro, { getCurrentInstance } from "@tarojs/taro";
 import { useRequest } from "ahooks";
-import { getCurrentInstance } from "@tarojs/taro";
 
 import { getDeckDetail } from "@/api";
 import { CardFrame, Loading, NavigationBar, RankBar } from "@/components";

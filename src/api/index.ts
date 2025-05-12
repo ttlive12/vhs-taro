@@ -1,11 +1,11 @@
 import { Mode } from "@/constants";
 import { Archetypes, Ranked } from "@/models";
+import { QueryDeckResponse, QueryDecks } from "@/models/api";
 import { Deck } from "@/models/deck";
 import { Opponent } from "@/models/detail";
 import { Mulligan } from "@/models/mulligan";
 
 import request from "./axios";
-import { QueryDeckResponse, QueryDecks } from "@/models/api";
 
 /**
  * 获取卡组类型排行
