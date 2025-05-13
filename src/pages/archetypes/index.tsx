@@ -19,7 +19,7 @@ export default function Archetypes() {
       {/* 卡牌预览组件 */}
       <CardPreview />
       {/* 导航栏 */}
-      <NavigationBar title={zhName || ""} showBack />
+      <NavigationBar title={zhName ?? ""} showBack showSetting={false} />
 
       {/* 滚动区域 */}
       <View className='archetypes-container'>
@@ -27,10 +27,10 @@ export default function Archetypes() {
         <RankBar />
 
         {/* 相关卡组 */}
-        <RelatedDecks mode={mode} archetype={archetype as string} />
+        <RelatedDecks mode={mode} archetype={archetype!} />
 
         {/* 卡牌调度 */}
-        <CardMulligans mode={mode} archetype={archetype as string} />
+        <CardMulligans mode={mode} archetype={archetype!} />
 
         {/* 底部留白 */}
         <View style={{ height: "100rpx" }} />

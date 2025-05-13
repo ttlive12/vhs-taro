@@ -173,7 +173,7 @@ const DeckDetail: FC = () => {
   return (
     <View className='deck-detail-page'>
       <CardPreview />
-      <NavigationBar title='卡组详情' showBack />
+      <NavigationBar title='卡组详情' showBack showSetting={false} />
       <RankBar />
       {renderContent()}
       <View className='copy-button' onClick={handleCopy}>
