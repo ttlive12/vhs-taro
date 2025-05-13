@@ -21,6 +21,7 @@ export enum Class {
   NEUTRAL = 'neutral',
   WHIZBANG = 'whizbang',
   DREAM = 'dream',
+  UNKNOWN = 'unknown',
 }
 
 export enum Mode {

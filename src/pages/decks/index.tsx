@@ -36,7 +36,7 @@ const Row = memo(
 
 export default function Decks() {
   const mode = useModeStore((state) => state.mode);
-  const { safeArea } = useSystemInfoStore();
+  const { safeArea, safeAreaBottomHeight } = useSystemInfoStore();
   const { currentType } = useRankBarStore((state) => state);
   const [pageCache, setPageCache] = useState<Record<string, number>>({});
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -133,7 +133,12 @@ export default function Decks() {
             column={2}
             placeholderCount={20}
             renderBottom={() => (
-              <View className='waterfall-bottom'>
+              <View
+                className='waterfall-bottom'
+                style={{
+                  paddingBottom: safeAreaBottomHeight,
+                }}
+              >
                 {loading ? <Loading /> : hasMore ? "" : "已经到底啦~"}
               </View>
             )}

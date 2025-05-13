@@ -54,6 +54,7 @@
     "@tarojs/runtime": "4.0.12",
     "@tarojs/shared": "4.0.12",
     "@tarojs/taro": "4.0.12",
+    "@visactor/taro-vchart": "^1.13.9",
     "ahooks": "^3.8.4",
     "axios": "^1.9.0",
     "react": "^18.0.0",
