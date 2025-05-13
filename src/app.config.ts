@@ -8,12 +8,6 @@ export default defineAppConfig({
     "pages/decks/detail/index",
     "pages/chart/index",
   ],
-  window: {
-    backgroundTextStyle: "light",
-    navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "Taro App",
-    navigationBarTextStyle: "black",
-  },
   tabBar: {
     custom: true,
     list: [
@@ -31,4 +25,5 @@ export default defineAppConfig({
       },
     ],
   },
+  lazyCodeLoading: "requiredComponents",
 });

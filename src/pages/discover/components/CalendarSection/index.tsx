@@ -10,13 +10,7 @@ interface WeekDay {
   isToday: boolean;
 }
 
-interface CalendarSectionProps {
-  title?: string;
-}
-
-export const CalendarSection: React.FC<CalendarSectionProps> = ({
-  title = "Calendar",
-}) => {
+export const CalendarSection: React.FC = () => {
   const weekDays = useMemo(() => {
     // 获取当前日期
     const today = new Date();
