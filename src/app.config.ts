@@ -6,6 +6,7 @@ export default defineAppConfig({
     "pages/archetypes/index",
     "pages/error/index",
     "pages/decks/detail/index",
+    "pages/chart/index",
   ],
   window: {
     backgroundTextStyle: "light",

@@ -33,7 +33,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   const handleJump = (deckData: Deck) => {
     Taro.setStorageSync("deckData", deckData);
     Taro.navigateTo({
-      url: `/pages/decks/detail/index?currentType=${currentType}`,
+      url: `/pages/decks/detail/index?deckId=${deckData.deckId}`,
     });
   };
 

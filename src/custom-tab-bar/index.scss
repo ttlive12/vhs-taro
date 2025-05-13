@@ -2,6 +2,7 @@
 
 .tab-capsule {
   position: fixed;
+  bottom: max(constant(safe-area-inset-bottom), 32px);
   bottom: max(env(safe-area-inset-bottom), 32px);
   left: 5vw;
   right: 5vw;

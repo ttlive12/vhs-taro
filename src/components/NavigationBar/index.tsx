@@ -29,6 +29,11 @@ export const NavigationBar: FC<NavigationBarProps> = ({
   className = "",
   showSetting = true,
 }) => {
+  Taro.loadFontFace({
+    family: "mode",
+    source: `url("https://at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/HGpCcupzDbip.woff2") format("woff2"),url("https://at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/Wxf8BEonqx4q.woff") format("woff")`,
+  });
+
   // 获取系统信息，适配状态栏高度
   const { safeArea } = useSystemInfoStore();
 

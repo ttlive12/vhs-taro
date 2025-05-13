@@ -5,6 +5,7 @@
 .rank-container {
   @include container;
   height: auto;
+  padding-bottom: max(constant(safe-area-inset-bottom) + 130px, 162px);
   padding-bottom: max(env(safe-area-inset-bottom) + 130px, 162px);
 }
 

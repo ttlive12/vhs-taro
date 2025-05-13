@@ -1,3 +1,12 @@
 .discover {
-  padding: 20px;
+  &-page {
+    @include page;
+  }
+
+  &-container {
+    @include container;
+    height: auto;
+    padding-bottom: max(constant(safe-area-inset-bottom), 32px);
+    padding-bottom: max(env(safe-area-inset-bottom), 32px);
+  }
 }

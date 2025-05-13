@@ -1,8 +1,8 @@
-import { FC, useEffect, useMemo,useState } from "react";
+import { FC, useMemo, useState } from "react";
 
 import { Icon, ShareOutlined } from "@taroify/icons";
-import { Image,Text, View } from "@tarojs/components";
-import Taro, { getCurrentInstance } from "@tarojs/taro";
+import { Image, Text, View } from "@tarojs/components";
+import Taro, { useLoad, useRouter } from "@tarojs/taro";
 import { useRequest } from "ahooks";
 
 import { getDeckDetail } from "@/api";
@@ -31,26 +31,18 @@ const DeckDetail: FC = () => {
   const { currentType } = useRankBarStore();
   const { mode } = useModeStore();
   const getWinrateColor = useMemo(() => createColorFn(80), []);
-  const [deckId, setDeckId] = useState<string>("");
-  
-  // 从路由参数获取deckId
-  useEffect(() => {
-    const instance = getCurrentInstance();
-    const params = instance.router?.params;
-    
-    if (params && params.deckId) {
-      setDeckId(params.deckId);
-    }
-  }, []);
-  
+  const router = useRouter();
+  const deckId = router.params.deckId;
+
   // 获取卡组详情数据
-  const { data: deckDetails, loading } = useRequest(
-    () => getDeckDetail(mode, deckId),
-    {
-      refreshDeps: [mode, deckId],
-      ready: !!deckId,
-    }
-  );
+  const {
+    data: deckDetails,
+    loading,
+    run,
+  } = useRequest(() => getDeckDetail(mode, deckId!), {
+    ready: !!deckId,
+    manual: true,
+  });
 
   // 从缓存获取卡组数据
   const [deckData, setDeckData] = useState<Deck | null>(null);
@@ -58,23 +50,24 @@ const DeckDetail: FC = () => {
   // 对卡牌进行排序：优先按费用从小到大，相同费用按稀有度排序
   const sortedCards = useMemo(() => {
     if (!deckData?.cards) return [];
-    
+
     return [...deckData.cards].sort((a, b) => {
       // 先按费用排序
       if (a.cost !== b.cost) {
         return a.cost - b.cost;
       }
-      
+
       // 费用相同时按稀有度排序
       return (rarityWeight[a.rarity] || 0) - (rarityWeight[b.rarity] || 0);
     });
   }, [deckData?.cards]);
 
-  useEffect(() => {
+  useLoad(() => {
     // 从缓存获取跳转时传递的卡组数据
     const cachedDeckData = Taro.getStorageSync<Deck>("deckData");
     if (cachedDeckData) {
       setDeckData(cachedDeckData);
+      run();
     } else {
       Taro.showToast({
         title: "未找到卡组数据",
@@ -84,7 +77,7 @@ const DeckDetail: FC = () => {
         Taro.navigateBack();
       }, 1500);
     }
-  }, []);
+  });
 
   // 处理复制卡组代码
   const handleCopy = () => {

@@ -1,11 +1,55 @@
-import { Text,View } from "@tarojs/components";
+import { View } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+
+import { NavigationBar } from "@/components";
+
+import { CalendarSection } from "./components/CalendarSection";
+import { CardType } from "./components/TaskCard";
+import { TasksSection } from "./components/TasksSection";
 
 import "./index.scss";
 
+const tasks = [
+  {
+    id: "chart",
+    type: "mint" as CardType,
+    icon: "chart",
+    title: "环境图表",
+    subtitle: "游戏环境趋势分析",
+    pagePath: "chart",
+    size: 50,
+  },
+  {
+    id: "arena",
+    type: "pink" as CardType,
+    icon: "arena",
+    title: "竞技场",
+    subtitle: "竞技场选牌推荐",
+    pagePath: "arena",
+  },
+  {
+    id: "leaderboard",
+    type: "yellow" as CardType,
+    icon: "crown",
+    title: "玩家排行",
+    subtitle: "玩家排名与数据",
+    pagePath: "leaderboard",
+    size: 50,
+  },
+];
+
 export default function Discover() {
+  const handleNavigate = (page: string) => {
+    Taro.navigateTo({ url: `/pages/${page}/index` });
+  };
+
   return (
-    <View className='discover'>
-      <Text>发现</Text>
+    <View className='discover-page'>
+      <NavigationBar title='发现' showLogo />
+      <CalendarSection />
+      <View className='discover-container'>
+        <TasksSection tasks={tasks} onTaskClick={handleNavigate} />
+      </View>
     </View>
   );
 }

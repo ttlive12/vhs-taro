@@ -17,5 +17,6 @@
   left: 50%;
   transform: translate(-50%, 0);
   height: auto;
+  padding-bottom: max(constant(safe-area-inset-bottom), 32px);
   padding-bottom: max(env(safe-area-inset-bottom), 32px);
 }
