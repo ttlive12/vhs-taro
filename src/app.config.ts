@@ -6,7 +6,14 @@ export default defineAppConfig({
     "pages/archetypes/index",
     "pages/error/index",
     "pages/decks/detail/index",
-    "pages/chart/index",
+  ],
+  subpackages: [
+    {
+      root: "chartPackage",
+      pages: [
+        "pages/chart/index"
+      ]
+    }
   ],
   tabBar: {
     custom: true,

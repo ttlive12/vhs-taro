@@ -1,6 +1,7 @@
 import { Icon } from "@taroify/icons";
 import { Text, View } from "@tarojs/components";
 import { ITouchEvent } from "@tarojs/components/types/common";
+import { pxTransform } from "@tarojs/taro";
 
 import "./index.scss";
 
@@ -20,7 +21,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
   icon,
   title,
   subtitle,
-  size = 40,
+  size = 80,
   onClick,
 }) => {
   return (
@@ -30,7 +31,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           name={icon}
           classPrefix='icon'
           className='task-icon'
-          style={{ fontSize: size }}
+          style={{ fontSize: pxTransform(size) }}
         />
       </View>
       <View className='task-content'>

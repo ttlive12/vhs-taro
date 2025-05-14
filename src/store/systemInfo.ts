@@ -15,7 +15,7 @@ interface SystemInfoState {
 
 const initialState: Omit<SystemInfoState, "setSystemInfo" | "fetchSystemInfo"> =
   {
-    statusBarHeight: 20,
+    statusBarHeight: 40,
     platform: "ios",
     useHeight: 0,
     safeArea: {

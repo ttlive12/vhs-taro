@@ -28,6 +28,9 @@ export const pieChartConfig = ({ title, data }) => ({
       fill: (datum) => {
         return datum.labelColor;
       },
+      type: "text",
+      fontSize: 12,
+      maxLineWidth: 200,
     },
   },
   pie: {

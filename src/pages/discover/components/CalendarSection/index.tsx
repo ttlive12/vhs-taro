@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { ScrollView, Text, View } from "@tarojs/components";
+import { pxTransform } from "@tarojs/taro";
 
 import "./index.scss";
 
@@ -44,7 +45,7 @@ export const CalendarSection: React.FC = () => {
         showScrollbar={false}
         enhanced
       >
-        <View style={{ width: 15, display: "inline-block" }} />
+        <View style={{ width: pxTransform(30), display: "inline-block" }} />
         <View className='calendar-days'>
           {weekDays.map((day, index) => (
             <View

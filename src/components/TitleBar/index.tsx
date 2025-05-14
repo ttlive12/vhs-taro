@@ -1,6 +1,6 @@
 import { Dialog } from "@taroify/core";
 import { QuestionOutlined } from "@taroify/icons";
-import { Text,View } from "@tarojs/components";
+import { Text, View } from "@tarojs/components";
 
 import "./index.scss";
 
@@ -21,7 +21,12 @@ export const TitleBar: React.FC<TitleBarProps> = ({
     Dialog.open({
       title,
       message: tips,
-      cancel: "知道了",
+      cancel: {
+        children: "知道了",
+        style: {
+          color: "#213E91",
+        },
+      },
     });
   };
   return (

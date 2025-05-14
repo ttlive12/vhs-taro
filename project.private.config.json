@@ -5,5 +5,6 @@
     "urlCheck": true,
     "bigPackageSizeSupport": true
   },
-  "projectname": "vhs-taro"
+  "projectname": "vhs-taro",
+  "libVersion": "3.8.3"
 }

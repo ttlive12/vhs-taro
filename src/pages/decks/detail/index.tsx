@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 
 import { Icon, ShareOutlined } from "@taroify/icons";
 import { Image, Text, View } from "@tarojs/components";
-import Taro, { useRouter } from "@tarojs/taro";
+import Taro, { pxTransform, useRouter } from "@tarojs/taro";
 import { useRequest } from "ahooks";
 
 import { getDeckDetail } from "@/api";
@@ -86,7 +86,7 @@ const DeckDetail: FC = () => {
   // 渲染卡组详情内容
   const renderContent = () => {
     if (loading || !deckData) {
-      return <Loading style={{ marginTop: 100 }} />;
+      return <Loading style={{ marginTop: pxTransform(200) }} />;
     }
 
     return (

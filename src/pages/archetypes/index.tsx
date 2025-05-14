@@ -32,8 +32,6 @@ export default function Archetypes() {
         {/* 卡牌调度 */}
         <CardMulligans mode={mode} archetype={archetype!} />
 
-        {/* 底部留白 */}
-        <View style={{ height: "100rpx" }} />
       </View>
     </View>
   );

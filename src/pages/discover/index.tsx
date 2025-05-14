@@ -17,7 +17,7 @@ const tasks = [
     title: "环境图表",
     subtitle: "最新天梯职业与卡组分布图",
     pagePath: "chart",
-    size: 50,
+    size: 100,
   },
   {
     id: "arena",
@@ -34,13 +34,17 @@ const tasks = [
     title: "玩家排行",
     subtitle: "实时玩家排名与数据",
     pagePath: "leaderboard",
-    size: 50,
+    size: 100,
   },
 ];
 
 export default function Discover() {
   const handleNavigate = (page: string) => {
-    Taro.navigateTo({ url: `/pages/${page}/index` });
+    if (page === 'chart') {
+      Taro.navigateTo({ url: `/chartPackage/pages/chart/index` });
+    } else {
+      Taro.navigateTo({ url: `/pages/${page}/index` });
+    }
   };
 
   return (

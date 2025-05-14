@@ -1,6 +1,6 @@
 import { Bars } from "@taroify/icons";
 import { Image, ScrollView,Text, View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import Taro, { pxTransform } from "@tarojs/taro";
 import { useRequest } from "ahooks";
 
 import { getDecks } from "@/api";
@@ -60,7 +60,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
 
     return (
       <ScrollView className='decks' scrollX enhanced showScrollbar={false}>
-        <View style={{ display: "inline-block", width: "15px" }} />
+        <View style={{ display: "inline-block", width: pxTransform(30) }} />
         {decksData[currentType].map((item) => (
           <View
             key={item.deckId}

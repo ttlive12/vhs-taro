@@ -35,7 +35,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
   });
 
   // 获取系统信息，适配状态栏高度
-  const { safeArea } = useSystemInfoStore();
+  const { statusBarHeight } = useSystemInfoStore();
 
   // 获取模式
   const mode = useModeStore((state) => state.mode);
@@ -66,7 +66,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       <View
         className={`navigation-bar ${className}`}
         style={{
-          paddingTop: `${safeArea.top}px`,
+          paddingTop: `${statusBarHeight}px`,
         }}
       >
         <View className='navigation-bar-content'>

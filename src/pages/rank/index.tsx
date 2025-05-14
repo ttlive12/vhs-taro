@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { View } from "@tarojs/components";
+import { pxTransform } from "@tarojs/taro";
 import { useRequest } from "ahooks";
 
 import { getArchetypes } from "@/api";
@@ -71,7 +72,7 @@ export default function Loader() {
       <NavigationBar title='排行榜' showLogo />
       <RankBar />
       {loading ? (
-        <Loading style={{ marginTop: 100 }} />
+        <Loading style={{ marginTop: pxTransform(200) }} />
       ) : showData ? (
         <RankPage data={showData} />
       ) : null}

@@ -46,7 +46,7 @@ export const Loading: React.FC<LoadingProps> = ({
         className='loading-animation'
         style={
           {
-            width: `${60 * scale}px`,
+            width: `${100 * scale}rpx`,
             "--color": color,
             transform: `scale(${scale})`,
           } as any
@@ -58,8 +58,8 @@ export const Loading: React.FC<LoadingProps> = ({
           style={{
             color,
             fontSize: `${
-              size === "small" ? 10 : size === "medium" ? 14 : 18
-            }px`,
+              size === "small" ? 18 : size === "medium" ? 26 : 34
+            }rpx`,
           }}
         >
           {text}

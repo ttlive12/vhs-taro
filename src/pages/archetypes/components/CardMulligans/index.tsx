@@ -74,7 +74,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   // 渲染卡片内容
   const renderCardContent = () => {
     if (loading) {
-      return <Loading size='small' style={{ margin: "100px 0" }} />;
+      return <Loading size='small' style={{ margin: "200rpx 0" }} />;
     }
 
     if (!data?.[currentType] || data[currentType].length === 0) {
