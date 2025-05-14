@@ -5,6 +5,7 @@ import { CardFrame } from "@/components/CardFrame";
 import { Class, Rarity } from "@/constants/enums";
 import { classImageMap } from "@/constants/map";
 import { Deck } from "@/models/deck";
+import useDeckStore from "@/store/deck";
 
 import "./index.scss";
 
@@ -13,12 +14,15 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = ({ data }) => {
+  const setCurrentDeck = useDeckStore((state) => state.setCurrentDeck);
+
   // 获取传说卡牌
   const legendaryCards = data.cards.filter(
     (card) => card.rarity === Rarity.LEGENDARY
   );
 
   const handleTap = () => {
+    setCurrentDeck(data);
     Taro.navigateTo({
       url: `/pages/decks/detail/index?deckId=${data.deckId}`,
     });

@@ -9,6 +9,7 @@ import { CardFrame, Loading,TitleBar } from "@/components";
 import { Mode } from "@/constants";
 import { useRankBarStore } from "@/store/rankBar";
 import { createColorFn } from "@/utils";
+import { limitNumber } from "@/utils/number";
 
 import { sort } from "@/assets/svg";
 
@@ -22,6 +23,7 @@ interface CardMulligansProps {
 type SortType = "mulliganImpact" | "drawnImpact" | "keptImpact";
 
 const getColor = createColorFn(30);
+const limitNum = limitNumber(10);
 
 const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
   const { currentType } = useRankBarStore();
@@ -160,7 +162,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             <Text
               style={{
                 gridColumn: 2,
-                color: getColor(item.mulliganImpact),
+                color: getColor(limitNum(item.mulliganImpact)),
               }}
             >
               {item.mulliganImpact}
@@ -168,7 +170,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             <Text
               style={{
                 gridColumn: 3,
-                color: getColor(item.drawnImpact),
+                color: getColor(limitNum(item.drawnImpact)),
               }}
             >
               {item.drawnImpact}
@@ -176,7 +178,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
             <Text
               style={{
                 gridColumn: 4,
-                color: getColor(item.keptImpact),
+                color: getColor(limitNum(item.keptImpact)),
               }}
             >
               {item.keptImpact}

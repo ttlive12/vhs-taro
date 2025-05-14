@@ -43,11 +43,8 @@ const standard =
   "https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png";
 const wild =
   "https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png";
-const arena =
-  "https://hs.res.netease.com/pc/zt/20241031162506/assets/arena_005138b1.png";
 
 export {
-  arena,
   deathknight,
   demonhunter,
   diamond1,

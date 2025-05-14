@@ -1,18 +1,19 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 
 import { Icon, ShareOutlined } from "@taroify/icons";
 import { Image, Text, View } from "@tarojs/components";
-import Taro, { useLoad, useRouter } from "@tarojs/taro";
+import Taro, { useRouter } from "@tarojs/taro";
 import { useRequest } from "ahooks";
 
 import { getDeckDetail } from "@/api";
 import { CardFrame, Loading, NavigationBar, RankBar } from "@/components";
 import CardPreview from "@/components/CardPreview";
 import { classImageMap } from "@/constants";
-import { Deck } from "@/models";
+import useDeckStore from "@/store/deck";
 import useModeStore from "@/store/mode";
 import { useRankBarStore } from "@/store/rankBar";
 import { createColorFn } from "@/utils";
+import { limitNumber } from "@/utils/number";
 
 import { dust } from "@/assets/image";
 
@@ -27,6 +28,8 @@ const rarityWeight = {
   LEGENDARY: 4,
 };
 
+const limitNum = limitNumber(20);
+
 const DeckDetail: FC = () => {
   const { currentType } = useRankBarStore();
   const { mode } = useModeStore();
@@ -34,18 +37,15 @@ const DeckDetail: FC = () => {
   const router = useRouter();
   const deckId = router.params.deckId;
 
+  const deckData = useDeckStore((state) => state.currentDeck);
+
   // 获取卡组详情数据
   const {
     data: deckDetails,
     loading,
-    run,
   } = useRequest(() => getDeckDetail(mode, deckId!), {
     ready: !!deckId,
-    manual: true,
   });
-
-  // 从缓存获取卡组数据
-  const [deckData, setDeckData] = useState<Deck | null>(null);
 
   // 对卡牌进行排序：优先按费用从小到大，相同费用按稀有度排序
   const sortedCards = useMemo(() => {
@@ -61,23 +61,6 @@ const DeckDetail: FC = () => {
       return (rarityWeight[a.rarity] || 0) - (rarityWeight[b.rarity] || 0);
     });
   }, [deckData?.cards]);
-
-  useLoad(() => {
-    // 从缓存获取跳转时传递的卡组数据
-    const cachedDeckData = Taro.getStorageSync<Deck>("deckData");
-    if (cachedDeckData) {
-      setDeckData(cachedDeckData);
-      run();
-    } else {
-      Taro.showToast({
-        title: "未找到卡组数据",
-        icon: "none",
-      });
-      setTimeout(() => {
-        Taro.navigateBack();
-      }, 1500);
-    }
-  });
 
   // 处理复制卡组代码
   const handleCopy = () => {
@@ -157,7 +140,7 @@ const DeckDetail: FC = () => {
                       className='class-icon'
                       src={classImageMap[item.class]}
                     />
-                    <Text style={{ color: getWinrateColor(item.winrate - 50) }}>
+                    <Text style={{ color: getWinrateColor(limitNum(item.winrate - 50)) }}>
                       {item.winrate}%
                     </Text>
                     <Text className='games'>({item.games})</Text>

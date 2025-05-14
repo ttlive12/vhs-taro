@@ -5,6 +5,7 @@ import Taro from "@tarojs/taro";
 
 import { Archetypes } from "@/models";
 import { createColorFn } from "@/utils";
+import { limitNumber } from "@/utils/number";
 
 import { point } from "@/assets";
 
@@ -21,12 +22,12 @@ export function Item({ data, order }: { data: Archetypes; order: number }) {
   } = data;
 
   const winrateColor = useMemo(
-    () => createColorFn(30)(winrate - 50),
+    () => createColorFn(30)(limitNumber(10)(winrate - 50)),
     [winrate]
   );
 
   const climbingSpeedColor = useMemo(
-    () => createColorFn(10)(climbingSpeed),
+    () => createColorFn(10)(limitNumber(2)(climbingSpeed)),
     [climbingSpeed]
   );
 

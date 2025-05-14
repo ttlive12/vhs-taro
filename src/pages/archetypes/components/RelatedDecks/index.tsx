@@ -7,6 +7,7 @@ import { getDecks } from "@/api";
 import { Loading,TitleBar } from "@/components";
 import { classImageMap,Mode } from "@/constants";
 import { Deck } from "@/models";
+import useDeckStore from "@/store/deck";
 import { useRankBarStore } from "@/store/rankBar";
 
 import { dust } from "@/assets/image";
@@ -20,6 +21,7 @@ interface RelatedDecksProps {
 
 const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   const { currentType } = useRankBarStore();
+  const setCurrentDeck = useDeckStore((state) => state.setCurrentDeck);
 
   // 使用useRequest请求数据
   const { data: decksData, loading } = useRequest(
@@ -31,7 +33,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
 
   // 点击卡组跳转到卡组详情页
   const handleJump = (deckData: Deck) => {
-    Taro.setStorageSync("deckData", deckData);
+    setCurrentDeck(deckData);
     Taro.navigateTo({
       url: `/pages/decks/detail/index?deckId=${deckData.deckId}`,
     });

@@ -52,7 +52,7 @@ const ChartPage: React.FC = () => {
 
   return (
     <View className='chart-page'>
-      <NavigationBar title='环境图表' showBack showSetting={false} />
+      <NavigationBar title='今日环境' showBack showSetting={false} />
       <RankBar />
       <View className='chart-container'>
         {loading ? (
