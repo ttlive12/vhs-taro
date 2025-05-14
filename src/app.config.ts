@@ -9,9 +9,10 @@ export default defineAppConfig({
   ],
   subpackages: [
     {
-      root: "chartPackage",
+      root: "discoverPackage",
       pages: [
-        "pages/chart/index"
+        "pages/chart/index",
+        "pages/player-rank/index",
       ]
     }
   ],

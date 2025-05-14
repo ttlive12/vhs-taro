@@ -28,23 +28,19 @@ const tasks = [
     pagePath: "arena",
   },
   {
-    id: "leaderboard",
+    id: "player-rank",
     type: "yellow" as CardType,
     icon: "crown",
     title: "玩家排行",
     subtitle: "实时玩家排名与数据",
-    pagePath: "leaderboard",
+    pagePath: "player-rank",
     size: 100,
   },
 ];
 
 export default function Discover() {
   const handleNavigate = (page: string) => {
-    if (page === 'chart') {
-      Taro.navigateTo({ url: `/chartPackage/pages/chart/index` });
-    } else {
-      Taro.navigateTo({ url: `/pages/${page}/index` });
-    }
+    Taro.navigateTo({ url: `/discoverPackage/pages/${page}/index` });
   };
 
   return (

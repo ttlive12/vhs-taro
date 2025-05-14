@@ -66,7 +66,7 @@ const ChartPage: React.FC = () => {
                 <View
                   className='chart-content'
                   style={{
-                    height: useHeight / 2,
+                    height: useHeight / 2.2,
                   }}
                 >
                   <PieChart
@@ -82,7 +82,7 @@ const ChartPage: React.FC = () => {
                 <View
                   className='chart-content'
                   style={{
-                    height: useHeight / 2,
+                    height: useHeight / 2.2,
                   }}
                 >
                   <PieChart

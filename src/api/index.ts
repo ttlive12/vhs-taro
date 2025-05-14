@@ -1,5 +1,11 @@
 import { Mode } from "@/constants";
-import { Archetypes, Ranked } from "@/models";
+import {
+  Archetypes,
+  ModeData,
+  PlayerData,
+  PlayerRequest,
+  Ranked,
+} from "@/models";
 import { QueryDeckResponse, QueryDecks } from "@/models/api";
 import { Deck } from "@/models/deck";
 import { Opponent } from "@/models/detail";
@@ -75,5 +81,30 @@ export const getDecksByPage = async (query: QueryDecks) => {
   }
   return await request<QueryDeckResponse>(
     `/decks/queryDecks?${params.toString()}`
+  );
+};
+
+/**
+ * 获取模式数据
+ * @returns 模式数据
+ */
+export const getModeData = async () => {
+  return await request<ModeData>(
+    "https://webapi.blizzard.cn/hs-rank-api-server/api/v2/game/mode"
+  );
+};
+
+/**
+ * 获取玩家排名数据
+ * @returns 玩家排名数据
+ */
+export const getPlayerRank = async (
+  params: PlayerRequest
+): Promise<PlayerData> => {
+  return await request<PlayerData>(
+    "https://webapi.blizzard.cn/hs-rank-api-server/api/game/ranks",
+    {
+      params,
+    }
   );
 };

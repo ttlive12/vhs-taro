@@ -53,11 +53,11 @@ export function Card({
             src={classImageMap[heroClass]}
             mode='aspectFit'
           />
-          <Text className='hero-name'>{zhName}</Text>
+          <Text className='hero-name ellipsis'>{zhName}</Text>
+          {rankIcon && (
+            <Image className='rank-icon' src={rankIcon} mode='aspectFit' />
+          )}
         </View>
-        {rankIcon && (
-          <Image className='rank-icon' src={rankIcon} mode='aspectFit' />
-        )}
       </View>
 
       <View className='card-body'>
@@ -66,7 +66,7 @@ export function Card({
             <Icon
               classPrefix='icon'
               name='hot'
-              className={`stat-icon ${isLightBackground ? '' : 'icon-light'}`}
+              className={`stat-icon ${isLightBackground ? "" : "icon-light"}`}
             />
             <View className='stat-details'>
               <Text className='stat-label'>热度</Text>
@@ -80,7 +80,7 @@ export function Card({
             <Icon
               classPrefix='icon'
               name='up'
-              className={`stat-icon ${isLightBackground ? '' : 'icon-light'}`}
+              className={`stat-icon ${isLightBackground ? "" : "icon-light"}`}
             />
             <View className='stat-details'>
               <Text className='stat-label'>上分速度</Text>
