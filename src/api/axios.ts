@@ -9,7 +9,7 @@ interface ApiResponse<T> {
 }
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://udagyciuulrg.sealosgzg.site/api",
 });
 
 // 请求拦截器
