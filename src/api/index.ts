@@ -7,6 +7,8 @@ import {
   PlayerData,
   PlayerRequest,
   Ranked,
+  SpecialDate,
+  UpdateInfo,
 } from '@/models';
 import { QueryDeckResponse, QueryDecks } from '@/models/api';
 import { Deck } from '@/models/deck';
@@ -111,4 +113,20 @@ export const getArenaClassData = async () => {
  */
 export const getArenaCardData = async (className: Class) => {
   return await request<ArenaCard[]>(`/arena/card-rank?class=${className}`);
+};
+
+/**
+ * 获取最后更新时间
+ * @returns 最后更新时间
+ */
+export const getLastUpdateTime = async () => {
+  return await request<UpdateInfo>('/config/last-update');
+};
+
+/**
+ * 获取所有特殊日期
+ * @returns 所有特殊日期
+ */
+export const getSpecialDates = async () => {
+  return await request<SpecialDate[]>('/config/special-dates');
 };

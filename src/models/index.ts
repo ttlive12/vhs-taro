@@ -2,6 +2,7 @@ export * from './api';
 export * from './archetypes';
 export * from './arena';
 export * from './common';
+export * from './config';
 export * from './deck';
 export * from './detail';
 export * from './mulligan';

@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Button, Popup, Radio } from '@taroify/core';
 import { ClockOutlined, CommentOutlined, Cross, Icon, QuestionOutlined } from '@taroify/icons';
 import { Image, Text, View } from '@tarojs/components';
+import { useRequest } from 'ahooks';
 
+import { getLastUpdateTime } from '@/api';
 import useModeStore from '@/store/mode';
 import { RankType, useRankTypeStore } from '@/store/rankType';
 
@@ -33,6 +35,10 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
       setRotate(false);
     }, 400);
   };
+
+  const { data: updateInfo } = useRequest(getLastUpdateTime, {
+    ready: visible,
+  });
 
   const handleRankTypeChange = (value: RankType) => {
     setRankType(value);
@@ -81,8 +87,8 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
               <Text>数据更新</Text>
             </View>
             <View className='setting-body'>
-              <Text>自动剔除老数据</Text>
-              <Text>每日自动更新</Text>
+              <Text>最近更新时间</Text>
+              <Text>{updateInfo?.description}</Text>
             </View>
           </View>
           {/* 意见反馈 */}

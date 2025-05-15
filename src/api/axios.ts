@@ -20,14 +20,22 @@ const defaultCacheRules: CacheRule[] = [
     urlPattern: '/hs-rank',
     expireTime: 10 * 60 * 1000, // 10分钟
   },
+  {
+    urlPattern: '/config/last-update',
+    expireTime: 10 * 60 * 1000, // 10分钟
+  },
+  {
+    urlPattern: '/config/special-dates',
+    expireTime: 10 * 60 * 1000, // 10分钟
+  },
 ];
 
 // 设置缓存规则
 cacheManager.setRules(defaultCacheRules);
 
 const axiosInstance: AxiosInstance = axios.create({
-  // baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
+  // baseURL: 'http://localhost:3000/api',
 });
 
 // 请求拦截器
