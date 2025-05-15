@@ -12,12 +12,16 @@
     display: flex;
     align-items: center;
     padding: 0 24px;
-    gap: 16px;
+  }
+
+  &-back {
+    padding: 20px;
   }
 
   &-logo {
     width: 88px;
     height: 88px;
+    margin-right: 18px;
   }
 
   &-title {
@@ -33,7 +37,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-
+    margin-left: 18px;
     &-icon {
       width: 32px;
       height: 32px;

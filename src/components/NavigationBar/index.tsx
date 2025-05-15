@@ -66,7 +66,9 @@ export const NavigationBar: FC<NavigationBarProps> = ({
       >
         <View className='navigation-bar-content'>
           <View className='navigation-bar-left'>
-            {showBack && <ArrowLeft onClick={handleBackClick} size={20} />}
+            {showBack && (
+              <ArrowLeft className='navigation-bar-back' onClick={handleBackClick} size={20} />
+            )}
 
             {showLogo && !showBack && (
               <Image className='navigation-bar-logo' src={logo} mode='aspectFit' />

@@ -1,7 +1,6 @@
 .title-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
 
   &-icon {
     width: 32px;
@@ -12,7 +11,7 @@
   }
 
   &-title {
-    margin-left: 5px;
+    margin-left: 15px;
     font-size: 32px;
     line-height: 32px;
   }
@@ -20,5 +19,9 @@
   &-tips {
     display: flex;
     flex-direction: column;
+
+    &-icon {
+      padding: 10px;
+    }
   }
 }
