@@ -5,7 +5,7 @@ import { VirtualWaterfall } from '@tarojs/components-advanced';
 import { useRequest } from 'ahooks';
 
 import { getDecksByPage } from '@/api';
-import { Loading } from '@/components';
+import { DelayRender, Loading } from '@/components';
 import { Deck } from '@/models/deck';
 import useModeStore from '@/store/mode';
 import { useRankBarStore } from '@/store/rankBar';
@@ -149,7 +149,7 @@ export function WaterfallList() {
                 paddingBottom,
               }}
             >
-              {loading ? <Loading /> : hasMore ? '' : '没有更多数据啦~'}
+              {loading ? <Loading /> : hasMore ? '' : <DelayRender>没有更多数据啦~</DelayRender>}
             </View>
           )}
         />
