@@ -14,11 +14,11 @@
 
     .calendar-days {
       display: inline-flex;
-      padding-right: 20px; /* 为了显示第五个日期的一部分 */
+      padding-right: 30px;
 
       .calendar-day {
         width: 20vw;
-        height: 25vw;
+        height: 188px;
         background: rgba(255, 255, 255, 0.4); /* 半透明遮罩 */
         overflow: hidden;
         border-radius: 12px;
@@ -28,6 +28,7 @@
         justify-content: center;
         margin-right: 12px;
         flex-shrink: 0;
+        position: relative;
 
         &.active {
           background-color: rgba($orange, 0.6);
@@ -36,12 +37,28 @@
         .day-name {
           font-size: 28px;
           opacity: 0.7;
-          margin-bottom: 12px;
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          top: 20px;
+          left: 0;
         }
 
         .day-date {
           font-size: 36px;
           font-weight: 500;
+        }
+
+        .day-description {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          bottom: 20px;
+          left: 0;
+          font-size: 22px;
+          color: rgba($orange, 0.8);
+          overflow: hidden;
+          white-space: nowrap;
         }
       }
     }

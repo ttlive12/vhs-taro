@@ -4,6 +4,6 @@ export interface UpdateInfo {
 }
 
 export interface SpecialDate {
-  date: string;
-  description: string;
+  date: string; // eg: 2025.05.14
+  description: string; // eg: 迷你包上线
 }
