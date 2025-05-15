@@ -18,12 +18,11 @@
 
       .calendar-day {
         width: 20vw;
-        height: 175px;
+        height: 155px;
         background: rgba(255, 255, 255, 0.4); /* 半透明遮罩 */
         overflow: hidden;
         border-radius: 12px;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         margin-right: 12px;
@@ -40,23 +39,26 @@
           position: absolute;
           width: 100%;
           text-align: center;
-          top: 20px;
+          top: 15px;
           left: 0;
         }
 
         .day-date {
           font-size: 36px;
-          font-weight: 500;
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          top: 60px;
         }
 
         .day-description {
           position: absolute;
           width: 100%;
           text-align: center;
-          bottom: 20px;
+          bottom: 10px;
           left: 0;
           font-size: 22px;
-          color: rgba($orange, 0.8);
+          color: rgba($orange-dark, 0.6);
           overflow: hidden;
           white-space: nowrap;
         }

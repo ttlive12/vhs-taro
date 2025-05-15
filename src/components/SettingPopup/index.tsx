@@ -115,6 +115,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
           <View className='setting-body'>
             <Text>当前版本：3.0.0</Text>
             <Text>更新内容：架构重构，稳定性&性能优化</Text>
+            <Text>卡组推荐显示更多卡组</Text>
           </View>
         </View>
       </View>

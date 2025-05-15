@@ -138,8 +138,8 @@ export function WaterfallList() {
           itemSize={index => estimateItemSize(currentData, index)}
           onScrollToLower={loadMore}
           column={2}
-          overscanDistance={400}
-          placeholderCount={10}
+          overscanDistance={1000}
+          placeholderCount={20}
           upperThreshold={200}
           lowerThreshold={200}
           renderBottom={() => (
