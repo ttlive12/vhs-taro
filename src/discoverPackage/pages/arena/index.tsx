@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Image, Text, View } from '@tarojs/components';
-import Taro, { usePullDownRefresh } from '@tarojs/taro';
+import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
 import { getArenaClassData } from '@/api';
@@ -21,13 +21,7 @@ const limitNum = limitNumber(10);
  */
 const ArenaPage: React.FC = () => {
   // 获取竞技场职业数据
-  const { data: classData, loading, refresh } = useRequest(getArenaClassData);
-
-  // 下拉刷新处理
-  usePullDownRefresh(() => {
-    refresh();
-    Taro.stopPullDownRefresh();
-  });
+  const { data: classData, loading } = useRequest(getArenaClassData);
 
   // 职业点击处理函数，跳转到该职业的竞技场卡牌数据页面
   const handleClassTap = (className: Class) => {

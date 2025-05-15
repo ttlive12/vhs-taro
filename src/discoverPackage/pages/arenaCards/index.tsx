@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Image, Text, View } from '@tarojs/components';
-import Taro, { usePullDownRefresh, useRouter } from '@tarojs/taro';
+import { useRouter } from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
 import { getArenaCardData } from '@/api';
@@ -34,20 +34,13 @@ const ArenaCardsPage: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   // 获取卡牌数据
-  const {
-    data: cardsData,
-    loading,
-    refresh,
-  } = useRequest(() => getArenaCardData(className.toUpperCase() as Class), {
-    refreshDeps: [className],
-    ready: !!className,
-  });
-
-  // 下拉刷新处理
-  usePullDownRefresh(async () => {
-    await refresh();
-    Taro.stopPullDownRefresh();
-  });
+  const { data: cardsData, loading } = useRequest(
+    () => getArenaCardData(className.toUpperCase() as Class),
+    {
+      refreshDeps: [className],
+      ready: !!className,
+    }
+  );
 
   // 处理排序
   const handleSort = (type: SortType) => {
