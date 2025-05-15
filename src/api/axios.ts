@@ -1,7 +1,7 @@
-import Taro from "@tarojs/taro";
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import Taro from '@tarojs/taro';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { cacheManager, CacheRule } from "./cache";
+import { cacheManager, CacheRule } from './cache';
 
 // 定义响应数据的基本结构
 interface ApiResponse<T> {
@@ -26,34 +26,35 @@ const defaultCacheRules: CacheRule[] = [
 cacheManager.setRules(defaultCacheRules);
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "https://udagyciuulrg.sealosgzg.site/api",
+  // baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
+  baseURL: 'http://localhost:3000/api',
 });
 
 // 请求拦截器
 axiosInstance.interceptors.request.use(
-  (config) => {
+  config => {
     return config;
   },
-  (error) => {
-    console.log("request error", error);
+  error => {
+    console.log('request error', error);
     return Promise.reject(error);
   }
 );
 
 // 响应拦截器
 axiosInstance.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
   (error: AxiosError) => {
     const errorCode = error.code || 'UNKNOWN_ERROR';
     const errorMessage = error.message || '未知错误';
     const errorStatus = error.response?.status;
-    
+
     Taro.navigateTo({
       url: `/pages/error/index?code=${errorCode}&message=${encodeURIComponent(errorMessage)}&status=${errorStatus || ''}`,
     });
-    
+
     return Promise.reject(error);
   }
 );
@@ -62,25 +63,25 @@ const request = async <T>(url: string, config?: AxiosRequestConfig) => {
   // 检查是否有缓存
   const fullUrl = axiosInstance.defaults.baseURL ? axiosInstance.defaults.baseURL + url : url;
   const requestConfig = config || {};
-  
+
   // 尝试从缓存获取数据
   const cachedResponse = cacheManager.get<AxiosResponse<ApiResponse<T>>>(fullUrl, requestConfig);
-  
+
   if (cachedResponse) {
     // 如果有缓存，直接返回缓存数据
     return cachedResponse.data.data;
   }
-  
+
   // 如果没有缓存，发起真实请求
   const response = await axiosInstance<ApiResponse<T>>(url, config);
   const { data } = response;
-  
+
   // 如果响应成功，手动缓存结果
   if (data.code === 0) {
     cacheManager.set(fullUrl, requestConfig, response);
     return data.data;
   }
-  
+
   return Promise.reject(data.message);
 };
 

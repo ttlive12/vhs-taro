@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 // 定义tabBar状态的接口
 interface TabBarState {
@@ -7,7 +7,7 @@ interface TabBarState {
 }
 
 // 创建tabBar状态管理
-export const useTabBarStore = create<TabBarState>((set) => ({
+export const useTabBarStore = create<TabBarState>(set => ({
   // 当前选中的tab索引
   currentIndex: 0,
 

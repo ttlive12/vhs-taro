@@ -1,23 +1,23 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo } from 'react';
 
-import { Icon, ShareOutlined } from "@taroify/icons";
-import { Image, Text, View } from "@tarojs/components";
-import Taro, { pxTransform, useRouter } from "@tarojs/taro";
-import { useRequest } from "ahooks";
+import { Icon, ShareOutlined } from '@taroify/icons';
+import { Image, Text, View } from '@tarojs/components';
+import Taro, { pxTransform, useRouter } from '@tarojs/taro';
+import { useRequest } from 'ahooks';
 
-import { getDeckDetail } from "@/api";
-import { CardFrame, Loading, NavigationBar, RankBar } from "@/components";
-import CardPreview from "@/components/CardPreview";
-import { classImageMap } from "@/constants";
-import useDeckStore from "@/store/deck";
-import useModeStore from "@/store/mode";
-import { useRankBarStore } from "@/store/rankBar";
-import { createColorFn } from "@/utils";
-import { limitNumber } from "@/utils/number";
+import { getDeckDetail } from '@/api';
+import { CardFrame, Loading, NavigationBar, RankBar } from '@/components';
+import CardPreview from '@/components/CardPreview';
+import { classImageMap } from '@/constants';
+import useDeckStore from '@/store/deck';
+import useModeStore from '@/store/mode';
+import { useRankBarStore } from '@/store/rankBar';
+import { createColorFn } from '@/utils';
+import { limitNumber } from '@/utils/number';
 
-import { dust } from "@/assets/image";
+import { dust } from '@/assets/image';
 
-import "./index.scss";
+import './index.scss';
 
 // 卡牌稀有度权重映射
 const rarityWeight = {
@@ -37,13 +37,10 @@ const DeckDetail: FC = () => {
   const router = useRouter();
   const deckId = router.params.deckId;
 
-  const deckData = useDeckStore((state) => state.currentDeck);
+  const deckData = useDeckStore(state => state.currentDeck);
 
   // 获取卡组详情数据
-  const {
-    data: deckDetails,
-    loading,
-  } = useRequest(() => getDeckDetail(mode, deckId!), {
+  const { data: deckDetails, loading } = useRequest(() => getDeckDetail(mode, deckId!), {
     ready: !!deckId,
   });
 
@@ -69,14 +66,14 @@ const DeckDetail: FC = () => {
         data: `###${deckData.zhName}\n${deckData.deckcode}`,
         success: () => {
           Taro.showToast({
-            title: "复制成功",
-            icon: "success",
+            title: '复制成功',
+            icon: 'success',
           });
         },
         fail: () => {
           Taro.showToast({
-            title: "复制失败",
-            icon: "none",
+            title: '复制失败',
+            icon: 'none',
           });
         },
       });
@@ -93,7 +90,7 @@ const DeckDetail: FC = () => {
       <View className='deck-detail-container'>
         <View className='deck'>
           <View className='deck-cards'>
-            {sortedCards.map((item) => (
+            {sortedCards.map(item => (
               <CardFrame
                 key={item.id}
                 cardId={item.id}
@@ -111,35 +108,21 @@ const DeckDetail: FC = () => {
         </View>
         <View className='details'>
           <View className='details-title'>
-            <Icon
-              classPrefix='icon'
-              name='wave'
-              size={22}
-              style={{ transform: "scaleY(0.7)" }}
-            />
+            <Icon classPrefix='icon' name='wave' size={22} style={{ transform: 'scaleY(0.7)' }} />
             <Text>对阵胜率</Text>
-            <Icon
-              classPrefix='icon'
-              name='wave'
-              size={22}
-              style={{ transform: "scaleY(0.7)" }}
-            />
+            <Icon classPrefix='icon' name='wave' size={22} style={{ transform: 'scaleY(0.7)' }} />
           </View>
-          {!deckDetails?.[currentType] ||
-          deckDetails[currentType].length <= 1 ? (
+          {!deckDetails?.[currentType] || deckDetails[currentType].length <= 1 ? (
             <View className='no-data'>
               <Text>暂无数据</Text>
             </View>
           ) : (
             <View className='details-content'>
               {deckDetails[currentType]
-                .filter((item) => item.class !== "total")
-                .map((item) => (
+                .filter(item => item.class !== 'total')
+                .map(item => (
                   <View key={item.class} className='details-item'>
-                    <Image
-                      className='class-icon'
-                      src={classImageMap[item.class]}
-                    />
+                    <Image className='class-icon' src={classImageMap[item.class]} />
                     <Text style={{ color: getWinrateColor(limitNum(item.winrate - 50)) }}>
                       {item.winrate}%
                     </Text>

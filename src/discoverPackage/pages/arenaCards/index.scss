@@ -1,0 +1,74 @@
+.arena-cards-page {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: max(constant(safe-area-inset-bottom), 32px);
+  padding-bottom: max(env(safe-area-inset-bottom), 32px);
+}
+
+.cards {
+  padding: 0 20px;
+
+  &-header {
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr 1fr;
+    padding: 20px 0;
+    font-size: 24px;
+    color: #666;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+
+    text {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .sort-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+
+      .sort-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+
+        &.asc {
+          transform: rotate(180deg);
+        }
+
+        &.desc {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  &-item {
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr 1fr;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    text-align: center;
+
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    &-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-text {
+      font-size: 28px;
+    }
+  }
+}
+
+.loading-container {
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}

@@ -1,18 +1,18 @@
-import { Bars } from "@taroify/icons";
-import { Image, ScrollView,Text, View } from "@tarojs/components";
-import Taro, { pxTransform } from "@tarojs/taro";
-import { useRequest } from "ahooks";
+import { Bars } from '@taroify/icons';
+import { Image, ScrollView, Text, View } from '@tarojs/components';
+import Taro, { pxTransform } from '@tarojs/taro';
+import { useRequest } from 'ahooks';
 
-import { getDecks } from "@/api";
-import { Loading,TitleBar } from "@/components";
-import { classImageMap,Mode } from "@/constants";
-import { Deck } from "@/models";
-import useDeckStore from "@/store/deck";
-import { useRankBarStore } from "@/store/rankBar";
+import { getDecks } from '@/api';
+import { Loading, TitleBar } from '@/components';
+import { classImageMap, Mode } from '@/constants';
+import { Deck } from '@/models';
+import useDeckStore from '@/store/deck';
+import { useRankBarStore } from '@/store/rankBar';
 
-import { dust } from "@/assets/image";
+import { dust } from '@/assets/image';
 
-import "./index.scss";
+import './index.scss';
 
 interface RelatedDecksProps {
   mode: Mode;
@@ -21,15 +21,12 @@ interface RelatedDecksProps {
 
 const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   const { currentType } = useRankBarStore();
-  const setCurrentDeck = useDeckStore((state) => state.setCurrentDeck);
+  const setCurrentDeck = useDeckStore(state => state.setCurrentDeck);
 
   // 使用useRequest请求数据
-  const { data: decksData, loading } = useRequest(
-    () => getDecks(mode, archetype),
-    {
-      refreshDeps: [mode, archetype],
-    }
-  );
+  const { data: decksData, loading } = useRequest(() => getDecks(mode, archetype), {
+    refreshDeps: [mode, archetype],
+  });
 
   // 点击卡组跳转到卡组详情页
   const handleJump = (deckData: Deck) => {
@@ -42,7 +39,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   // 渲染内容区域
   const renderContent = () => {
     if (loading) {
-      return <Loading size='small' style={{ margin: "42px 0" }} />;
+      return <Loading size='small' style={{ margin: '42px 0' }} />;
     }
 
     if (!decksData?.[currentType]?.length) {
@@ -60,8 +57,8 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
 
     return (
       <ScrollView className='decks' scrollX enhanced showScrollbar={false}>
-        <View style={{ display: "inline-block", width: pxTransform(30) }} />
-        {decksData[currentType].map((item) => (
+        <View style={{ display: 'inline-block', width: pxTransform(30) }} />
+        {decksData[currentType].map(item => (
           <View
             key={item.deckId}
             className={`decks-item ${item.class}`}
@@ -76,9 +73,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
                 </Text>
               </View>
               <View className='decks-item-inner-stats'>
-                <Text className='decks-item-inner-stats-winrate'>
-                  {item.winrate}
-                </Text>
+                <Text className='decks-item-inner-stats-winrate'>{item.winrate}</Text>
                 <View className='decks-item-inner-stats-dust'>
                   <Image className='dust-icon' src={dust} />
                   <Text>{item.dust}</Text>
@@ -89,9 +84,9 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
         ))}
         <View
           style={{
-            display: "inline-block",
-            color: "transparent",
-            fontSize: "1px",
+            display: 'inline-block',
+            color: 'transparent',
+            fontSize: '1px',
           }}
         >
           0

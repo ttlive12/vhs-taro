@@ -1,14 +1,14 @@
-import { View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import { View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
 
-import { NavigationBar, RankBar } from "@/components";
-import CardPreview from "@/components/CardPreview";
-import useModeStore from "@/store/mode";
+import { NavigationBar, RankBar } from '@/components';
+import CardPreview from '@/components/CardPreview';
+import useModeStore from '@/store/mode';
 
-import CardMulligans from "./components/CardMulligans";
-import RelatedDecks from "./components/RelatedDecks";
+import CardMulligans from './components/CardMulligans';
+import RelatedDecks from './components/RelatedDecks';
 
-import "./index.scss";
+import './index.scss';
 
 export default function Archetypes() {
   const { mode } = useModeStore();
@@ -19,7 +19,7 @@ export default function Archetypes() {
       {/* 卡牌预览组件 */}
       <CardPreview />
       {/* 导航栏 */}
-      <NavigationBar title={zhName ?? ""} showBack showSetting={false} />
+      <NavigationBar title={zhName ?? ''} showBack showSetting={false} />
 
       {/* 滚动区域 */}
       <View className='archetypes-container'>
@@ -31,7 +31,6 @@ export default function Archetypes() {
 
         {/* 卡牌调度 */}
         <CardMulligans mode={mode} archetype={archetype!} />
-
       </View>
     </View>
   );

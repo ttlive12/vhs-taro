@@ -1,10 +1,10 @@
-import Taro from "@tarojs/taro";
-import { create } from "zustand";
-import { createJSONStorage,persist } from "zustand/middleware";
+import Taro from '@tarojs/taro';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { Rank } from "@/constants";
+import { Rank } from '@/constants';
 
-import { diamond1, diamond5, legend } from "@/assets/image";
+import { diamond1, diamond5, legend } from '@/assets/image';
 
 // 定义数据类型接口
 export interface RankType {
@@ -17,22 +17,22 @@ export interface RankType {
 export const dataTypes: RankType[] = [
   {
     id: Rank.TOP_LEGEND,
-    name: "传说Top1000",
+    name: '传说Top1000',
     url: legend,
   },
   {
     id: Rank.DIAMOND_4TO1,
-    name: "钻石4-1",
+    name: '钻石4-1',
     url: diamond1,
   },
   {
     id: Rank.TOP_5K,
-    name: "传说Top5000",
+    name: '传说Top5000',
     url: legend,
   },
   {
     id: Rank.DIAMOND_TO_LEGEND,
-    name: "钻石-传说",
+    name: '钻石-传说',
     url: diamond5,
   },
 ];
@@ -48,11 +48,11 @@ interface RankBarState {
 // 创建状态管理，使用persist持久化数据到本地存储
 export const useRankBarStore = create<RankBarState>()(
   persist(
-    (set) => ({
+    set => ({
       currentType: dataTypes[0].id,
       sortedDataTypes: [...dataTypes],
-      setCurrentType: (type) => set({ currentType: type }),
-      setSortedDataTypes: (types) => {
+      setCurrentType: type => set({ currentType: type }),
+      setSortedDataTypes: types => {
         // 添加数据有效性检查，确保数据完整才更新
         if (!types || !Array.isArray(types) || types.length === 0) {
           console.error('传入的数据无效，重置为默认排序');
@@ -71,16 +71,16 @@ export const useRankBarStore = create<RankBarState>()(
       resetSortedDataTypes: () => set({ sortedDataTypes: [...dataTypes] }),
     }),
     {
-      name: "rank-bar-storage",
+      name: 'rank-bar-storage',
       storage: createJSONStorage(() => ({
-        getItem: async (name) => {
+        getItem: async name => {
           const value = Taro.getStorageSync(name);
           return value ? JSON.parse(value) : null;
         },
         setItem: async (name, value) => {
           Taro.setStorageSync(name, JSON.stringify(value));
         },
-        removeItem: async (name) => {
+        removeItem: async name => {
           Taro.removeStorageSync(name);
         },
       })),

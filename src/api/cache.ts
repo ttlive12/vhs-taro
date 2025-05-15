@@ -22,7 +22,7 @@ interface CacheItem<T = any> {
 export class CacheManager {
   private cache: Map<string, CacheItem> = new Map();
   private rules: CacheRule[] = [];
-  
+
   constructor(rules: CacheRule[] = []) {
     this.rules = rules;
   }
@@ -53,10 +53,8 @@ export class CacheManager {
     // 尝试匹配规则
     for (const rule of this.rules) {
       const pattern = rule.urlPattern;
-      const isMatch = typeof pattern === 'string' 
-        ? url.includes(pattern) 
-        : pattern.test(url);
-      
+      const isMatch = typeof pattern === 'string' ? url.includes(pattern) : pattern.test(url);
+
       if (isMatch) {
         return rule;
       }
@@ -70,25 +68,25 @@ export class CacheManager {
    */
   generateCacheKey(url: string, config: AxiosRequestConfig, rule: CacheRule): string {
     let key = url;
-    
+
     // 根据方法区分缓存
     if (rule.methodSensitive !== false && config.method) {
       key = `${config.method.toUpperCase()}:${key}`;
     }
-    
+
     // 根据参数区分缓存
     if (rule.paramSensitive !== false) {
       // 处理查询参数
       if (config.params) {
         key = `${key}?${JSON.stringify(config.params)}`;
       }
-      
+
       // 处理请求体
       if (config.data) {
         key = `${key}|${JSON.stringify(config.data)}`;
       }
     }
-    
+
     return key;
   }
 
@@ -101,34 +99,29 @@ export class CacheManager {
 
     const key = this.generateCacheKey(url, config, rule);
     const cached = this.cache.get(key);
-    
+
     if (!cached) return null;
-    
+
     // 检查缓存是否过期
     const now = Date.now();
     if (now - cached.timestamp > cached.expireTime) {
       this.cache.delete(key);
       return null;
     }
-    
+
     return cached.value;
   }
 
   /**
    * 设置缓存
    */
-  set<T = any>(
-    url: string, 
-    config: AxiosRequestConfig, 
-    value: T,
-    rule?: CacheRule
-  ): void {
+  set<T = any>(url: string, config: AxiosRequestConfig, value: T, rule?: CacheRule): void {
     const cacheRule = rule || this.shouldCache(url, config);
     if (!cacheRule) return;
 
     const key = this.generateCacheKey(url, config, cacheRule);
     const expireTime = cacheRule.expireTime || 5 * 60 * 1000; // 默认5分钟
-    
+
     this.cache.set(key, {
       value,
       timestamp: Date.now(),
@@ -167,14 +160,14 @@ export class CacheManager {
   cleanExpired(): number {
     const now = Date.now();
     let count = 0;
-    
+
     this.cache.forEach((item, key) => {
       if (now - item.timestamp > item.expireTime) {
         this.cache.delete(key);
         count++;
       }
     });
-    
+
     return count;
   }
 }

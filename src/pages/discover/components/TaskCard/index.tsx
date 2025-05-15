@@ -1,11 +1,11 @@
-import { Icon } from "@taroify/icons";
-import { Text, View } from "@tarojs/components";
-import { ITouchEvent } from "@tarojs/components/types/common";
-import { pxTransform } from "@tarojs/taro";
+import { Icon } from '@taroify/icons';
+import { Text, View } from '@tarojs/components';
+import { ITouchEvent } from '@tarojs/components/types/common';
+import { pxTransform } from '@tarojs/taro';
 
-import "./index.scss";
+import './index.scss';
 
-export type CardType = "mint" | "pink" | "yellow";
+export type CardType = 'mint' | 'pink' | 'yellow';
 
 interface TaskCardProps {
   type: CardType;

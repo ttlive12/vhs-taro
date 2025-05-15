@@ -1,30 +1,20 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { Image,Text, View } from "@tarojs/components";
-import Taro, { pxTransform } from "@tarojs/taro";
+import { Image, Text, View } from '@tarojs/components';
+import Taro, { pxTransform } from '@tarojs/taro';
 
-import { Archetypes } from "@/models";
-import { createColorFn } from "@/utils";
-import { limitNumber } from "@/utils/number";
+import { Archetypes } from '@/models';
+import { createColorFn } from '@/utils';
+import { limitNumber } from '@/utils/number';
 
-import { point } from "@/assets";
+import { point } from '@/assets';
 
-import "./index.scss";
+import './index.scss';
 
 export function Item({ data, order }: { data: Archetypes; order: number }) {
-  const {
-    zhName,
-    class: heroClass,
-    winrate,
-    popularityPercent,
-    climbingSpeed,
-    name,
-  } = data;
+  const { zhName, class: heroClass, winrate, popularityPercent, climbingSpeed, name } = data;
 
-  const winrateColor = useMemo(
-    () => createColorFn(30)(limitNumber(10)(winrate - 50)),
-    [winrate]
-  );
+  const winrateColor = useMemo(() => createColorFn(30)(limitNumber(10)(winrate - 50)), [winrate]);
 
   const climbingSpeedColor = useMemo(
     () => createColorFn(10)(limitNumber(2)(climbingSpeed)),

@@ -1,8 +1,8 @@
-import Taro from "@tarojs/taro";
-import { create } from "zustand";
-import { createJSONStorage,persist } from "zustand/middleware";
+import Taro from '@tarojs/taro';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { Mode } from "@/constants";
+import { Mode } from '@/constants';
 
 interface ModeStore {
   mode: Mode;
@@ -21,16 +21,16 @@ const useModeStore = create<ModeStore>()(
       },
     }),
     {
-      name: "mode-storage",
+      name: 'mode-storage',
       storage: createJSONStorage(() => ({
-        getItem: (name) => {
+        getItem: name => {
           const value = Taro.getStorageSync(name);
           return value ? JSON.parse(value) : null;
         },
         setItem: (name, value) => {
           Taro.setStorageSync(name, JSON.stringify(value));
         },
-        removeItem: (name) => {
+        removeItem: name => {
           Taro.removeStorageSync(name);
         },
       })),

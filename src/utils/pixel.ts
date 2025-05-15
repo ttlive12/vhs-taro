@@ -1,4 +1,4 @@
-import Taro from "@tarojs/taro";
+import Taro from '@tarojs/taro';
 
 export const px2rpx = (px: number) => {
   return (px * 750) / Taro.getSystemInfoSync().windowWidth;

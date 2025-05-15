@@ -1,14 +1,21 @@
 {
-  "extends": ["taro/react"],
+  "extends": [
+    "taro/react",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "simple-import-sort",
     "import",
     "unused-imports",
     "react-hooks",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
+    /* —— Prettier 配置 —— */
+    "prettier/prettier": ["error"],
+
     /* —— 自动排序（启用 simple-import-sort，禁用其他排序相关规则） —— */
     "simple-import-sort/imports": [
       "error",
@@ -32,7 +39,7 @@
     "simple-import-sort/exports": "error",
     "import/order": "off", // 与 simple-import-sort 冲突 :contentReference[oaicite:2]{index=2}
     "sort-imports": "off", // 与自动排序重复，仅处理成员排序，易与 plugin 冲突 :contentReference[oaicite:3]{index=3}
-    "import/first": "off", // 避免 “Absolute imports should come before relative imports” 冲突 :contentReference[oaicite:4]{index=4}
+    "import/first": "off", // 避免 "Absolute imports should come before relative imports" 冲突 :contentReference[oaicite:4]{index=4}
 
     /* —— 无用代码清理 —— */
     "unused-imports/no-unused-imports": "error",

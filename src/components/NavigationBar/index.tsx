@@ -1,18 +1,18 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react';
 
-import { ArrowLeft } from "@taroify/icons";
-import { Image, Text, View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import { ArrowLeft } from '@taroify/icons';
+import { Image, Text, View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
 
-import { Mode } from "@/constants";
-import useModeStore from "@/store/mode";
-import useSystemInfoStore from "@/store/systemInfo";
+import { Mode } from '@/constants';
+import useModeStore from '@/store/mode';
+import useSystemInfoStore from '@/store/systemInfo';
 
-import { logo, setting } from "@/assets";
+import { logo, setting } from '@/assets';
 
-import SettingPopup from "../SettingPopup";
+import SettingPopup from '../SettingPopup';
 
-import "./index.scss";
+import './index.scss';
 
 export interface NavigationBarProps {
   title?: string;
@@ -23,14 +23,14 @@ export interface NavigationBarProps {
 }
 
 export const NavigationBar: FC<NavigationBarProps> = ({
-  title = "",
+  title = '',
   showBack = false,
   showLogo = true,
-  className = "",
+  className = '',
   showSetting = true,
 }) => {
   Taro.loadFontFace({
-    family: "mode",
+    family: 'mode',
     source: `url("https://at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/HGpCcupzDbip.woff2") format("woff2"),url("https://at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/Wxf8BEonqx4q.woff") format("woff")`,
   });
 
@@ -38,7 +38,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
   const { statusBarHeight } = useSystemInfoStore();
 
   // 获取模式
-  const mode = useModeStore((state) => state.mode);
+  const mode = useModeStore(state => state.mode);
 
   // 设置弹窗状态
   const [showSettingPopup, setShowSettingPopup] = useState(false);
@@ -74,11 +74,7 @@ export const NavigationBar: FC<NavigationBarProps> = ({
             {showBack && <ArrowLeft onClick={handleBackClick} size={20} />}
 
             {showLogo && !showBack && (
-              <Image
-                className='navigation-bar-logo'
-                src={logo}
-                mode='aspectFit'
-              />
+              <Image className='navigation-bar-logo' src={logo} mode='aspectFit' />
             )}
           </View>
 
@@ -88,13 +84,9 @@ export const NavigationBar: FC<NavigationBarProps> = ({
 
           {showSetting && (
             <View className='navigation-bar-right' onClick={handleOpenSetting}>
-              <Image
-                className='navigation-bar-right-icon'
-                src={setting}
-                mode='aspectFit'
-              />
+              <Image className='navigation-bar-right-icon' src={setting} mode='aspectFit' />
               <Text className='navigation-bar-right-text'>
-                {mode === Mode.STANDARD ? "标准模式" : "狂野模式"}
+                {mode === Mode.STANDARD ? '标准模式' : '狂野模式'}
               </Text>
             </View>
           )}

@@ -1,9 +1,9 @@
-import React, { useMemo,useState } from "react";
+import React, { useMemo, useState } from 'react';
 
-import { ActionSheet } from "@taroify/core";
-import { Text, View } from "@tarojs/components";
+import { ActionSheet } from '@taroify/core';
+import { Text, View } from '@tarojs/components';
 
-import { ModeTypes } from "@/models/player";
+import { ModeTypes } from '@/models/player';
 
 interface ModeSelectorProps {
   modeList: Array<{ mode_name: ModeTypes; cn_mode_name: string }>;
@@ -38,7 +38,7 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
       modeList.map((mode, index) => ({
         name: mode.cn_mode_name,
         value: index,
-        className: index === modeIndex ? "active-option" : "",
+        className: index === modeIndex ? 'active-option' : '',
       })),
     [modeList, modeIndex]
   );
@@ -49,7 +49,7 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
       seasonList.map((season, index) => ({
         name: season.season,
         value: index,
-        className: index === seasonIndex ? "active-option" : "",
+        className: index === seasonIndex ? 'active-option' : '',
       })),
     [seasonList, seasonIndex]
   );
@@ -65,13 +65,13 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({
   };
 
   // 选择模式
-  const handleModeSelect = (option) => {
+  const handleModeSelect = option => {
     onModeChange(Number(option.value));
     setModeOpen(false);
   };
 
   // 选择赛季
-  const handleSeasonSelect = (option) => {
+  const handleSeasonSelect = option => {
     onSeasonChange(Number(option.value));
     setSeasonOpen(false);
   };

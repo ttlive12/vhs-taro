@@ -113,7 +113,7 @@
           margin-right: 20px;
 
           &::before {
-            content: "胜率:";
+            content: '胜率:';
             font-size: 24px;
             font-weight: 400;
             opacity: 0.8;
@@ -121,7 +121,7 @@
           }
 
           &::after {
-            content: "%";
+            content: '%';
             font-size: 24px;
             font-weight: 400;
             margin-left: 2px;
@@ -136,8 +136,8 @@
           font-size: 26px;
 
           .dust-icon {
-            width: 26.2px;
-            height: 37px;
+            width: 32px;
+            height: 32px;
             flex-shrink: 0;
           }
         }

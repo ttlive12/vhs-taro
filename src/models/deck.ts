@@ -1,4 +1,4 @@
-import { Rarity } from "@/constants/enums";
+import { Rarity } from '@/constants/enums';
 
 export interface Card {
   /**

@@ -1,10 +1,10 @@
-import { View } from "@tarojs/components";
+import { View } from '@tarojs/components';
 
-import { NavigationBar, RankBar } from "@/components";
+import { NavigationBar, RankBar } from '@/components';
 
-import { WaterfallList } from "./components/WaterfallList";
+import { WaterfallList } from './components/WaterfallList';
 
-import "./index.scss";
+import './index.scss';
 
 export default function Decks() {
   return (

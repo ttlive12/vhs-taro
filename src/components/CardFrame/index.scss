@@ -6,7 +6,10 @@
 
   &-name {
     width: 100%;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
       1px 1px 0 #000;
     display: flex;
     gap: 15px;
@@ -59,7 +62,7 @@
       );
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: 0;

@@ -3,39 +3,37 @@
 module.exports = {
   presets: [
     [
-      "taro",
+      'taro',
       {
-        framework: "react",
+        framework: 'react',
         ts: true,
-        compiler: "webpack5",
-        useBuiltIns: process.env.TARO_ENV === "h5" ? "usage" : false,
+        compiler: 'webpack5',
+        useBuiltIns: process.env.TARO_ENV === 'h5' ? 'usage' : false,
       },
     ],
   ],
   plugins: [
-    "@babel/plugin-transform-optional-chaining",
+    '@babel/plugin-transform-optional-chaining',
     [
-      "import",
+      'import',
       {
-        libraryName: "@taroify/core",
-        libraryDirectory: "",
+        libraryName: '@taroify/core',
+        libraryDirectory: '',
         style: true,
       },
-      "@taroify/core",
+      '@taroify/core',
     ],
     [
-      "import",
+      'import',
       {
-        libraryName: "@taroify/icons",
-        libraryDirectory: "",
+        libraryName: '@taroify/icons',
+        libraryDirectory: '',
         camel2DashComponentName: false,
-        style: () => "@taroify/icons/style",
-        customName: (name) =>
-          name === "Icon"
-            ? "@taroify/icons/van/VanIcon"
-            : `@taroify/icons/${name}`,
+        style: () => '@taroify/icons/style',
+        customName: name =>
+          name === 'Icon' ? '@taroify/icons/van/VanIcon' : `@taroify/icons/${name}`,
       },
-      "@taroify/icons",
+      '@taroify/icons',
     ],
   ],
 };

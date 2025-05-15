@@ -5,37 +5,37 @@
  * @returns 饼图配置
  */
 export const pieChartConfig = ({ title, data }) => ({
-  type: "pie",
+  type: 'pie',
   data: [
     {
-      id: "rank",
+      id: 'rank',
       values: data,
     },
   ],
-  background: "transparent",
+  background: 'transparent',
   outerRadius: 0.8,
-  valueField: "value",
-  categoryField: "type",
+  valueField: 'value',
+  categoryField: 'type',
   title: {
     visible: true,
     text: title,
-    align: "center",
+    align: 'center',
   },
   label: {
     visible: true,
-    position: "outside",
+    position: 'outside',
     style: {
-      fill: (datum) => {
+      fill: datum => {
         return datum.labelColor;
       },
-      type: "text",
+      type: 'text',
       fontSize: 12,
       maxLineWidth: 200,
     },
   },
   pie: {
     style: {
-      fill: (datum) => {
+      fill: datum => {
         return datum.color;
       },
     },

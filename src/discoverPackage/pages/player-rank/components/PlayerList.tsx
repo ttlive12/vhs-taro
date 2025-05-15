@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect,useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 import { Text, View } from '@tarojs/components';
 import { useRequest } from 'ahooks';
@@ -29,7 +29,7 @@ export interface PlayerListRef {
  */
 const PlayerList = forwardRef<PlayerListRef, PlayerListProps>((props, ref) => {
   const { mode, seasonId, isReady } = props;
-  
+
   // 分页和数据状态
   const [pageNum, setPageNum] = useState(1);
   const [playerList, setPlayerList] = useState<PlayerRankItem[]>([]);
@@ -49,27 +49,28 @@ const PlayerList = forwardRef<PlayerListRef, PlayerListProps>((props, ref) => {
       if (!isReady) return;
 
       const isLoadMore = pageNum > 1;
-      
+
       const params: PlayerRequest = {
         mode_name: mode,
         season_id: seasonId,
         page: pageNum,
         page_size: 25,
       };
-      
+
       const { list, total } = await getPlayerRank(params);
-      
+
       // 更新数据
       if (isLoadMore) {
         setPlayerList(prev => [...prev, ...list]);
       } else {
         setPlayerList(list);
       }
-      
+
       // 更新是否还有更多数据
-      setHasMore(list.length > 0 && 
-        (isLoadMore ? playerList.length + list.length : list.length) < total);
-      
+      setHasMore(
+        list.length > 0 && (isLoadMore ? playerList.length + list.length : list.length) < total
+      );
+
       return { list, total };
     },
     {
@@ -77,17 +78,17 @@ const PlayerList = forwardRef<PlayerListRef, PlayerListProps>((props, ref) => {
       refreshDeps: [mode, seasonId, pageNum],
     }
   );
-  
+
   // 加载更多数据
   const handleLoadMore = () => {
     if (hasMore && !loading) {
       setPageNum(prev => prev + 1);
     }
   };
-  
+
   // 暴露方法给父组件
   useImperativeHandle(ref, () => ({
-    loadMore: handleLoadMore
+    loadMore: handleLoadMore,
   }));
 
   return (
@@ -96,9 +97,9 @@ const PlayerList = forwardRef<PlayerListRef, PlayerListProps>((props, ref) => {
         <Text className='rank-header-item rank-position'>排名</Text>
         <Text className='rank-header-item rank-name'>玩家</Text>
       </View>
-      
+
       <View className='rank-items'>
-        {playerList.map((item) => (
+        {playerList.map(item => (
           <View key={item.position} className='rank-item'>
             <View className='rank-item-position'>
               <Text className='rank-item-position-text'>{item.position}</Text>
@@ -125,4 +126,4 @@ const PlayerList = forwardRef<PlayerListRef, PlayerListProps>((props, ref) => {
 });
 
 PlayerList.displayName = 'PlayerList';
-export default PlayerList; 
+export default PlayerList;

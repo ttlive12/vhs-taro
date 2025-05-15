@@ -7,9 +7,9 @@ interface CardPreviewState {
   closeCardPreview: () => void;
 }
 
-export const useCardPreviewStore = create<CardPreviewState>((set) => ({
+export const useCardPreviewStore = create<CardPreviewState>(set => ({
   cardId: '',
   show: false,
   setCardPreview: (cardId: string) => set({ cardId, show: true }),
   closeCardPreview: () => set({ show: false }),
-})); 
+}));

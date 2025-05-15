@@ -1,16 +1,16 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 
-import { View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
-import { useRequest } from "ahooks";
+import { View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
+import { useRequest } from 'ahooks';
 
-import { getModeData } from "@/api";
-import { Loading, NavigationBar } from "@/components";
-import { ModeTypes } from "@/models/player";
+import { getModeData } from '@/api';
+import { Loading, NavigationBar } from '@/components';
+import { ModeTypes } from '@/models/player';
 
-import { ModeSelector, PlayerList } from "./components";
+import { ModeSelector, PlayerList } from './components';
 
-import "./index.scss";
+import './index.scss';
 
 /**
  * 玩家排行页面
@@ -28,22 +28,19 @@ const PlayerRank: React.FC = () => {
 
   // 当前选中的模式
   const currentMode = modeList[modeIndex] || {
-    mode_name: "standard" as ModeTypes,
-    cn_mode_name: "标准模式",
+    mode_name: 'standard' as ModeTypes,
+    cn_mode_name: '标准模式',
   };
 
   // 当前模式下的赛季列表
   const seasonList =
-    modeData?.season_map && currentMode
-      ? modeData.season_map[currentMode.mode_name] || []
-      : [];
+    modeData?.season_map && currentMode ? modeData.season_map[currentMode.mode_name] || [] : [];
 
   // 当前选中的赛季
-  const currentSeason = seasonList[seasonIndex] || { season_id: 0, season: "" };
+  const currentSeason = seasonList[seasonIndex] || { season_id: 0, season: '' };
 
   // 是否可以开始请求玩家排名数据
-  const canFetchRank =
-    !modeLoading && seasonList.length > 0 && currentSeason.season_id !== 0;
+  const canFetchRank = !modeLoading && seasonList.length > 0 && currentSeason.season_id !== 0;
 
   // 创建一个ref，存放PlayerList组件的实例
   const playerListRef = useRef<{ loadMore: () => void } | null>(null);

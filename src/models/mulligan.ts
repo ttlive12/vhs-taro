@@ -1,4 +1,4 @@
-import { Card } from "./deck";
+import { Card } from './deck';
 
 export interface Mulligan extends Card {
   /**

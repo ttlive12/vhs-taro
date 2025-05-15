@@ -1,4 +1,4 @@
-import type { Class } from "../constants/enums";
+import type { Class } from '../constants/enums';
 
 /**
  * 对手数据
@@ -7,7 +7,7 @@ export interface Opponent {
   /**
    * 对手职业
    */
-  class: Class | "total";
+  class: Class | 'total';
 
   /**
    * 对局次数

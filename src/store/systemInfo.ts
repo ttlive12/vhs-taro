@@ -1,5 +1,5 @@
-import { getSystemInfoSync } from "@tarojs/taro";
-import { create } from "zustand";
+import { getSystemInfoSync } from '@tarojs/taro';
+import { create } from 'zustand';
 
 interface SystemInfoState {
   statusBarHeight: number;
@@ -7,31 +7,28 @@ interface SystemInfoState {
   platform: string;
   safeAreaBottomHeight: number;
   useHeight: number;
-  setSystemInfo: (
-    info: Omit<SystemInfoState, "setSystemInfo" | "fetchSystemInfo">
-  ) => void;
+  setSystemInfo: (info: Omit<SystemInfoState, 'setSystemInfo' | 'fetchSystemInfo'>) => void;
   fetchSystemInfo: () => void;
 }
 
-const initialState: Omit<SystemInfoState, "setSystemInfo" | "fetchSystemInfo"> =
-  {
-    statusBarHeight: 40,
-    platform: "ios",
-    useHeight: 0,
-    safeArea: {
-      bottom: 0,
-      height: 0,
-      left: 0,
-      right: 0,
-      top: 0,
-      width: 0,
-    },
-    safeAreaBottomHeight: 0,
-  };
+const initialState: Omit<SystemInfoState, 'setSystemInfo' | 'fetchSystemInfo'> = {
+  statusBarHeight: 40,
+  platform: 'ios',
+  useHeight: 0,
+  safeArea: {
+    bottom: 0,
+    height: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    width: 0,
+  },
+  safeAreaBottomHeight: 0,
+};
 
-const useSystemInfoStore = create<SystemInfoState>((set) => ({
+const useSystemInfoStore = create<SystemInfoState>(set => ({
   ...initialState,
-  setSystemInfo: (info) => set(info),
+  setSystemInfo: info => set(info),
   fetchSystemInfo: () => {
     try {
       const info = getSystemInfoSync();

@@ -1,24 +1,24 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { View } from "@tarojs/components";
-import { PieChart } from "@visactor/taro-vchart";
-import { useRequest } from "ahooks";
+import { View } from '@tarojs/components';
+import { PieChart } from '@visactor/taro-vchart';
+import { useRequest } from 'ahooks';
 
-import { getArchetypes } from "@/api";
-import { Loading, NavigationBar, RankBar } from "@/components";
-import useModeStore from "@/store/mode";
-import { useRankBarStore } from "@/store/rankBar";
-import useSystemInfoStore from "@/store/systemInfo";
+import { getArchetypes } from '@/api';
+import { Loading, NavigationBar, RankBar } from '@/components';
+import useModeStore from '@/store/mode';
+import { useRankBarStore } from '@/store/rankBar';
+import useSystemInfoStore from '@/store/systemInfo';
 
-import { pieChartConfig } from "./constants";
-import { calcArchetypeData, calcClassData } from "./utils";
+import { pieChartConfig } from './constants';
+import { calcArchetypeData, calcClassData } from './utils';
 
-import "./index.scss";
+import './index.scss';
 
 const ChartPage: React.FC = () => {
-  const mode = useModeStore((state) => state.mode);
+  const mode = useModeStore(state => state.mode);
 
-  const { currentType } = useRankBarStore((state) => state);
+  const { currentType } = useRankBarStore(state => state);
   const { useHeight } = useSystemInfoStore();
 
   // 请求卡组数据
@@ -37,7 +37,7 @@ const ChartPage: React.FC = () => {
   const classSpec = useMemo(() => {
     if (archetypesData && archetypesData.length > 0) {
       const classData = calcClassData(archetypesData);
-      return pieChartConfig({ title: "职业分布图", data: classData });
+      return pieChartConfig({ title: '职业分布图', data: classData });
     }
     return null;
   }, [archetypesData]);
@@ -45,7 +45,7 @@ const ChartPage: React.FC = () => {
   const archetypeSpec = useMemo(() => {
     if (archetypesData && archetypesData.length > 0) {
       const archetypeData = calcArchetypeData(archetypesData);
-      return pieChartConfig({ title: "卡组分布图", data: archetypeData });
+      return pieChartConfig({ title: '卡组分布图', data: archetypeData });
     }
     return null;
   }, [archetypesData]);
@@ -72,7 +72,7 @@ const ChartPage: React.FC = () => {
                   <PieChart
                     canvasId='classPieChart'
                     spec={classSpec as any}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: '100%', width: '100%' }}
                   />
                 </View>
               </View>
@@ -88,7 +88,7 @@ const ChartPage: React.FC = () => {
                   <PieChart
                     canvasId='archetypePieChart'
                     spec={archetypeSpec as any}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: '100%', width: '100%' }}
                   />
                 </View>
               </View>

@@ -1,4 +1,4 @@
-import { Rank } from "@/constants";
+import { Rank } from '@/constants';
 
 export type Ranked<T> = {
   [key in Rank]: T;

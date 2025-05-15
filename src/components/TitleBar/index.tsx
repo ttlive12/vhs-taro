@@ -1,8 +1,8 @@
-import { Dialog } from "@taroify/core";
-import { QuestionOutlined } from "@taroify/icons";
-import { Text, View } from "@tarojs/components";
+import { Dialog } from '@taroify/core';
+import { QuestionOutlined } from '@taroify/icons';
+import { Text, View } from '@tarojs/components';
 
-import "./index.scss";
+import './index.scss';
 
 interface TitleBarProps {
   className?: string;
@@ -11,20 +11,15 @@ interface TitleBarProps {
   tips?: string;
 }
 
-export const TitleBar: React.FC<TitleBarProps> = ({
-  icon,
-  title,
-  tips,
-  className,
-}) => {
+export const TitleBar: React.FC<TitleBarProps> = ({ icon, title, tips, className }) => {
   const handleTips = () => {
     Dialog.open({
       title,
       message: tips,
       cancel: {
-        children: "知道了",
+        children: '知道了',
         style: {
-          color: "#213E91",
+          color: '#213E91',
         },
       },
     });

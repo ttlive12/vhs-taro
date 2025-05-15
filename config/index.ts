@@ -1,16 +1,16 @@
-import { defineConfig, type UserConfigExport } from "@tarojs/cli";
-import path from "path";
+import { defineConfig, type UserConfigExport } from '@tarojs/cli';
+import path from 'path';
 // eslint-disable-next-line import/no-named-as-default
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-import devConfig from "./dev";
-import prodConfig from "./prod";
+import devConfig from './dev';
+import prodConfig from './prod';
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
-export default defineConfig<"webpack5">(async (merge) => {
-  const baseConfig: UserConfigExport<"webpack5"> = {
-    projectName: "vhs-taro",
-    date: "2025-5-8",
+export default defineConfig<'webpack5'>(async merge => {
+  const baseConfig: UserConfigExport<'webpack5'> = {
+    projectName: 'vhs-taro',
+    date: '2025-5-8',
     designWidth: 750,
     deviceRatio: {
       640: 2.34 / 2,
@@ -18,19 +18,19 @@ export default defineConfig<"webpack5">(async (merge) => {
       375: 2,
       828: 1.81 / 2,
     },
-    sourceRoot: "src",
-    outputRoot: "dist",
-    plugins: ["@tarojs/plugin-http"],
+    sourceRoot: 'src',
+    outputRoot: 'dist',
+    plugins: ['@tarojs/plugin-http'],
     defineConstants: {},
     copy: {
       patterns: [],
       options: {},
     },
-    framework: "react",
+    framework: 'react',
     compiler: {
-      type: "webpack5",
+      type: 'webpack5',
       prebundle: {
-        exclude: ["taro-ui", "taroify"],
+        exclude: ['taro-ui', 'taroify'],
         enable: false,
         force: true,
       },
@@ -50,8 +50,8 @@ export default defineConfig<"webpack5">(async (merge) => {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
-            namingPattern: "module", // 转换模式，取值为 global/module
-            generateScopedName: "[name]__[local]___[hash:base64:5]",
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
           },
         },
       },
@@ -59,20 +59,20 @@ export default defineConfig<"webpack5">(async (merge) => {
         ignoreOrder: true,
       },
       webpackChain(chain) {
-        chain.resolve.plugin("tsconfig-paths").use(TsconfigPathsPlugin);
+        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin);
       },
     },
     h5: {
-      publicPath: "/",
-      staticDirectory: "static",
+      publicPath: '/',
+      staticDirectory: 'static',
       output: {
-        filename: "js/[name].[hash:8].js",
-        chunkFilename: "js/[name].[chunkhash:8].js",
+        filename: 'js/[name].[hash:8].js',
+        chunkFilename: 'js/[name].[chunkhash:8].js',
       },
       miniCssExtractPluginOption: {
         ignoreOrder: true,
-        filename: "css/[name].[hash].css",
-        chunkFilename: "css/[name].[chunkhash].css",
+        filename: 'css/[name].[hash].css',
+        chunkFilename: 'css/[name].[chunkhash].css',
       },
       postcss: {
         autoprefixer: {
@@ -82,17 +82,17 @@ export default defineConfig<"webpack5">(async (merge) => {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
-            namingPattern: "module", // 转换模式，取值为 global/module
-            generateScopedName: "[name]__[local]___[hash:base64:5]",
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]',
           },
         },
       },
       webpackChain(chain) {
-        chain.resolve.plugin("tsconfig-paths").use(TsconfigPathsPlugin);
+        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin);
       },
     },
     rn: {
-      appName: "taroDemo",
+      appName: 'taroDemo',
       postcss: {
         cssModules: {
           enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -101,16 +101,16 @@ export default defineConfig<"webpack5">(async (merge) => {
     },
     sass: {
       resource: [
-        path.resolve(__dirname, "..", "src/styles/variables.scss"),
-        path.resolve(__dirname, "..", "src/styles/mixins.scss"),
+        path.resolve(__dirname, '..', 'src/styles/variables.scss'),
+        path.resolve(__dirname, '..', 'src/styles/mixins.scss'),
       ],
-      projectDirectory: path.resolve(__dirname, ".."),
+      projectDirectory: path.resolve(__dirname, '..'),
     },
   };
 
   process.env.BROWSERSLIST_ENV = process.env.NODE_ENV;
 
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === 'development') {
     // 本地开发构建配置（不混淆压缩）
     return merge({}, baseConfig, devConfig);
   }

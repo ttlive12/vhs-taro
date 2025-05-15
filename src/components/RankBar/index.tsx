@@ -1,20 +1,19 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react';
 
-import { Image, ScrollView,Text, View } from "@tarojs/components";
-import Taro, { nextTick } from "@tarojs/taro";
+import { Image, ScrollView, Text, View } from '@tarojs/components';
+import Taro, { nextTick } from '@tarojs/taro';
 
-import { Rank } from "@/constants";
-import { useRankBarStore } from "@/store/rankBar";
+import { Rank } from '@/constants';
+import { useRankBarStore } from '@/store/rankBar';
 
-import "./index.scss";
+import './index.scss';
 
 interface RankBarProps {
   onRankChange?: (data: { currentType: string }) => void;
 }
 
 export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
-  const { currentType, sortedDataTypes, setCurrentType, setSortedDataTypes } =
-    useRankBarStore();
+  const { currentType, sortedDataTypes, setCurrentType, setSortedDataTypes } = useRankBarStore();
 
   // 拖拽状态移到组件内部管理
   const [isDragging, setIsDragging] = useState(false);
@@ -38,22 +37,20 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
   // 获取元素位置信息
   const getBoundingClientRect = async (index: number) => {
-    return new Promise<Taro.NodesRef.BoundingClientRectCallbackResult>(
-      (resolve) => {
-        Taro.createSelectorQuery()
-          .select(`#rank-item-${index}`)
-          .boundingClientRect((rect) => {
-            if (rect) {
-              resolve(rect as Taro.NodesRef.BoundingClientRectCallbackResult);
-            }
-          })
-          .exec();
-      }
-    );
+    return new Promise<Taro.NodesRef.BoundingClientRectCallbackResult>(resolve => {
+      Taro.createSelectorQuery()
+        .select(`#rank-item-${index}`)
+        .boundingClientRect(rect => {
+          if (rect) {
+            resolve(rect as Taro.NodesRef.BoundingClientRectCallbackResult);
+          }
+        })
+        .exec();
+    });
   };
 
   // 处理拖拽移动
-  const handleTouchMove = async (e) => {
+  const handleTouchMove = async e => {
     if (!isDragging) return;
 
     const touch = e.touches[0];
@@ -61,7 +58,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
     // 检查当前拖拽项索引是否有效
     if (dragItemIndex < 0 || dragItemIndex >= sortedDataTypes.length) {
-      console.error("无效的拖拽索引", dragItemIndex);
+      console.error('无效的拖拽索引', dragItemIndex);
       nextTick(() => {
         setIsDragging(false);
         setDragItemIndex(-1);
@@ -70,9 +67,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
     }
 
     // 获取所有元素的位置信息
-    const promises = sortedDataTypes.map((_, index) =>
-      getBoundingClientRect(index)
-    );
+    const promises = sortedDataTypes.map((_, index) => getBoundingClientRect(index));
     const rects = await Promise.all(promises);
 
     // 找到当前触摸位置对应的元素
@@ -91,7 +86,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
       // 再次检查是否有效
       if (!newDataTypes[dragItemIndex]) {
-        console.error("拖拽项不存在", dragItemIndex);
+        console.error('拖拽项不存在', dragItemIndex);
         return;
       }
 
@@ -103,11 +98,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
 
       // 检查结果数组长度是否正确
       if (newDataTypes.length !== sortedDataTypes.length) {
-        console.error(
-          "排序后数组长度异常",
-          newDataTypes.length,
-          sortedDataTypes.length
-        );
+        console.error('排序后数组长度异常', newDataTypes.length, sortedDataTypes.length);
         return;
       }
 
@@ -131,7 +122,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
         }
       }
     } else {
-      console.error("结束拖拽时索引无效", dragItemIndex);
+      console.error('结束拖拽时索引无效', dragItemIndex);
     }
 
     // 重置拖拽状态
@@ -142,18 +133,13 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
   };
 
   const getClassName = (item: any, index: number) => {
-    return `type-item ${item.id === currentType ? "type-item-current" : ""} ${
-      dragItemIndex === index ? "type-item-dragging" : ""
+    return `type-item ${item.id === currentType ? 'type-item-current' : ''} ${
+      dragItemIndex === index ? 'type-item-dragging' : ''
     }`;
   };
 
   return (
-    <ScrollView
-      scrollX={!isDragging}
-      enhanced
-      showScrollbar={false}
-      className='rank-bar-container'
-    >
+    <ScrollView scrollX={!isDragging} enhanced showScrollbar={false} className='rank-bar-container'>
       <View className='spacer' />
       {sortedDataTypes.map((item, index) => (
         <View
@@ -167,11 +153,7 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
           onTouchCancel={isDragging ? handleTouchEnd : undefined}
         >
           <View className='type-item-inner'>
-            <Image
-              className='type-item-inner-img'
-              src={item.url}
-              mode='aspectFit'
-            />
+            <Image className='type-item-inner-img' src={item.url} mode='aspectFit' />
             <Text>{item.name}</Text>
           </View>
         </View>
@@ -179,4 +161,3 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
     </ScrollView>
   );
 };
-

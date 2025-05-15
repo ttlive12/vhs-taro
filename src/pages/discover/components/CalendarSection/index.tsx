@@ -1,9 +1,9 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { ScrollView, Text, View } from "@tarojs/components";
-import { pxTransform } from "@tarojs/taro";
+import { ScrollView, Text, View } from '@tarojs/components';
+import { pxTransform } from '@tarojs/taro';
 
-import "./index.scss";
+import './index.scss';
 
 interface WeekDay {
   name: string;
@@ -19,12 +19,11 @@ export const CalendarSection: React.FC = () => {
     const currentWeekDay = today.getDay();
 
     const result: WeekDay[] = [];
-    const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     for (let i = 0; i < 7; i++) {
       // 计算日期，今天是周三，则对应索引2
-      const dayOffset =
-        i - (currentWeekDay - 1) + (currentWeekDay === 0 ? -6 : 0);
+      const dayOffset = i - (currentWeekDay - 1) + (currentWeekDay === 0 ? -6 : 0);
       const date = new Date(today);
       date.setDate(currentDay + dayOffset);
       result.push({
@@ -39,18 +38,13 @@ export const CalendarSection: React.FC = () => {
 
   return (
     <View className='calendar-section'>
-      <ScrollView
-        className='calendar-scroll'
-        scrollX
-        showScrollbar={false}
-        enhanced
-      >
-        <View style={{ width: pxTransform(30), display: "inline-block" }} />
+      <ScrollView className='calendar-scroll' scrollX showScrollbar={false} enhanced>
+        <View style={{ width: pxTransform(30), display: 'inline-block' }} />
         <View className='calendar-days'>
           {weekDays.map((day, index) => (
             <View
               key={`${day.name}-${index}`}
-              className={`calendar-day ${day.isToday ? "active" : ""}`}
+              className={`calendar-day ${day.isToday ? 'active' : ''}`}
             >
               <Text className='day-name'>{day.name}</Text>
               <Text className='day-date'>{day.date}</Text>

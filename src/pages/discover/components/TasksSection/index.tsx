@@ -1,8 +1,8 @@
-import { View } from "@tarojs/components";
+import { View } from '@tarojs/components';
 
-import { CardType, TaskCard } from "../TaskCard";
+import { CardType, TaskCard } from '../TaskCard';
 
-import "./index.scss";
+import './index.scss';
 
 interface TaskItem {
   id: string;
@@ -19,18 +19,11 @@ interface TasksSectionProps {
   onTaskClick: (pagePath: string) => void;
 }
 
-export const TasksSection: React.FC<TasksSectionProps> = ({
-  tasks,
-  onTaskClick,
-}) => {
+export const TasksSection: React.FC<TasksSectionProps> = ({ tasks, onTaskClick }) => {
   return (
     <View className='tasks-section'>
-      {tasks.map((task) => (
-        <TaskCard
-          key={task.id}
-          onClick={() => onTaskClick(task.pagePath)}
-          {...task}
-        />
+      {tasks.map(task => (
+        <TaskCard key={task.id} onClick={() => onTaskClick(task.pagePath)} {...task} />
       ))}
     </View>
   );

@@ -1,10 +1,10 @@
-import { FC, useEffect,useState } from "react";
+import { FC, useEffect, useState } from 'react';
 
-import { Image,Text, View } from "@tarojs/components";
+import { Image, Text, View } from '@tarojs/components';
 
-import { useCardPreviewStore } from "../../store/cardPreviewStore";
+import { useCardPreviewStore } from '../../store/cardPreviewStore';
 
-import "./index.scss";
+import './index.scss';
 
 const CardPreview: FC = () => {
   const { show, cardId, closeCardPreview } = useCardPreviewStore();
@@ -28,13 +28,11 @@ const CardPreview: FC = () => {
 
   return (
     <View className='card-preview-overlay' onClick={handleClose}>
-      <View className='card-preview' onClick={(e) => e.stopPropagation()}>
-        <View
-          className={`card-preview-container ${isLoading ? "loading" : ""}`}
-        >
+      <View className='card-preview' onClick={e => e.stopPropagation()}>
+        <View className={`card-preview-container ${isLoading ? 'loading' : ''}`}>
           {cardId && (
             <Image
-              className={`preview-image full ${isLoading ? "hidden" : ""}`}
+              className={`preview-image full ${isLoading ? 'hidden' : ''}`}
               src={`https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${cardId}.png`}
               mode='aspectFit'
               onLoad={handleImageLoad}

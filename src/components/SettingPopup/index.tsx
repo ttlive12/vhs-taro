@@ -1,23 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Button, Popup, Radio } from "@taroify/core";
-import {
-  ClockOutlined,
-  CommentOutlined,
-  Cross,
-  Icon,
-  QuestionOutlined,
-} from "@taroify/icons";
-import { Image, Text, View } from "@tarojs/components";
+import { Button, Popup, Radio } from '@taroify/core';
+import { ClockOutlined, CommentOutlined, Cross, Icon, QuestionOutlined } from '@taroify/icons';
+import { Image, Text, View } from '@tarojs/components';
 
-import useModeStore from "@/store/mode";
-import { RankType, useRankTypeStore } from "@/store/rankType";
+import useModeStore from '@/store/mode';
+import { RankType, useRankTypeStore } from '@/store/rankType';
 
-import { standard, wild } from "@/assets/image";
+import { standard, wild } from '@/assets/image';
 
-import { TitleBar } from "../TitleBar";
+import { TitleBar } from '../TitleBar';
 
-import "./index.scss";
+import './index.scss';
 
 interface SettingPopupProps {
   visible: boolean;
@@ -45,24 +39,16 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
   };
 
   return (
-    <Popup
-      open={visible}
-      rounded
-      style={{ width: "80%" }}
-      onClose={onClose}
-      placement='center'
-    >
+    <Popup open={visible} rounded style={{ width: '80%' }} onClose={onClose} placement='center'>
       <View className='setting-popup'>
         {/* 模式切换 */}
         <View className='mode'>
           <Image
-            className={`mode-icon ${rotate ? "rotate" : ""}`}
-            src={mode === "standard" ? standard : wild}
+            className={`mode-icon ${rotate ? 'rotate' : ''}`}
+            src={mode === 'standard' ? standard : wild}
             onClick={handleModeSwitch}
           />
-          <Text className='mode-name'>
-            {mode === "standard" ? "标准模式" : "狂野模式"}
-          </Text>
+          <Text className='mode-name'>{mode === 'standard' ? '标准模式' : '狂野模式'}</Text>
           <Icon
             className='mode-switch'
             classPrefix='icon'
@@ -80,11 +66,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
           />
 
           <View className='setting-body'>
-            <Radio.Group
-              value={rankType}
-              direction='horizontal'
-              onChange={handleRankTypeChange}
-            >
+            <Radio.Group value={rankType} direction='horizontal' onChange={handleRankTypeChange}>
               <Radio name={RankType.COMBINED}>综合排行</Radio>
               <Radio name={RankType.WINRATE}>胜率排行</Radio>
             </Radio.Group>

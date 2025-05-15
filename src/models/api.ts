@@ -1,6 +1,6 @@
-import { Class, Mode, Rank } from "@/constants/enums";
+import { Class, Mode, Rank } from '@/constants/enums';
 
-import { Deck } from "./deck";
+import { Deck } from './deck';
 
 export interface QueryDecks {
   filters?: Filters;

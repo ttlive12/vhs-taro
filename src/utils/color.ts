@@ -32,7 +32,6 @@ export function createColorFn(
   };
 }
 
-
 /**
  * 将两个十六进制颜色按给定权重混合
  * @param color1 第一个颜色，例如 "#ff0000"
@@ -44,7 +43,7 @@ export function mix(color1: string, color2: string, weight: number = 0.5): strin
   // 去掉 # 符号并转换成 RGB 数字
   const c1 = hexToRgb(color1);
   const c2 = hexToRgb(color2);
-  if (!c1 || !c2) throw new Error("Invalid color format");
+  if (!c1 || !c2) throw new Error('Invalid color format');
 
   const r = Math.round(c1.r + (c2.r - c1.r) * weight);
   const g = Math.round(c1.g + (c2.g - c1.g) * weight);
@@ -57,14 +56,17 @@ export function mix(color1: string, color2: string, weight: number = 0.5): strin
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
   hex = hex.replace(/^#/, '');
   if (hex.length === 3) {
-    hex = hex.split('').map(c => c + c).join('');
+    hex = hex
+      .split('')
+      .map(c => c + c)
+      .join('');
   }
   if (hex.length !== 6) return null;
   const num = parseInt(hex, 16);
   return {
     r: (num >> 16) & 0xff,
     g: (num >> 8) & 0xff,
-    b: num & 0xff
+    b: num & 0xff,
   };
 }
 

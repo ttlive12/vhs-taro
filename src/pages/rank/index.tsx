@@ -1,21 +1,21 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { View } from "@tarojs/components";
-import { pxTransform } from "@tarojs/taro";
-import { useRequest } from "ahooks";
+import { View } from '@tarojs/components';
+import { pxTransform } from '@tarojs/taro';
+import { useRequest } from 'ahooks';
 
-import { getArchetypes } from "@/api";
-import { Loading, NavigationBar, RankBar } from "@/components";
-import { Archetypes } from "@/models";
-import useModeStore from "@/store/mode";
-import { useRankBarStore } from "@/store/rankBar";
-import { RankType, useRankTypeStore } from "@/store/rankType";
-import { calculateCombinedScore } from "@/utils";
+import { getArchetypes } from '@/api';
+import { Loading, NavigationBar, RankBar } from '@/components';
+import { Archetypes } from '@/models';
+import useModeStore from '@/store/mode';
+import { useRankBarStore } from '@/store/rankBar';
+import { RankType, useRankTypeStore } from '@/store/rankType';
+import { calculateCombinedScore } from '@/utils';
 
-import { Card } from "./components/Card";
-import { Item } from "./components/Item";
+import { Card } from './components/Card';
+import { Item } from './components/Item';
 
-import "./index.scss";
+import './index.scss';
 
 export function RankPage({ data }: { data: Archetypes[] }) {
   return (
@@ -39,9 +39,9 @@ export function RankPage({ data }: { data: Archetypes[] }) {
 }
 
 export default function Loader() {
-  const mode = useModeStore((state) => state.mode);
-  const { currentType } = useRankBarStore((state) => state);
-  const { rankType } = useRankTypeStore((state) => state);
+  const mode = useModeStore(state => state.mode);
+  const { currentType } = useRankBarStore(state => state);
+  const { rankType } = useRankTypeStore(state => state);
 
   const { data, loading } = useRequest(() => getArchetypes(mode), {
     refreshDeps: [mode],

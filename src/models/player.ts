@@ -1,11 +1,11 @@
 export type ModeTypes =
-  | "arena"
-  | "battlegrounds"
-  | "battlegroundsduo"
-  | "wild"
-  | "standard"
-  | "twist"
-  | "mercenaries";
+  | 'arena'
+  | 'battlegrounds'
+  | 'battlegroundsduo'
+  | 'wild'
+  | 'standard'
+  | 'twist'
+  | 'mercenaries';
 
 export interface ModeData {
   game_modes: {
