@@ -1,4 +1,4 @@
-import { Bars } from '@taroify/icons';
+import { ArrowRight, Bars } from '@taroify/icons';
 import { Image, ScrollView, Text, View } from '@tarojs/components';
 import Taro, { pxTransform } from '@tarojs/taro';
 import { useRequest } from 'ahooks';
@@ -68,9 +68,10 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
               <View className='decks-item-inner-header'>
                 <Image className='class-icon' src={classImageMap[item.class]} />
                 <Text className='deck-name'>
-                  <Text>{item.zhName}</Text>
-                  <Text className='games'>({item.games}场)</Text>
+                  <Text className='deck-name-text'>{item.zhName}</Text>
+                  <Text className='deck-name-games'>({item.games}场)</Text>
                 </Text>
+                <ArrowRight className='arrow-right' />
               </View>
               <View className='decks-item-inner-stats'>
                 <Text className='decks-item-inner-stats-winrate'>{item.winrate}</Text>

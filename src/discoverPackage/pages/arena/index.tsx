@@ -11,6 +11,8 @@ import { classImageMap, classNameMap } from '@/constants/map';
 import { ArenaClass } from '@/models';
 import { createColorFn, limitNumber } from '@/utils';
 
+import { point } from '@/assets';
+
 import './index.scss';
 
 const getColor = createColorFn(50);
@@ -54,7 +56,7 @@ const ArenaPage: React.FC = () => {
             {item.winRate.toFixed(1)}%
           </Text>
         </View>
-        <View className='rank-item-arrow' />
+        <Image className='rank-item-arrow' src={point} />
       </View>
     );
   };

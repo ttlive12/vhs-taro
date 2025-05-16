@@ -155,17 +155,14 @@
     }
 
     &-arrow {
-      width: 16px;
-      height: 16px;
-      margin-left: 30px;
-      border-top: 2px solid $gray-6;
-      border-right: 2px solid $gray-6;
-      transform: rotate(45deg);
+      width: 40px;
+      height: 40px;
+      margin-left: 40px;
       transition: transform 0.3s ease;
     }
 
     &:active &-arrow {
-      transform: translateX(10px) rotate(45deg);
+      transform: translateX(100%);
     }
   }
 }
