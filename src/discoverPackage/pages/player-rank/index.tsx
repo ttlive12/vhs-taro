@@ -68,7 +68,7 @@ const PlayerRank: React.FC = () => {
       <NavigationBar title='玩家排名' showBack showSetting={false} />
 
       {modeLoading ? (
-        <Loading />
+        <Loading style={{ marginTop: 100 }} />
       ) : (
         <View className='page-content'>
           <View className='container'>
