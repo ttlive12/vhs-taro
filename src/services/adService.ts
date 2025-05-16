@@ -9,6 +9,10 @@ const AD_UNIT_ID = 'adunit-28756f75721e4cf2';
 // 存储键名
 const COMPLETE_VIEW_KEY = 'ad_complete_view_time';
 const INCOMPLETE_VIEW_KEY = 'ad_incomplete_view_time';
+const AD_START_TIME_KEY = 'ad_start_time';
+
+// 观看时长阈值（毫秒）
+const MIN_VIEW_DURATION = 5000; // 5秒
 
 /**
  * 加载激励广告
@@ -75,50 +79,80 @@ export const shouldShowAd = (): boolean => {
 };
 
 /**
+ * 记录广告观看开始时间
+ */
+const recordAdStart = (): void => {
+  Taro.setStorageSync(AD_START_TIME_KEY, Date.now());
+};
+
+/**
+ * 获取广告观看时长（毫秒）
+ * @returns {number} 观看时长，如果没有开始时间记录则返回0
+ */
+const getAdViewDuration = (): number => {
+  const startTime = Taro.getStorageSync(AD_START_TIME_KEY);
+  if (!startTime) return 0;
+
+  const duration = Date.now() - startTime;
+  // 清除开始时间记录
+  Taro.removeStorageSync(AD_START_TIME_KEY);
+
+  return duration;
+};
+
+/**
  * 记录广告观看状态
  * @param isComplete 是否完整观看
+ * @returns {boolean} 是否观看了足够长的时间（至少5秒）
  */
-const recordAdView = (isComplete: boolean): void => {
+const recordAdView = (isComplete: boolean): boolean => {
   const now = Date.now();
+  const viewDuration = getAdViewDuration();
+  const isLongEnough = viewDuration >= MIN_VIEW_DURATION;
 
   if (isComplete) {
     // 完整观看，记录时间戳
     Taro.setStorageSync(COMPLETE_VIEW_KEY, now);
     // 清除未完整观看记录
     Taro.removeStorageSync(INCOMPLETE_VIEW_KEY);
-  } else {
-    // 未完整观看，记录时间戳
+  } else if (isLongEnough) {
+    // 未完整观看但至少看了5秒，记录时间戳
     Taro.setStorageSync(INCOMPLETE_VIEW_KEY, now);
   }
+
+  return isLongEnough;
 };
 
 /**
  * 展示激励广告
- * @returns Promise，成功观看返回true，失败或未完整观看返回false
+ * @returns Promise，返回一个包含两个布尔值的对象：{isCompleted, isLongEnough}
  */
-export const showRewardedVideoAd = (): Promise<boolean> => {
+export const showRewardedVideoAd = (): Promise<{ isCompleted: boolean; isLongEnough: boolean }> => {
   return new Promise(async resolve => {
     // 如果未初始化，先初始化广告
     if (!rewardedVideoAd) {
       const initResult = await initRewardedVideoAd();
       if (!initResult) {
-        resolve(false);
+        resolve({ isCompleted: false, isLongEnough: false });
         return;
       }
     }
+
+    // 记录观看开始时间
+    recordAdStart();
 
     // 展示广告
     rewardedVideoAd!.show();
 
     // 监听关闭事件
     rewardedVideoAd!.onClose(res => {
-      const isComplete = !!res && res.isEnded;
+      const isCompleted = !!res && res.isEnded;
 
-      // 记录观看状态
-      recordAdView(isComplete);
+      // 记录观看状态并获取是否观看足够长
+      const isLongEnough = recordAdView(isCompleted);
 
       // 返回观看结果
-      resolve(isComplete);
+      resolve({ isCompleted, isLongEnough });
     });
   });
 };
@@ -156,4 +190,5 @@ export const getLastIncompleteViewTime = (): number | null => {
 export const clearAdViewRecords = (): void => {
   Taro.removeStorageSync(COMPLETE_VIEW_KEY);
   Taro.removeStorageSync(INCOMPLETE_VIEW_KEY);
+  Taro.removeStorageSync(AD_START_TIME_KEY);
 };

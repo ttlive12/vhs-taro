@@ -72,18 +72,21 @@ const DeckDetail: FC = () => {
           color: '#213E91',
         },
         onClick: () => {
-          showRewardedVideoAd().then(isCompleted => {
-            if (isCompleted) {
+          showRewardedVideoAd().then(result => {
+            if (result.isCompleted) {
+              // 完整观看
               Taro.showToast({
                 title: '感谢支持，已清理近三天弹窗',
                 icon: 'none',
               });
-            } else {
+            } else if (result.isLongEnough) {
+              // 未完整观看但超过5秒
               Taro.showToast({
                 title: '感谢支持～',
                 icon: 'none',
               });
             }
+            // 未观看足够长时间则不显示提示
           });
         },
       },
