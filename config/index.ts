@@ -42,6 +42,9 @@ export default defineConfig<'webpack5'>(async merge => {
       optimizeMainPackage: {
         enable: true,
       },
+      experimental: {
+        compileMode: true,
+      },
       postcss: {
         pxtransform: {
           enable: true,

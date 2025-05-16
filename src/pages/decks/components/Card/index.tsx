@@ -27,7 +27,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
   };
 
   return (
-    <View className={`deck-card ${data.class}`} onClick={handleTap}>
+    <View className={`deck-card ${data.class}`} onClick={handleTap} compileMode>
       <View className='deck-card-header'>
         <View className='deck-card-header-left'>
           <Image
