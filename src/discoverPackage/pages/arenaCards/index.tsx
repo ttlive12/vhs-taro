@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 
 import { Image, Text, View } from '@tarojs/components';
+import { VirtualList } from '@tarojs/components-advanced';
 import { useRouter } from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
@@ -11,6 +12,7 @@ import { Class, Rarity } from '@/constants';
 import { classNameMap } from '@/constants/map';
 import { createColorFn } from '@/utils';
 import { limitNumber } from '@/utils/number';
+import { rpx2px } from '@/utils/pixel';
 
 import { sort } from '@/assets/svg';
 
@@ -21,6 +23,46 @@ type SortType = 'includedWinrate' | 'includedPopularity' | 'winrateWhenPlayed';
 
 const getColor = createColorFn(50);
 const limitNum = limitNumber(10);
+
+// 列表项高度
+const ITEM_SIZE = rpx2px(50);
+
+// 列表项组件
+const CardItem = memo(({ id, index, data }: { id: string; index: number; data: any[] }) => {
+  const card = data[index];
+
+  return (
+    <View className='cards-item' id={id}>
+      <View className='cards-item-card' style={{ gridColumn: 1 }}>
+        <CardFrame
+          cardId={card.id}
+          cost={card.cost}
+          name={card.name}
+          rarity={card.rarity as Rarity}
+          triggerCardPreview
+        />
+      </View>
+      <Text
+        className='cards-item-text'
+        style={{ gridColumn: 2, color: getColor(limitNum(card.includedWinrate - 50)) }}
+      >
+        {card.includedWinrate.toFixed(1)}%
+      </Text>
+      <Text
+        className='cards-item-text'
+        style={{ gridColumn: 3, color: getColor(limitNum(card.includedPopularity - 5)) }}
+      >
+        {card.includedPopularity.toFixed(1)}%
+      </Text>
+      <Text
+        className='cards-item-text'
+        style={{ gridColumn: 4, color: getColor(limitNum(card.winrateWhenPlayed - 50)) }}
+      >
+        {card.winrateWhenPlayed ? card.winrateWhenPlayed.toFixed(1) + '%' : '-'}
+      </Text>
+    </View>
+  );
+});
 
 /**
  * 竞技场职业卡牌详情页面
@@ -128,37 +170,19 @@ const ArenaCardsPage: React.FC = () => {
             <Loading style={{ marginTop: '20vh' }} />
           </View>
         ) : (
-          sortedData.map(card => (
-            <View className='cards-item' key={card.id}>
-              <View className='cards-item-card' style={{ gridColumn: 1 }}>
-                <CardFrame
-                  cardId={card.id}
-                  cost={card.cost}
-                  name={card.name}
-                  rarity={card.rarity as Rarity}
-                  triggerCardPreview
-                />
-              </View>
-              <Text
-                className='cards-item-text'
-                style={{ gridColumn: 2, color: getColor(limitNum(card.includedWinrate - 50)) }}
-              >
-                {card.includedWinrate.toFixed(1)}%
-              </Text>
-              <Text
-                className='cards-item-text'
-                style={{ gridColumn: 3, color: getColor(limitNum(card.includedPopularity - 5)) }}
-              >
-                {card.includedPopularity.toFixed(1)}%
-              </Text>
-              <Text
-                className='cards-item-text'
-                style={{ gridColumn: 4, color: getColor(limitNum(card.winrateWhenPlayed - 50)) }}
-              >
-                {card.winrateWhenPlayed ? card.winrateWhenPlayed.toFixed(1) + '%' : '-'}
-              </Text>
-            </View>
-          ))
+          <VirtualList
+            className='cards-virtual-list'
+            height='calc(100vh - 100rpx)'
+            width='100%'
+            item={CardItem}
+            itemData={sortedData}
+            itemCount={sortedData.length}
+            itemSize={ITEM_SIZE}
+            position='relative'
+            overscanCount={30}
+            placeholderCount={10}
+            enhanced
+          />
         )}
       </View>
     </View>

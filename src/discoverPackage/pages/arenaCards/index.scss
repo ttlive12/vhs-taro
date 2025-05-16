@@ -7,6 +7,8 @@
 
 .cards {
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 
   &-header {
     display: grid;
@@ -41,6 +43,16 @@
           transform: rotate(0deg);
         }
       }
+    }
+  }
+
+  &-virtual-list {
+    flex: 1;
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+      color: transparent;
     }
   }
 
