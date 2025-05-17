@@ -52,15 +52,37 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   response => {
+    const url = new URL(response.config?.url || '', response.config?.baseURL || '');
+    Taro.reportEvent('wxdata_perf_monitor', {
+      wxdata_perf_monitor_id: url.pathname,
+      wxdata_perf_monitor_level: 0,
+      wxdata_perf_error_code: response.data.code,
+      wxdata_perf_error_msg: response.data.message,
+      wxdata_perf_extra_info1: url.searchParams.get('mode') ?? '',
+      wxdata_perf_extra_info2: url.searchParams.get('rank') ?? '',
+      wxdata_perf_extra_info3: url.searchParams.get('page') ?? '',
+    });
     return response;
   },
   (error: AxiosError) => {
     const errorCode = error.code || 'UNKNOWN_ERROR';
     const errorMessage = error.message || '未知错误';
     const errorStatus = error.response?.status;
+    const url = new URL(error.config?.url || '', error.config?.baseURL || '');
+    Taro.reportEvent('wxdata_perf_monitor', {
+      wxdata_perf_monitor_id: url.pathname,
+      wxdata_perf_monitor_level: 0,
+      wxdata_perf_error_code: error.status || 500,
+      wxdata_perf_error_msg: error.message,
+      wxdata_perf_extra_info1: url.searchParams.get('mode') ?? '',
+      wxdata_perf_extra_info2: url.searchParams.get('rank') ?? '',
+      wxdata_perf_extra_info3: url.searchParams.get('page') ?? '',
+    });
 
     Taro.navigateTo({
-      url: `/pages/error/index?code=${errorCode}&message=${encodeURIComponent(errorMessage)}&status=${errorStatus || ''}`,
+      url: `/pages/error/index?code=${errorCode}&message=${encodeURIComponent(
+        errorMessage
+      )}&status=${errorStatus || ''}`,
     });
 
     return Promise.reject(error);

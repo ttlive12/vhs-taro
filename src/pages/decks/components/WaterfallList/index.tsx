@@ -149,7 +149,13 @@ export function WaterfallList() {
                 paddingBottom,
               }}
             >
-              {loading ? <Loading /> : hasMore ? '' : <DelayRender>没有更多数据啦~</DelayRender>}
+              {loading ? (
+                <Loading />
+              ) : (
+                <DelayRender onClick={loadMore}>
+                  {hasMore ? '点击加载更多' : '没有更多数据啦~'}
+                </DelayRender>
+              )}
             </View>
           )}
         />

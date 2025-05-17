@@ -9,6 +9,7 @@
         "overscan",
         "taroify",
         "tarojs",
-        "winrate"
+        "winrate",
+        "wxdata"
     ]
 }
