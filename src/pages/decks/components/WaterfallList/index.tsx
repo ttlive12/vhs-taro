@@ -31,13 +31,20 @@ const Row = memo(({ id, index, data }: { id: string; index: number; data: Deck[]
   return <Card key={id} data={data[index]} />;
 });
 
-export function WaterfallList() {
+interface WaterfallListProps {
+  searchTerm?: string;
+}
+
+export function WaterfallList({ searchTerm = '' }: WaterfallListProps) {
   const mode = useModeStore(state => state.mode);
   const { statusBarHeight, safeAreaBottomHeight } = useSystemInfoStore();
   const { currentType } = useRankBarStore(state => state);
 
   // 获取当前查询的唯一键
-  const cacheKey = useMemo(() => `${mode}-${currentType}`, [mode, currentType]);
+  const cacheKey = useMemo(
+    () => `${mode}-${currentType}-${searchTerm}`,
+    [mode, currentType, searchTerm]
+  );
 
   const [pageCache, setPageCache] = useState<Record<string, number>>({});
   const [dataCache, setDataCache] = useState<Record<string, Deck[]>>({});
@@ -70,6 +77,7 @@ export function WaterfallList() {
         filters: {
           mode,
           rank: currentType,
+          ...(searchTerm ? { zhName: searchTerm } : {}),
         },
         page: currentPage,
         pageSize: 20,
@@ -78,8 +86,9 @@ export function WaterfallList() {
       return result;
     },
     {
-      refreshDeps: [mode, currentType, currentPage],
+      refreshDeps: [mode, currentType, currentPage, searchTerm],
       ready: !!mode && !!currentType && !!currentPage,
+      debounceWait: 500,
       onSuccess: result => {
         if (!result) return;
 

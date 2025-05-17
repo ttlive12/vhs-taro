@@ -9,10 +9,11 @@ import { useRankBarStore } from '@/store/rankBar';
 import './index.scss';
 
 interface RankBarProps {
+  className?: string;
   onRankChange?: (data: { currentType: string }) => void;
 }
 
-export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
+export const RankBar: FC<RankBarProps> = ({ className, onRankChange }) => {
   const { currentType, sortedDataTypes, setCurrentType, setSortedDataTypes } = useRankBarStore();
 
   // 拖拽状态移到组件内部管理
@@ -139,7 +140,12 @@ export const RankBar: FC<RankBarProps> = ({ onRankChange }) => {
   };
 
   return (
-    <ScrollView scrollX={!isDragging} enhanced showScrollbar={false} className='rank-bar-container'>
+    <ScrollView
+      scrollX={!isDragging}
+      enhanced
+      showScrollbar={false}
+      className={`rank-bar-container ${className}`}
+    >
       <View className='spacer' />
       {sortedDataTypes.map((item, index) => (
         <View

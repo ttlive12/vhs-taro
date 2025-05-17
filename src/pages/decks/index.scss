@@ -10,4 +10,27 @@
     width: 100%;
     box-sizing: border-box;
   }
+
+  .search-wrapper {
+    position: relative;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+
+    .search {
+      flex: 1;
+      --search-background-color: transparent;
+      --search-content-background-color: #fff7eb;
+      --search-content-rounded-border-radius: 25px;
+      --search-padding: 0;
+      --search-field-padding: 15px 10px;
+    }
+
+    .custom-dropdown {
+      position: absolute;
+      height: 76rpx;
+      right: 30px;
+      z-index: 1000;
+    }
+  }
 }

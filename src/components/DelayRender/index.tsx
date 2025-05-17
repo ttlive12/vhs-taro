@@ -1,10 +1,10 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-import { View } from '@tarojs/components';
+import { View, ViewProps } from '@tarojs/components';
 
 import './index.scss';
 
-interface DelayRenderProps {
+interface DelayRenderProps extends ViewProps {
   children: ReactNode;
   delay?: number; // 延迟时间（毫秒），默认为500ms
   placeholder?: ReactNode; // 延迟期间显示的内容
@@ -16,6 +16,7 @@ export const DelayRender = ({
   delay = 500,
   placeholder,
   className = '',
+  ...props
 }: DelayRenderProps) => {
   const [shouldRender, setShouldRender] = useState(false);
 
@@ -30,6 +31,8 @@ export const DelayRender = ({
   }, [delay]);
 
   return (
-    <View className={`delay-render ${className}`}>{shouldRender ? children : placeholder}</View>
+    <View className={`delay-render ${className}`} {...props}>
+      {shouldRender ? children : placeholder}
+    </View>
   );
 };

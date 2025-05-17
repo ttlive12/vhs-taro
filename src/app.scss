@@ -20,6 +20,7 @@ page {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 移动端点击高亮颜色透明 */
 }
 
 .ellipsis {
