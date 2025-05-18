@@ -9,7 +9,7 @@ import { useRequest } from 'ahooks';
 import { getDeckDetail } from '@/api';
 import { CardFrame, Loading, NavigationBar, RankBar } from '@/components';
 import CardPreview from '@/components/CardPreview';
-import { classImageMap } from '@/constants';
+import { classImageMap, Rank } from '@/constants';
 import {
   destroyRewardedVideoAd,
   initRewardedVideoAd,
@@ -18,7 +18,6 @@ import {
 } from '@/services/adService';
 import useDeckStore from '@/store/deck';
 import useModeStore from '@/store/mode';
-import { useRankBarStore } from '@/store/rankBar';
 import useVisitHistoryStore from '@/store/visitHistory';
 import { createColorFn, rpx2px } from '@/utils';
 import { limitNumber } from '@/utils/number';
@@ -42,14 +41,17 @@ const VISIT_THRESHOLD = 10;
 const limitNum = limitNumber(20);
 
 const DeckDetail: FC = () => {
-  const { currentType } = useRankBarStore();
+  const router = useRouter();
   const { mode } = useModeStore();
   const { incrementVisit } = useVisitHistoryStore();
   const getWinrateColor = useMemo(() => createColorFn(80), []);
-  const router = useRouter();
   const deckId = router.params.deckId;
 
-  const deckData = useDeckStore(state => state.currentDeck);
+  const {
+    currentDeck: deckData,
+    currentRankType,
+    setCurrentRankType,
+  } = useDeckStore(state => state);
 
   // 获取卡组详情数据
   const { data: deckDetails, loading } = useRequest(() => getDeckDetail(mode, deckId!), {
@@ -190,23 +192,25 @@ const DeckDetail: FC = () => {
               style={{ transform: 'scaleY(0.7)' }}
             />
           </View>
-          {!deckDetails?.[currentType] || deckDetails[currentType].length <= 1 ? (
+          {currentRankType &&
+          (!deckDetails?.[currentRankType] || deckDetails[currentRankType].length <= 1) ? (
             <View className='no-data'>
               <Text>暂无数据</Text>
             </View>
           ) : (
             <View className='details-content'>
-              {deckDetails[currentType]
-                .filter(item => item.class !== 'total')
-                .map(item => (
-                  <View key={item.class} className='details-item'>
-                    <Image className='class-icon' src={classImageMap[item.class]} />
-                    <Text style={{ color: getWinrateColor(limitNum(item.winrate - 50)) }}>
-                      {item.winrate}%
-                    </Text>
-                    <Text className='games'>({item.games})</Text>
-                  </View>
-                ))}
+              {currentRankType &&
+                deckDetails?.[currentRankType]
+                  .filter(item => item.class !== 'total')
+                  .map(item => (
+                    <View key={item.class} className='details-item'>
+                      <Image className='class-icon' src={classImageMap[item.class]} />
+                      <Text style={{ color: getWinrateColor(limitNum(item.winrate - 50)) }}>
+                        {item.winrate}%
+                      </Text>
+                      <Text className='games'>({item.games})</Text>
+                    </View>
+                  ))}
             </View>
           )}
         </View>
@@ -218,7 +222,11 @@ const DeckDetail: FC = () => {
     <View className='deck-detail-page'>
       <CardPreview />
       <NavigationBar title='卡组详情' showBack showSetting={false} />
-      <RankBar />
+      <RankBar
+        locally
+        value={currentRankType ?? Rank.TOP_LEGEND}
+        onRankChange={data => setCurrentRankType(data.currentType)}
+      />
       {renderContent()}
       <View className='copy-button' onClick={handleCopy}>
         <ShareOutlined size={rpx2px(44)} />

@@ -21,6 +21,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
 
   const handleTap = () => {
     setCurrentDeck(data);
+    Taro.eventCenter.trigger('toDeckDetail'); // 触发事件，改变rankType
     Taro.navigateTo({
       url: `/pages/decks/detail/index?deckId=${data.deckId}`,
     });

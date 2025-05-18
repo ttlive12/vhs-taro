@@ -21,7 +21,7 @@ interface RelatedDecksProps {
 
 const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   const { currentType } = useRankBarStore();
-  const setCurrentDeck = useDeckStore(state => state.setCurrentDeck);
+  const { setCurrentDeck, setCurrentRankType } = useDeckStore(state => state);
 
   // 使用useRequest请求数据
   const { data: decksData, loading } = useRequest(() => getDecks(mode, archetype), {
@@ -31,6 +31,7 @@ const RelatedDecks: React.FC<RelatedDecksProps> = ({ mode, archetype }) => {
   // 点击卡组跳转到卡组详情页
   const handleJump = (deckData: Deck) => {
     setCurrentDeck(deckData);
+    setCurrentRankType(currentType);
     Taro.navigateTo({
       url: `/pages/decks/detail/index?deckId=${deckData.deckId}`,
     });

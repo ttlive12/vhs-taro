@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { Image, ScrollView, Text, View } from '@tarojs/components';
 import Taro, { nextTick } from '@tarojs/taro';
@@ -10,11 +10,20 @@ import './index.scss';
 
 interface RankBarProps {
   className?: string;
-  onRankChange?: (data: { currentType: string }) => void;
+  locally?: boolean;
+  value?: Rank; // 受控模式
+  onRankChange?: (data: { currentType: Rank }) => void;
 }
 
-export const RankBar: FC<RankBarProps> = ({ className, onRankChange }) => {
-  const { currentType, sortedDataTypes, setCurrentType, setSortedDataTypes } = useRankBarStore();
+export const RankBar: FC<RankBarProps> = ({ className, locally, value, onRankChange }) => {
+  const {
+    currentType: currentTypeStore,
+    sortedDataTypes,
+    setCurrentType,
+    setSortedDataTypes,
+  } = useRankBarStore();
+
+  const currentType = useMemo(() => value || currentTypeStore, [value, currentTypeStore]);
 
   // 拖拽状态移到组件内部管理
   const [isDragging, setIsDragging] = useState(false);
@@ -24,7 +33,10 @@ export const RankBar: FC<RankBarProps> = ({ className, onRankChange }) => {
   const handleSwitch = (type: Rank) => {
     if (isDragging) return;
 
-    setCurrentType(type);
+    if (!locally) {
+      setCurrentType(type);
+    }
+
     if (onRankChange) {
       onRankChange({ currentType: type });
     }
