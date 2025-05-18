@@ -41,12 +41,6 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
   const pageRef = useRef<number>(1);
   const hasMoreRef = useRef<boolean>(true);
 
-  // 生成唯一ID，用于VirtualWaterfall的key
-  const waterfallId = useMemo(
-    () => `${mode}-${rankType}-${searchTerm}`,
-    [mode, rankType, searchTerm]
-  );
-
   // 预计算UI尺寸
   const uiDimensions = useMemo(
     () => ({
@@ -111,8 +105,6 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
     <>
       {decksRef.current.length > 0 && (
         <VirtualWaterfall
-          id={waterfallId}
-          key={waterfallId}
           className='waterfall'
           height={uiDimensions.height}
           width='100%'
