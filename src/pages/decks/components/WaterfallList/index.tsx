@@ -6,9 +6,9 @@ import { useRequest } from 'ahooks';
 
 import { getDecksByPage } from '@/api';
 import { DelayRender, Loading } from '@/components';
+import { Rank } from '@/constants';
 import { Deck } from '@/models/deck';
 import useModeStore from '@/store/mode';
-import { useRankBarStore } from '@/store/rankBar';
 import useSystemInfoStore from '@/store/systemInfo';
 import { rpx2px } from '@/utils/pixel';
 
@@ -33,18 +33,15 @@ const Row = memo(({ id, index, data }: { id: string; index: number; data: Deck[]
 
 interface WaterfallListProps {
   searchTerm?: string;
+  rankType: Rank;
 }
 
-export function WaterfallList({ searchTerm = '' }: WaterfallListProps) {
+export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps) {
   const mode = useModeStore(state => state.mode);
   const { statusBarHeight, safeAreaBottomHeight } = useSystemInfoStore();
-  const { currentType } = useRankBarStore(state => state);
 
   // 获取当前查询的唯一键
-  const cacheKey = useMemo(
-    () => `${mode}-${currentType}-${searchTerm}`,
-    [mode, currentType, searchTerm]
-  );
+  const cacheKey = useMemo(() => `${mode}-${rankType}-${searchTerm}`, [mode, rankType, searchTerm]);
 
   const [pageCache, setPageCache] = useState<Record<string, number>>({});
   const [dataCache, setDataCache] = useState<Record<string, Deck[]>>({});
@@ -76,7 +73,7 @@ export function WaterfallList({ searchTerm = '' }: WaterfallListProps) {
       const result = await getDecksByPage({
         filters: {
           mode,
-          rank: currentType,
+          rank: rankType,
           ...(searchTerm ? { zhName: searchTerm } : {}),
         },
         page: currentPage,
@@ -86,8 +83,8 @@ export function WaterfallList({ searchTerm = '' }: WaterfallListProps) {
       return result;
     },
     {
-      refreshDeps: [mode, currentType, currentPage, searchTerm],
-      ready: !!mode && !!currentType && !!currentPage,
+      refreshDeps: [mode, rankType, currentPage, searchTerm],
+      ready: !!mode && !!rankType && !!currentPage,
       debounceWait: 500,
       onSuccess: result => {
         if (!result) return;
@@ -147,8 +144,8 @@ export function WaterfallList({ searchTerm = '' }: WaterfallListProps) {
           itemSize={index => estimateItemSize(currentData, index)}
           onScrollToLower={loadMore}
           column={2}
-          overscanDistance={1000}
-          placeholderCount={20}
+          overscanDistance={2000}
+          placeholderCount={40}
           upperThreshold={200}
           lowerThreshold={200}
           renderBottom={() => (

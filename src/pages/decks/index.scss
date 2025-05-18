@@ -13,7 +13,7 @@
 
   .search-wrapper {
     position: relative;
-    padding: 25px 30px;
+    padding: 15px 30px 36px;
     display: flex;
     align-items: center;
 
@@ -23,7 +23,10 @@
       --search-content-background-color: #fff7eb;
       --search-content-rounded-border-radius: 25px;
       --search-padding: 0;
-      --search-field-padding: 15px 10px;
+      --search-field-padding: 20px 10px;
+      --input-font-size: 30px;
+      --form-item-icon-size: 32px;
+      --cell-icon-margin-left: 15px;
     }
 
     .custom-dropdown {

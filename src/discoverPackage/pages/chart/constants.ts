@@ -38,6 +38,10 @@ export const pieChartConfig = ({ title, data }) => ({
       fill: datum => {
         return datum.color;
       },
+      outerBorder: {
+        lineWidth: 1,
+        stroke: '#fff',
+      },
     },
   },
 });

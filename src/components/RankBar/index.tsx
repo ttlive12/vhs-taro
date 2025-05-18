@@ -160,7 +160,7 @@ export const RankBar: FC<RankBarProps> = ({ className, onRankChange }) => {
         >
           <View className='type-item-inner'>
             <Image className='type-item-inner-img' src={item.url} mode='aspectFit' />
-            <Text>{item.name}</Text>
+            <Text className='type-item-inner-text'>{item.name}</Text>
           </View>
         </View>
       ))}

@@ -58,12 +58,12 @@ export const calcArchetypeData = (archetypesData: Archetypes[]): PieChartData[] 
   }));
 
   return [
-    ...result,
+    ...[...result].sort((a, b) => Number(b.value) - Number(a.value)),
     {
       type: '其他',
       value: unknown.toString(),
       color: '#000000',
       labelColor: '#000000',
     },
-  ].sort((a, b) => Number(b.value) - Number(a.value));
+  ];
 };

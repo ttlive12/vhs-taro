@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Search } from '@taroify/core';
 import { View } from '@tarojs/components';
@@ -13,8 +13,14 @@ import { WaterfallList } from './components/WaterfallList';
 import './index.scss';
 
 export default function Decks() {
-  const { currentType, setCurrentType, sortedDataTypes } = useRankBarStore();
+  const { currentType, sortedDataTypes } = useRankBarStore();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [localRankType, setLocalRankType] = useState<Rank>(currentType);
+
+  useEffect(() => {
+    setLocalRankType(currentType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const options = useMemo(
     () =>
@@ -42,16 +48,16 @@ export default function Decks() {
         <CustomDropdown
           className='custom-dropdown'
           options={options}
-          value={currentType}
+          value={localRankType}
           onChange={value => {
             if (value) {
-              setCurrentType(value as Rank);
+              setLocalRankType(value as Rank);
             }
           }}
         />
       </View>
       <View className='waterfall-wrapper'>
-        <WaterfallList searchTerm={searchValue} />
+        <WaterfallList searchTerm={searchValue} rankType={localRankType} />
       </View>
     </View>
   );
