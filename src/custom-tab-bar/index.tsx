@@ -56,7 +56,7 @@ const Index = () => {
               classPrefix='icon'
               name={item.iconName}
               className={`tab-capsule-item-icon ${isActive ? 'tab-capsule-item-icon-active' : ''}`}
-              size={22}
+              size={Taro.pxTransform(44)}
             />
             <View
               className={`tab-capsule-item-text ${isActive ? 'tab-capsule-item-text-active' : ''}`}

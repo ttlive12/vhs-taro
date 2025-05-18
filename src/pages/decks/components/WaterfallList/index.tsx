@@ -145,7 +145,7 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
           onScrollToLower={loadMore}
           column={2}
           overscanDistance={2000}
-          placeholderCount={40}
+          placeholderCount={10}
           upperThreshold={200}
           lowerThreshold={200}
           renderBottom={() => (
