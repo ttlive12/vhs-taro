@@ -159,7 +159,7 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
               {loading ? (
                 <Loading />
               ) : (
-                <DelayRender onClick={loadMore}>
+                <DelayRender delay={1000} onClick={loadMore}>
                   {hasMore ? '点击加载更多' : '没有更多数据啦~'}
                 </DelayRender>
               )}
@@ -169,10 +169,12 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
       )}
 
       {currentData && currentData.length === 0 && !loading && (
-        <Empty className='waterfall-empty'>
-          <Empty.Image src='search' />
-          <Empty.Description>未找到相关卡组</Empty.Description>
-        </Empty>
+        <DelayRender delay={500}>
+          <Empty className='waterfall-empty'>
+            <Empty.Image src='search' />
+            <Empty.Description>未找到相关卡组</Empty.Description>
+          </Empty>
+        </DelayRender>
       )}
     </>
   );

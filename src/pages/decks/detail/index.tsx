@@ -20,7 +20,7 @@ import useDeckStore from '@/store/deck';
 import useModeStore from '@/store/mode';
 import { useRankBarStore } from '@/store/rankBar';
 import useVisitHistoryStore from '@/store/visitHistory';
-import { createColorFn } from '@/utils';
+import { createColorFn, rpx2px } from '@/utils';
 import { limitNumber } from '@/utils/number';
 
 import { dust } from '@/assets/image';
@@ -221,7 +221,7 @@ const DeckDetail: FC = () => {
       <RankBar />
       {renderContent()}
       <View className='copy-button' onClick={handleCopy}>
-        <ShareOutlined size={Taro.pxTransform(44)} />
+        <ShareOutlined size={rpx2px(44)} />
         <Text>复制卡组代码</Text>
       </View>
     </View>

@@ -2,6 +2,8 @@ import { Dialog } from '@taroify/core';
 import { QuestionOutlined } from '@taroify/icons';
 import { Text, View } from '@tarojs/components';
 
+import { rpx2px } from '@/utils/pixel';
+
 import './index.scss';
 
 interface TitleBarProps {
@@ -30,7 +32,7 @@ export const TitleBar: React.FC<TitleBarProps> = ({ icon, title, tips, className
       {title && <Text className='title-bar-title'>{title}</Text>}
       {tips && (
         <View className='title-bar-tips' onClick={handleTips}>
-          <QuestionOutlined className='title-bar-tips-icon' size={13} />
+          <QuestionOutlined className='title-bar-tips-icon' size={rpx2px(26)} />
         </View>
       )}
     </View>

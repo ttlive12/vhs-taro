@@ -7,6 +7,7 @@ import Taro from '@tarojs/taro';
 import { Mode } from '@/constants';
 import useModeStore from '@/store/mode';
 import useSystemInfoStore from '@/store/systemInfo';
+import { rpx2px } from '@/utils/pixel';
 
 import { logo, setting } from '@/assets';
 
@@ -67,7 +68,11 @@ export const NavigationBar: FC<NavigationBarProps> = ({
         <View className='navigation-bar-content'>
           <View className='navigation-bar-left'>
             {showBack && (
-              <ArrowLeft className='navigation-bar-back' onClick={handleBackClick} size={20} />
+              <ArrowLeft
+                className='navigation-bar-back'
+                onClick={handleBackClick}
+                size={rpx2px(40)}
+              />
             )}
 
             {showLogo && !showBack && (

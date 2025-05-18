@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { Button, Popup, Radio } from '@taroify/core';
 import { ClockOutlined, CommentOutlined, Cross, Icon, QuestionOutlined } from '@taroify/icons';
 import { Image, Text, View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
 import { getLastUpdateTime } from '@/api';
 import useModeStore from '@/store/mode';
 import { RankType, useRankTypeStore } from '@/store/rankType';
+import { rpx2px } from '@/utils/pixel';
 
 import { standard, wild } from '@/assets/image';
 
@@ -60,7 +60,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
             className='mode-switch'
             classPrefix='icon'
             name='switch'
-            size={20}
+            size={rpx2px(40)}
             onClick={handleModeSwitch}
           />
         </View>
@@ -69,9 +69,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
         <View className='setting-item full-width'>
           <TitleBar
             title='排行榜设置'
-            icon={
-              <Icon classPrefix='icon' name='rank' color='#333333' size={Taro.pxTransform(40)} />
-            }
+            icon={<Icon classPrefix='icon' name='rank' color='#333333' size={rpx2px(40)} />}
           />
 
           <View className='setting-body'>
@@ -86,7 +84,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
           {/* 数据更新 */}
           <View className='setting-item'>
             <View className='setting-header'>
-              <ClockOutlined size={20} />
+              <ClockOutlined size={rpx2px(40)} />
               <Text>数据更新</Text>
             </View>
             <View className='setting-body'>
@@ -97,7 +95,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
           {/* 意见反馈 */}
           <View className='setting-item'>
             <View className='setting-header'>
-              <CommentOutlined size={20} />
+              <CommentOutlined size={rpx2px(40)} />
               <Text>意见反馈</Text>
             </View>
             <View className='setting-body'>
@@ -112,7 +110,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
         {/* 更新日志 */}
         <View className='setting-item full-width'>
           <View className='setting-header'>
-            <QuestionOutlined size={20} />
+            <QuestionOutlined size={rpx2px(40)} />
             <Text>更新日志</Text>
           </View>
           <View className='setting-body'>
@@ -122,7 +120,7 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
         </View>
       </View>
       {/* 关闭 */}
-      <Cross className='close-button' onClick={onClose} size={20} />
+      <Cross className='close-button' onClick={onClose} size={rpx2px(40)} />
     </Popup>
   );
 };

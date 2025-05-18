@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { ArrowDown } from '@taroify/icons';
 import { Text, View } from '@tarojs/components';
 
+import { rpx2px } from '@/utils/pixel';
+
 import './index.scss';
 
 interface Option {
@@ -40,7 +42,7 @@ export const CustomDropdown = ({
     <View className={`custom-dropdown ${className}`}>
       <View className='dropdown-header' onClick={handleToggle}>
         <Text className='dropdown-text'>{currentOption?.title || '请选择'}</Text>
-        <ArrowDown className={`dropdown-arrow ${isOpen ? 'open' : ''}`} />
+        <ArrowDown className={`dropdown-arrow ${isOpen ? 'open' : ''}`} size={rpx2px(40)} />
       </View>
 
       <View className={`dropdown-options ${isOpen ? 'open' : ''}`}>

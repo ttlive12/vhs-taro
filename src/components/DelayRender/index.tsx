@@ -14,7 +14,7 @@ interface DelayRenderProps extends ViewProps {
 export const DelayRender = ({
   children,
   delay = 500,
-  placeholder,
+  placeholder = <></>,
   className = '',
   ...props
 }: DelayRenderProps) => {

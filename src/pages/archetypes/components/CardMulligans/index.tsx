@@ -8,7 +8,7 @@ import { getArchetypeMulligan } from '@/api';
 import { CardFrame, Loading, TitleBar } from '@/components';
 import { Mode } from '@/constants';
 import { useRankBarStore } from '@/store/rankBar';
-import { createColorFn } from '@/utils';
+import { createColorFn, rpx2px } from '@/utils';
 import { limitNumber } from '@/utils/number';
 
 import { sort } from '@/assets/svg';
@@ -174,7 +174,7 @@ const CardMulligans: React.FC<CardMulligansProps> = ({ mode, archetype }) => {
       <TitleBar
         className='card-mulligans-title-bar'
         title='调度建议'
-        icon={<Exchange size={18} />}
+        icon={<Exchange size={rpx2px(36)} />}
         tips='各卡牌的携带，抽到，保留对胜率的影响。（仅展示有一定携带数量的卡牌，数据样本小的卡牌数据可信度低）'
       />
       {renderCardContent()}
