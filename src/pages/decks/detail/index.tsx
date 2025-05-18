@@ -176,9 +176,19 @@ const DeckDetail: FC = () => {
         </View>
         <View className='details'>
           <View className='details-title'>
-            <Icon classPrefix='icon' name='wave' size={22} style={{ transform: 'scaleY(0.7)' }} />
+            <Icon
+              classPrefix='icon'
+              name='wave'
+              size={Taro.pxTransform(44)}
+              style={{ transform: 'scaleY(0.7)' }}
+            />
             <Text>对阵胜率</Text>
-            <Icon classPrefix='icon' name='wave' size={22} style={{ transform: 'scaleY(0.7)' }} />
+            <Icon
+              classPrefix='icon'
+              name='wave'
+              size={Taro.pxTransform(44)}
+              style={{ transform: 'scaleY(0.7)' }}
+            />
           </View>
           {!deckDetails?.[currentType] || deckDetails[currentType].length <= 1 ? (
             <View className='no-data'>
@@ -211,7 +221,7 @@ const DeckDetail: FC = () => {
       <RankBar />
       {renderContent()}
       <View className='copy-button' onClick={handleCopy}>
-        <ShareOutlined size={22} />
+        <ShareOutlined size={Taro.pxTransform(44)} />
         <Text>复制卡组代码</Text>
       </View>
     </View>

@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { Empty } from '@taroify/core';
 import { View } from '@tarojs/components';
 import { VirtualWaterfall } from '@tarojs/components-advanced';
 import { useRequest } from 'ahooks';
@@ -165,6 +166,13 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
             </View>
           )}
         />
+      )}
+
+      {currentData && currentData.length === 0 && !loading && (
+        <Empty className='waterfall-empty'>
+          <Empty.Image src='search' />
+          <Empty.Description>未找到相关卡组</Empty.Description>
+        </Empty>
       )}
     </>
   );

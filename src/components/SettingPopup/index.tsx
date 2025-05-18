@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Popup, Radio } from '@taroify/core';
 import { ClockOutlined, CommentOutlined, Cross, Icon, QuestionOutlined } from '@taroify/icons';
 import { Image, Text, View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
 import { getLastUpdateTime } from '@/api';
@@ -68,7 +69,9 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
         <View className='setting-item full-width'>
           <TitleBar
             title='排行榜设置'
-            icon={<Icon classPrefix='icon' name='rank' color='#333333' size={20} />}
+            icon={
+              <Icon classPrefix='icon' name='rank' color='#333333' size={Taro.pxTransform(40)} />
+            }
           />
 
           <View className='setting-body'>
