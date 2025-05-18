@@ -24,6 +24,11 @@ export const RankBar: FC<RankBarProps> = ({ className, locally, value, onRankCha
   } = useRankBarStore();
 
   const currentType = useMemo(() => value || currentTypeStore, [value, currentTypeStore]);
+  const scrollToRight = useMemo(
+    () => currentType === sortedDataTypes[sortedDataTypes.length - 1].id,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   // 拖拽状态移到组件内部管理
   const [isDragging, setIsDragging] = useState(false);
@@ -154,6 +159,7 @@ export const RankBar: FC<RankBarProps> = ({ className, locally, value, onRankCha
   return (
     <ScrollView
       scrollX={!isDragging}
+      scrollLeft={scrollToRight ? 1000 : 0}
       enhanced
       showScrollbar={false}
       className={`rank-bar-container ${className}`}
