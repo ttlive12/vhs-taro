@@ -1,12 +1,12 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { Empty } from '@taroify/core';
 import { View } from '@tarojs/components';
 import { VirtualWaterfall } from '@tarojs/components-advanced';
-import { useRequest } from 'ahooks';
+import { useRequest, useThrottleFn } from 'ahooks';
 
 import { getDecksByPage } from '@/api';
-import { DelayRender, Loading } from '@/components';
+import { Loading } from '@/components';
 import { Rank } from '@/constants';
 import { Deck } from '@/models/deck';
 import useModeStore from '@/store/mode';
@@ -28,10 +28,6 @@ const estimateItemSize = (data: Deck[], index?: number) => {
   return rpx2px(120 + legendaryCount * 50);
 };
 
-const Row = memo(({ id, index, data }: { id: string; index: number; data: Deck[] }) => {
-  return <Card key={id} data={data[index]} />;
-});
-
 interface WaterfallListProps {
   searchTerm?: string;
   rankType: Rank;
@@ -41,35 +37,27 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
   const mode = useModeStore(state => state.mode);
   const { statusBarHeight, safeAreaBottomHeight } = useSystemInfoStore();
 
-  // 获取当前查询的唯一键
-  const cacheKey = useMemo(() => `${mode}-${rankType}-${searchTerm}`, [mode, rankType, searchTerm]);
+  const decksRef = useRef<Deck[]>([]);
+  const pageRef = useRef<number>(1);
+  const hasMoreRef = useRef<boolean>(true);
 
-  const [pageCache, setPageCache] = useState<Record<string, number>>({});
-  const [dataCache, setDataCache] = useState<Record<string, Deck[]>>({});
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
-  const height = useMemo(
-    () => `calc(100vh - ${rpx2px(88 + 140)}px - ${statusBarHeight}px)`,
-    [statusBarHeight]
+  // 生成唯一ID，用于VirtualWaterfall的key
+  const waterfallId = useMemo(
+    () => `${mode}-${rankType}-${searchTerm}`,
+    [mode, rankType, searchTerm]
   );
 
-  const paddingBottom = useMemo(
-    () => (safeAreaBottomHeight || rpx2px(32)) + rpx2px(100 + 40),
-    [safeAreaBottomHeight]
+  // 预计算UI尺寸
+  const uiDimensions = useMemo(
+    () => ({
+      height: `calc(100vh - ${rpx2px(88 + 140)}px - ${statusBarHeight}px)`,
+      paddingBottom: (safeAreaBottomHeight || rpx2px(32)) + rpx2px(100 + 40),
+    }),
+    [statusBarHeight, safeAreaBottomHeight]
   );
-
-  // 获取当前缓存键的页码
-  const currentPage = useMemo(() => {
-    return pageCache[cacheKey] || 1;
-  }, [pageCache, cacheKey]);
-
-  // 当前显示的数据
-  const currentData = useMemo(() => {
-    return dataCache[cacheKey] || [];
-  }, [dataCache, cacheKey]);
 
   // 获取卡组数据
-  const { loading } = useRequest(
+  const { loading, run: fetchDecks } = useRequest(
     async () => {
       const result = await getDecksByPage({
         filters: {
@@ -77,104 +65,87 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
           rank: rankType,
           ...(searchTerm ? { zhName: searchTerm } : {}),
         },
-        page: currentPage,
+        page: pageRef.current,
         pageSize: 20,
       });
-
       return result;
     },
     {
-      refreshDeps: [mode, rankType, currentPage, searchTerm],
-      ready: !!mode && !!rankType && !!currentPage,
-      debounceWait: 500,
+      manual: true,
       onSuccess: result => {
         if (!result) return;
 
         const { decks, total } = result;
 
-        // 更新缓存
-        setDataCache(prev => {
-          const previousData = currentPage === 1 ? [] : prev[cacheKey] || [];
-          const newData = [...previousData, ...decks];
-
-          return {
-            ...prev,
-            [cacheKey]: newData,
-          };
-        });
+        if (pageRef.current === 1) {
+          decksRef.current = decks;
+        } else {
+          decksRef.current = [...decksRef.current, ...decks];
+        }
 
         // 判断是否还有更多数据
-        setHasMore(currentPage * 20 < total);
+        hasMoreRef.current = pageRef.current * 20 < total;
       },
     }
   );
 
-  // 初始加载或切换模式/rank时触发请求
+  // 初始加载或者参数变化时重置状态并加载数据
   useEffect(() => {
-    // 如果没有当前缓存键的数据，重置为第1页
-    if (!dataCache[cacheKey]?.length) {
-      setPageCache(prev => ({
-        ...prev,
-        [cacheKey]: 1,
-      }));
-    }
-  }, [cacheKey, dataCache]);
+    pageRef.current = 1;
+    decksRef.current = [];
+    hasMoreRef.current = true;
+    fetchDecks();
+  }, [mode, rankType, searchTerm, fetchDecks]);
 
-  // 加载更多
-  const loadMore = useCallback(() => {
-    if (!hasMore || loading) return;
+  const { run: loadMore } = useThrottleFn(
+    () => {
+      if (!hasMoreRef.current || loading) return;
 
-    setPageCache(prev => ({
-      ...prev,
-      [cacheKey]: (prev[cacheKey] || 1) + 1,
-    }));
-  }, [hasMore, loading, cacheKey]);
+      pageRef.current += 1;
+      fetchDecks();
+    },
+    { wait: 300, leading: true, trailing: false }
+  );
 
   return (
     <>
-      {currentData && currentData.length > 0 && (
+      {decksRef.current.length > 0 && (
         <VirtualWaterfall
-          id={cacheKey}
-          key={cacheKey}
+          id={waterfallId}
+          key={waterfallId}
           className='waterfall'
-          height={height}
+          height={uiDimensions.height}
           width='100%'
-          item={Row}
-          itemData={currentData}
-          itemCount={currentData.length}
-          itemSize={index => estimateItemSize(currentData, index)}
+          item={Card}
+          itemData={decksRef.current}
+          itemCount={decksRef.current.length}
+          itemSize={index => estimateItemSize(decksRef.current, index)}
           onScrollToLower={loadMore}
           column={2}
-          overscanDistance={2000}
-          placeholderCount={10}
-          upperThreshold={200}
-          lowerThreshold={200}
+          placeholderCount={40}
+          enhanced
           renderBottom={() => (
             <View
               className='waterfall-bottom'
               style={{
-                paddingBottom,
+                paddingBottom: uiDimensions.paddingBottom,
               }}
             >
               {loading ? (
                 <Loading />
               ) : (
-                <DelayRender delay={1000} onClick={loadMore}>
-                  {hasMore ? '点击加载更多' : '没有更多数据啦~'}
-                </DelayRender>
+                <View onClick={loadMore}>{hasMoreRef.current ? '' : '没有更多数据啦~'}</View>
               )}
             </View>
           )}
         />
       )}
 
-      {currentData && currentData.length === 0 && !loading && (
-        <DelayRender delay={500}>
-          <Empty className='waterfall-empty'>
-            <Empty.Image src='search' />
-            <Empty.Description>未找到相关卡组</Empty.Description>
-          </Empty>
-        </DelayRender>
+      {decksRef.current.length === 0 && !loading && (
+        <Empty className='waterfall-empty'>
+          <Empty.Image src='search' />
+          <Empty.Description>未找到相关卡组</Empty.Description>
+        </Empty>
       )}
     </>
   );
