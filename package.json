@@ -1,8 +1,8 @@
 {
   "name": "vhs-taro",
-  "version": "1.0.0",
+  "version": "3.1.2",
   "private": true,
-  "description": "vhs-taro",
+  "description": "HS卡牌大师",
   "templateInfo": {
     "name": "default",
     "typescript": true,

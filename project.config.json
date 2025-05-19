@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "vhs-taro",
-  "description": "vhs-taro",
+  "projectname": "HS卡牌大师",
+  "description": "HS卡牌大师",
   "appid": "wxaa21808051c5f81a",
   "setting": {
     "urlCheck": true,

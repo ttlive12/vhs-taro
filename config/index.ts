@@ -9,7 +9,7 @@ import prodConfig from './prod';
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'webpack5'>(async merge => {
   const baseConfig: UserConfigExport<'webpack5'> = {
-    projectName: 'vhs-taro',
+    projectName: 'HS卡牌大师',
     date: '2025-5-8',
     designWidth: 750,
     deviceRatio: {
