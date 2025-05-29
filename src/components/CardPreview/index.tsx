@@ -3,10 +3,17 @@ import { FC, useEffect, useState } from 'react';
 import { Image, Text, View } from '@tarojs/components';
 
 import { useCardPreviewStore } from '../../store/cardPreviewStore';
+import { DelayRender } from '../DelayRender';
 
 import './index.scss';
 
-const CardPreview: FC = () => {
+type CardPreviewMode = 'render' | 'bgs';
+
+interface CardPreviewProps {
+  mode?: CardPreviewMode;
+}
+
+const CardPreview: FC<CardPreviewProps> = ({ mode = 'render' }) => {
   const { show, cardId, closeCardPreview } = useCardPreviewStore();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,6 +31,12 @@ const CardPreview: FC = () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    return () => {
+      closeCardPreview();
+    };
+  }, [closeCardPreview]);
+
   if (!show) return null;
 
   return (
@@ -33,17 +46,19 @@ const CardPreview: FC = () => {
           {cardId && (
             <Image
               className={`preview-image full ${isLoading ? 'hidden' : ''}`}
-              src={`https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/${cardId}.png`}
+              src={`https://art.hearthstonejson.com/v1/${mode}/latest/zhCN/256x/${cardId}.png`}
               mode='aspectFit'
               onLoad={handleImageLoad}
               onClick={handleClose}
             />
           )}
           {isLoading && (
-            <View className='loading-container'>
-              <View className='loading-spinner' />
-              <Text className='loading-text'>加载中...</Text>
-            </View>
+            <DelayRender delay={200}>
+              <View className='loading-container'>
+                <View className='loading-spinner' />
+                <Text className='loading-text'>加载中...</Text>
+              </View>
+            </DelayRender>
           )}
         </View>
         <Text className='preview-tip'>点击任意处关闭</Text>

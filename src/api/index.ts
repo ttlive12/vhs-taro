@@ -3,6 +3,9 @@ import {
   Archetypes,
   ArenaCard,
   ArenaClass,
+  BattlegroundsCard,
+  BattlegroundsComp,
+  BattlegroundsCompDetail,
   ModeData,
   PlayerData,
   PlayerRequest,
@@ -129,4 +132,29 @@ export const getLastUpdateTime = async () => {
  */
 export const getSpecialDates = async () => {
   return await request<SpecialDate[]>('/config/special-dates');
+};
+
+/**
+ * 获取酒馆战棋流派
+ * @returns 酒馆战棋流派
+ */
+export const getBattlegroundsComp = async () => {
+  return await request<BattlegroundsComp[]>('/battlegrounds/comp-list');
+};
+
+/**
+ * 获取酒馆战棋流派详情
+ * @param compId 流派ID
+ * @returns 酒馆战棋流派详情
+ */
+export const getBattlegroundsCompDetail = async (compId: number) => {
+  return await request<BattlegroundsCompDetail>(`/battlegrounds/comp-detail?compId=${compId}`);
+};
+
+/**
+ * 获取酒馆战棋卡牌数据
+ * @returns 酒馆战棋卡牌数据
+ */
+export const getBattlegroundsCardData = async () => {
+  return await request<BattlegroundsCard[]>('/cards/getBattlegroundsCards');
 };

@@ -1,0 +1,66 @@
+.comp-card {
+  background: #fff;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+  .comp-card-header {
+    display: flex;
+    margin-bottom: 20px;
+
+    .comp-card-representative {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-right: 20px;
+      flex-shrink: 0;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://i.imgs.ovh/2025/05/29/TB09N.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: scale(0.86);
+      }
+
+      .comp-card-representative-image {
+        width: 100%;
+        height: 100%;
+        clip-path: inset(20% 20% 20% 20% round 30%);
+        transform: scale(1.2);
+      }
+    }
+
+    .comp-card-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .comp-card-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        line-height: 32px;
+      }
+
+      .comp-card-summary {
+        font-size: 26px;
+        color: #7f8c8d;
+        line-height: 30px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+    }
+  }
+}

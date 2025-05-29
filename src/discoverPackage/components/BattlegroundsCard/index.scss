@@ -1,0 +1,99 @@
+.battlegrounds-card {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: inherit;
+  width: 140px;
+  height: 163.33px;
+
+  &--small {
+    transform: scale(0.8);
+  }
+
+  &--medium {
+    transform: scale(1);
+  }
+
+  &--large {
+    transform: scale(1.2);
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  &__image-container {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    aspect-ratio: 1/1;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  &__image {
+    clip-path: ellipse(35% 46% at 51% 50%);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__tech-level {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+  }
+
+  &__attack {
+    position: absolute;
+    top: 72%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-style: normal;
+    text-align: center;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(237, 237, 237);
+  }
+
+  &__health {
+    position: absolute;
+    top: 72%;
+    right: 22%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-style: normal;
+    text-align: center;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(237, 237, 237);
+  }
+}

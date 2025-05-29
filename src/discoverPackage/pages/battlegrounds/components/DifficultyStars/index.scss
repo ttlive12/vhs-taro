@@ -1,0 +1,28 @@
+.difficulty-stars {
+  display: flex;
+  align-items: center;
+
+  .difficulty-label {
+    font-size: 24px;
+    color: #666;
+    margin-right: 8px;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+
+    .star {
+      font-size: 24px;
+      margin-right: 2px;
+
+      &.filled {
+        color: #ffd700;
+      }
+
+      &.empty {
+        color: #ddd;
+      }
+    }
+  }
+}

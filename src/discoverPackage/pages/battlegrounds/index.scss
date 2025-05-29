@@ -1,0 +1,8 @@
+.battlegrounds-page {
+  @include page;
+
+  .comp-list {
+    padding: 30px;
+    box-sizing: border-box;
+  }
+}

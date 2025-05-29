@@ -6,5 +6,18 @@
     "bigPackageSizeSupport": true
   },
   "projectname": "HS卡牌大师",
-  "libVersion": "3.8.3"
+  "libVersion": "3.8.3",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "discoverPackage/pages/battlegrounds/index",
+          "pathName": "discoverPackage/pages/battlegrounds/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,1 @@
+export { BattlegroundsCard } from './BattlegroundsCard';

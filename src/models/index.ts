@@ -1,6 +1,7 @@
 export * from './api';
 export * from './archetypes';
 export * from './arena';
+export * from './battlegrounds';
 export * from './common';
 export * from './config';
 export * from './deck';

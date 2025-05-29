@@ -36,6 +36,15 @@ const tasks = [
     pagePath: 'player-rank',
     size: 100,
   },
+  {
+    id: 'battlegrounds',
+    type: 'blue' as CardType,
+    icon: 'battlegrounds',
+    title: '酒馆战棋',
+    subtitle: '酒馆战棋流派与卡组推荐',
+    pagePath: 'battlegrounds',
+    size: 100,
+  },
 ];
 
 export default function Discover() {

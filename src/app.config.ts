@@ -15,6 +15,8 @@ export default defineAppConfig({
         'pages/player-rank/index',
         'pages/arena/index',
         'pages/arenaCards/index',
+        'pages/battlegrounds/index',
+        'pages/battlegrounds/detail/index',
       ],
     },
   ],

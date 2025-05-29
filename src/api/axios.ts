@@ -9,8 +9,8 @@ interface ApiResponse<T> {
 }
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
-  // baseURL: 'http://localhost:3000/api',
+  // baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
+  baseURL: 'http://localhost:3000/api',
 });
 
 // 请求拦截器
