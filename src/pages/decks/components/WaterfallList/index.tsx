@@ -127,7 +127,7 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
                 <Loading />
               ) : (
                 <DelayRender delay={400} onClick={loadMore}>
-                  {hasMoreRef.current ? '点击加载更多' : '没有更多数据啦~'}
+                  {hasMoreRef.current ? '' : '没有更多数据啦~'}
                 </DelayRender>
               )}
             </View>
