@@ -1,3 +1,4 @@
+import { Arrow } from '@taroify/icons';
 import { Image, Text, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 
@@ -40,6 +41,7 @@ export const CompCard: React.FC<CompCardProps> = ({ comp, cardMap }) => {
           <View className='comp-card-name'>
             <TierBadge tier={comp.comp_tier} />
             <Text>{comp.comp_name}</Text>
+            <Arrow className='comp-card-arrow' />
           </View>
           <Text className='comp-card-summary'>{comp.comp_summary}</Text>
           <DifficultyStars difficulty={comp.comp_difficulty} />

@@ -9,8 +9,8 @@ interface ApiResponse<T> {
 }
 
 const axiosInstance: AxiosInstance = axios.create({
-  // baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://udagyciuulrg.sealosgzg.site/api',
+  // baseURL: 'http://localhost:3000/api',
 });
 
 // 请求拦截器
@@ -64,11 +64,9 @@ axiosInstance.interceptors.response.use(
 );
 
 const request = async <T>(url: string, config?: AxiosRequestConfig) => {
-  // 如果没有缓存，发起真实请求
   const response = await axiosInstance<ApiResponse<T>>(url, config);
   const { data } = response;
 
-  // 如果响应成功，手动缓存结果
   if (data.code === 0) {
     return data.data;
   }

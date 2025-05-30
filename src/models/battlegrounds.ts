@@ -1,3 +1,5 @@
+import { Mechanics } from '@/constants';
+
 export interface BattlegroundsComp {
   comp_id: number;
   comp_core_cards: number[]; // dbfId
@@ -44,7 +46,8 @@ export interface BattlegroundsCard {
   id: string;
   name: string;
   type: string;
-  attack: number;
-  health: number;
+  attack?: number;
+  health?: number;
   techLevel: number;
+  mechanics?: Mechanics[];
 }

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { ScrollView, Text, View } from '@tarojs/components';
+import { Text, View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { useRequest } from 'ahooks';
 
@@ -50,7 +50,8 @@ export default function BattlegroundsDetail() {
     (text: string): HowToPlayPart[] => {
       if (!text) return [];
 
-      const regex = /\[\[([^|]+?)\|{2,3}(\d+)\]\]/gu;
+      const regex = /\[+\s*([^|\[\]]+?)\|{2,3}(\d+)\s*\]+/gu;
+
       const parts: HowToPlayPart[] = [];
       let lastIndex = 0;
       let match;
@@ -119,70 +120,68 @@ export default function BattlegroundsDetail() {
   return (
     <View className='battlegrounds-detail-page'>
       <NavigationBar title={compDetail.comp_name} showBack showSetting={false} />
-      <ScrollView className='detail-scroll' scrollY>
-        <View className='detail-content'>
-          {/* 核心卡牌部分 */}
+      <View className='detail-content'>
+        {/* 核心卡牌部分 */}
+        <View className='section'>
+          <Text className='section-title'>核心卡牌</Text>
+          <View className='cards-grid'>
+            {compDetail.comp_core_cards.map(cardId => {
+              const card = cardMap.get(cardId);
+              if (!card) return null;
+              return (
+                <View key={cardId} className='card-item'>
+                  <BattlegroundsCard card={card} size='large' />
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        {/* 补充卡牌部分 */}
+        {compDetail.comp_addon_cards && compDetail.comp_addon_cards.length > 0 && (
           <View className='section'>
-            <Text className='section-title'>核心卡牌</Text>
+            <Text className='section-title'>补充卡牌</Text>
             <View className='cards-grid'>
-              {compDetail.comp_core_cards.map(cardId => {
+              {compDetail.comp_addon_cards.map(cardId => {
                 const card = cardMap.get(cardId);
                 if (!card) return null;
                 return (
                   <View key={cardId} className='card-item'>
-                    <BattlegroundsCard card={card} size='large' />
+                    <BattlegroundsCard card={card} size='medium' />
                   </View>
                 );
               })}
             </View>
           </View>
+        )}
 
-          {/* 补充卡牌部分 */}
-          {compDetail.comp_addon_cards && compDetail.comp_addon_cards.length > 0 && (
-            <View className='section'>
-              <Text className='section-title'>补充卡牌</Text>
-              <View className='cards-grid'>
-                {compDetail.comp_addon_cards.map(cardId => {
-                  const card = cardMap.get(cardId);
-                  if (!card) return null;
-                  return (
-                    <View key={cardId} className='card-item'>
-                      <BattlegroundsCard card={card} size='medium' />
-                    </View>
-                  );
-                })}
-              </View>
-            </View>
-          )}
-
-          {/* 玩法指南部分 */}
-          <View className='section'>
-            <Text className='section-title'>玩法指南</Text>
-            <View className='how-to-play'>
-              {howToPlayParts.map((part, index) => {
-                if (part.type === 'text') {
-                  return (
-                    <Text key={index} className='how-to-play-text'>
-                      {part.content}
-                    </Text>
-                  );
-                } else if (part.type === 'card-link') {
-                  return (
-                    <Text
-                      key={index}
-                      className='card-link'
-                      onClick={() => handleCardLinkClick(part.cardId)}
-                    >
-                      {part.content}
-                    </Text>
-                  );
-                }
-                return null;
-              })}
-            </View>
+        {/* 玩法指南部分 */}
+        <View className='section'>
+          <Text className='section-title'>玩法指南</Text>
+          <View className='how-to-play'>
+            {howToPlayParts.map((part, index) => {
+              if (part.type === 'text') {
+                return (
+                  <Text key={index} className='how-to-play-text'>
+                    {part.content}
+                  </Text>
+                );
+              } else if (part.type === 'card-link') {
+                return (
+                  <Text
+                    key={index}
+                    className='card-link'
+                    onClick={() => handleCardLinkClick(part.cardId)}
+                  >
+                    {part.content}
+                  </Text>
+                );
+              }
+              return null;
+            })}
           </View>
         </View>
-      </ScrollView>
+      </View>
 
       <CardPreview mode='bgs' />
     </View>

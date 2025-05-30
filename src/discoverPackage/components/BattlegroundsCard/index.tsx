@@ -3,7 +3,7 @@ import { Image, ITouchEvent, Text, View } from '@tarojs/components';
 import { BattlegroundsCard as BattlegroundsCardType } from '@/models';
 import { useCardPreviewStore } from '@/store/cardPreviewStore';
 
-import { border, Level2, Level3, Level4, Level5, Level6 } from '../../assets';
+import { border, Level2, Level3, Level4, Level5, Level6, mechanicsMap } from '../../assets';
 
 import './index.scss';
 
@@ -44,6 +44,19 @@ export const BattlegroundsCard: React.FC<BattlegroundsCardProps> = ({ card, size
       <View className='battlegrounds-card__container'>
         {/* 背景边框 */}
         <Image className='battlegrounds-card__border' src={border} mode='aspectFit' />
+
+        {/* 卡牌类型背景 */}
+        {card.mechanics?.map(
+          mechanic =>
+            mechanicsMap?.[mechanic] && (
+              <Image
+                className={`battlegrounds-card__type-background-image battlegrounds-card__type-background-image--${mechanic}`}
+                key={mechanic}
+                src={mechanicsMap[mechanic]}
+                mode='aspectFit'
+              />
+            )
+        )}
 
         {/* 卡牌主图 */}
         <View className='battlegrounds-card__image-container'>

@@ -1,17 +1,19 @@
 .tier-badge {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   z-index: 10;
 
   .tier-badge-text {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
     color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   &.tier-s {
@@ -31,10 +33,10 @@
   }
 
   &.tier-d {
-    background: linear-gradient(135deg, #ab47bc, #8e24aa);
+    background: linear-gradient(135deg, #9e9e9e, #616161);
   }
 
-  &.tier-default {
-    background: linear-gradient(135deg, #78909c, #546e7a);
+  &.tier-f {
+    background: linear-gradient(135deg, #e57373, #f44336);
   }
 }

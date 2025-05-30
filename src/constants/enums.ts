@@ -58,3 +58,10 @@ export enum MinGames {
   MIN_200 = '200',
   MIN_50 = '50',
 }
+
+export enum Mechanics {
+  DEATHRATTLE = 'DEATHRATTLE',
+  DIVINE_SHIELD = 'DIVINE_SHIELD',
+  TAUNT = 'TAUNT',
+  REBORN = 'REBORN',
+}

@@ -1,8 +1,11 @@
 .battlegrounds-page {
   @include page;
+  min-height: 100vh;
 
   .comp-list {
-    padding: 30px;
+    padding: 24px 20px;
     box-sizing: border-box;
+    max-width: 800px;
+    margin: 0 auto;
   }
 }

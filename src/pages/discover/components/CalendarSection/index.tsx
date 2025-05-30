@@ -85,7 +85,14 @@ export const CalendarSection: React.FC = () => {
             >
               <Text className='day-name'>{day.name}</Text>
               <Text className='day-date'>{day.date}</Text>
-              {day.description && <Text className='day-description'>{day.description}</Text>}
+              {day.description && (
+                <Text
+                  className='day-description'
+                  style={{ color: day.isToday ? '#fff' : 'rgba(#ed6a0c, 0.6)' }}
+                >
+                  {day.description}
+                </Text>
+              )}
             </View>
           ))}
         </View>

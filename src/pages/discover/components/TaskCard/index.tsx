@@ -6,7 +6,7 @@ import { rpx2px } from '@/utils';
 
 import './index.scss';
 
-export type CardType = 'mint' | 'pink' | 'yellow';
+export type CardType = 'mint' | 'pink' | 'yellow' | 'battlegrounds';
 
 interface TaskCardProps {
   type: CardType;

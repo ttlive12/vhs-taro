@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont';
   src:
-    url('../assets/iconfont/iconfont.woff2') format('woff2'),
-    url('../assets/iconfont/iconfont.woff') format('woff'),
-    url('../assets/iconfont/iconfont.ttf') format('truetype');
+    url('//at.alicdn.com/t/c/font_4916986_52ttzy2dh0w.woff2?t=1748574781816') format('woff2'),
+    url('//at.alicdn.com/t/c/font_4916986_52ttzy2dh0w.woff?t=1748574781816') format('woff'),
+    url('//at.alicdn.com/t/c/font_4916986_52ttzy2dh0w.ttf?t=1748574781816') format('truetype');
 }
 
 .icon {
@@ -60,4 +60,8 @@
 
 .icon-crown::before {
   content: '\e756';
+}
+
+.icon-battlegrounds::before {
+  content: '\e659';
 }

@@ -38,10 +38,10 @@ const tasks = [
   },
   {
     id: 'battlegrounds',
-    type: 'blue' as CardType,
+    type: 'battlegrounds' as CardType,
     icon: 'battlegrounds',
     title: '酒馆战棋',
-    subtitle: '酒馆战棋流派与卡组推荐',
+    subtitle: '酒馆战棋流派推荐',
     pagePath: 'battlegrounds',
     size: 100,
   },
