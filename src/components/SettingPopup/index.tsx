@@ -114,8 +114,8 @@ const SettingPopup: React.FC<SettingPopupProps> = ({ visible, onClose }) => {
             <Text>更新日志</Text>
           </View>
           <View className='setting-body'>
-            <Text>当前版本：3.1.0</Text>
-            <Text>更新内容：新增卡组搜索，样式和逻辑优化</Text>
+            <Text>当前版本：3.2.0</Text>
+            <Text>更新内容：新增酒馆战棋，样式和逻辑优化</Text>
           </View>
         </View>
       </View>

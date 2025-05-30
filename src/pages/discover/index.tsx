@@ -20,6 +20,15 @@ const tasks = [
     size: 100,
   },
   {
+    id: 'battlegrounds',
+    type: 'battlegrounds' as CardType,
+    icon: 'battlegrounds',
+    title: '酒馆战棋',
+    subtitle: '酒馆战棋流派推荐',
+    pagePath: 'battlegrounds',
+    size: 100,
+  },
+  {
     id: 'arena',
     type: 'pink' as CardType,
     icon: 'arena',
@@ -34,15 +43,6 @@ const tasks = [
     title: '玩家排行',
     subtitle: '实时玩家排名与数据',
     pagePath: 'player-rank',
-    size: 100,
-  },
-  {
-    id: 'battlegrounds',
-    type: 'battlegrounds' as CardType,
-    icon: 'battlegrounds',
-    title: '酒馆战棋',
-    subtitle: '酒馆战棋流派推荐',
-    pagePath: 'battlegrounds',
     size: 100,
   },
 ];

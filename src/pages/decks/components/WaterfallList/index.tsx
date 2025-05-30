@@ -6,7 +6,7 @@ import { VirtualWaterfall } from '@tarojs/components-advanced';
 import { useRequest, useThrottleFn } from 'ahooks';
 
 import { getDecksByPage } from '@/api';
-import { Loading } from '@/components';
+import { DelayRender, Loading } from '@/components';
 import { Rank } from '@/constants';
 import { Deck } from '@/models/deck';
 import useModeStore from '@/store/mode';
@@ -126,7 +126,9 @@ export function WaterfallList({ searchTerm = '', rankType }: WaterfallListProps)
               {loading ? (
                 <Loading />
               ) : (
-                <View onClick={loadMore}>{hasMoreRef.current ? '' : '没有更多数据啦~'}</View>
+                <DelayRender delay={400} onClick={loadMore}>
+                  {hasMoreRef.current ? '点击加载更多' : '没有更多数据啦~'}
+                </DelayRender>
               )}
             </View>
           )}
