@@ -42,12 +42,15 @@
     width: 100%;
     height: 100%;
 
-    &--DEATHRATTLE,
-    &--DIVINE_SHIELD,
+    &--DIVINE_SHIELD {
+      z-index: 5;
+    }
+    &--DEATHRATTLE {
+      z-index: 4;
+    }
     &--REBORN {
       z-index: 3;
     }
-
     &--TAUNT {
       z-index: -1;
     }
@@ -78,7 +81,7 @@
     transform: translateX(-50%);
     width: 40px;
     height: 40px;
-    z-index: 3;
+    z-index: 10;
   }
 
   &__attack {
